@@ -9,7 +9,7 @@ function App() {
       .then((data) => setBacon(data));
   }, []);
 
-  return <div> {bacon ? bacon : `...where's the bacon?...`} </div>;
+  return <div>{bacon ? bacon : `...where's all of my stuff?...`}</div>;
 }
 
 export default App;
