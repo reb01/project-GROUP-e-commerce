@@ -81,3 +81,32 @@ Fetching changes (not merged yet)
 
 To merge
 `git merge parent/master`
+
+## For Ellie
+Before merging or starting a change 
+
+Checkout master branch in local repo
+`git checkout master`
+Pull changes from origin
+`git pull`
+Create and checkout branch
+`git checkout -b "branch-name"`
+OR
+Checkout current branch
+`git checkout branch-name`
+ Merge changes from local master to current branch
+ `git merge master`
+
+ ## FOR EVERYONE
+Stage current changes
+ `git add .`
+ Commit changes locally
+ `git commit -m "Your message"`
+ Push your local commits to individual repo (to Github)
+ `git push`
+
+[ ON GITHUB: submit PR against Ellie's ]
+See past changes
+`git log`
+Undo local last commit 
+`git reset --soft HEAD~1`
