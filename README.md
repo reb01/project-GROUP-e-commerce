@@ -58,3 +58,26 @@ The most important aspect of this project is the ability to work in a team. No m
 ## GitHub
 
 see the [GITHUB Document](__documentation/GITHUB.md)
+
+## For Boris, Sandra and Rebecca
+
+(1 time thing)
+Set Ellie's repo as parent
+`git remote add parent https://github.com/EL-Lefebvre/project-GROUP-e-commerce.git`
+
+Confirm Parent added
+`git remote -v`
+
+Should have something like:
+`origin  https://github.com/BorSma/project-GROUP-e-commerce.git (fetch)`
+`origin  https://github.com/BorSma/project-GROUP-e-commerce.git (push)`
+`parent  https://github.com/EL-Lefebvre/project-GROUP-e-commerce.git (fetch)`
+`parent  https://github.com/EL-Lefebvre/project-GROUP-e-commerce.git (push)`
+
+(Every time)
+To resolve conflicts and start new change
+Fetching changes (not merged yet)
+`git fetch parent`
+
+To merge
+`git merge parent/master`
