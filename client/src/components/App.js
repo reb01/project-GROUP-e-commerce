@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import styled from "styled-components";
+import Body from "./Body";
+import Footer from "./Footer";
+import Header from "./Header";
+
+import GlobalStyles from "../GlobalStyles";
+
 
 function App() {
-  const [bacon, setBacon] = useState(null);
-
-  useEffect(() => {
-    fetch("/bacon")
-      .then((res) => res.json())
-      .then((data) => setBacon(data));
-  }, []);
-
-  return <div>{bacon ? bacon : `...where's all of my stuff?...`}</div>;
+  return (
+    <>
+      <>
+        <Router>
+          <Wrapper>
+            <Header />
+            <Body />
+            <Footer />
+          </Wrapper>
+          <GlobalStyles />
+        </Router>
+      </>
+    </>
+  );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export default App;
