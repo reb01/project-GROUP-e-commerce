@@ -5,61 +5,77 @@ import { COLORS } from "../constants";
 const moment = require("moment");
 
 const Confirmation = () => {
-  return (
-    <Wrapper>
-      <Logos>
-        <Logo1
-          src={require("../ThankYou.jpg")}
-          alt="WearTek"
-          height="200px"
-        ></Logo1>
-        <Logo1
-          src={require("../Wearteklogo.png")}
-          alt="WearTek"
-          height="200px"
-        ></Logo1>
-      </Logos>
-      <Main>Thank you for your order!</Main>
-      <Processing>
+    return ( <
+        Wrapper >
+        <
+        Logos >
+        <
+        Logo1 src = { require("../ThankYou1.jpg") }
+        alt = "WearTek"
+        height = "200px" >
+        <
+        /Logo1> <
+        Logo1 src = { require("../Wearteklogo.png") }
+        alt = "WearTek"
+        height = "200px" >
+        <
+        /Logo1> < /
+        Logos > <
+        Main > Thank you
+        for your order! < /Main> <
+        Processing >
         We are processing your order now, here are the details:
-      </Processing>
+        <
+        /Processing>
 
-      <Divider />
+        <
+        Divider / >
 
-      <ConfirmationWrapper>
-        <Details>Confirmation will be sent to</Details>
-        <Details2>email@email.com</Details2>
-      </ConfirmationWrapper>
+        <
+        ConfirmationWrapper >
+        <
+        Details > Confirmation will be sent to < /Details> <
+        Details2 > email @email.com < /Details2> < /
+        ConfirmationWrapper >
 
-      <ConfirmationWrapper>
-        <Details>Order number</Details>
-        <Details2>Order number here</Details2>
-      </ConfirmationWrapper>
+        <
+        ConfirmationWrapper >
+        <
+        Details > Order number < /Details> <
+        Details2 > Order number here < /Details2> < /
+        ConfirmationWrapper >
 
-      <ConfirmationWrapper>
-        <Details>Order date </Details>
-        <Details2>{moment().format("LL")}</Details2>
-      </ConfirmationWrapper>
+        <
+        ConfirmationWrapper >
+        <
+        Details > Order date < /Details> <
+        Details2 > { moment().format("LL") } < /Details2> < /
+        ConfirmationWrapper >
 
-      <ConfirmationWrapper>
-        <Details>Delivery details</Details>
-        <Details2>
-          <div>Client address here</div>
-          <div>
-            Expected delivery date: {moment().add(7, "days").format("LL")}
-          </div>
-        </Details2>
-      </ConfirmationWrapper>
+        <
+        ConfirmationWrapper >
+        <
+        Details > Delivery details < /Details> <
+        Details2 >
+        <
+        div > Client address here < /div> <
+        div >
+        Expected delivery date: { moment().add(7, "days").format("LL") } <
+        /div> < /
+        Details2 > <
+        /ConfirmationWrapper>
 
-      <ConfirmationWrapper>
-        <Details>Summary</Details>
-        <Details2>Order summary here</Details2>
-      </ConfirmationWrapper>
-    </Wrapper>
-  );
+        <
+        ConfirmationWrapper >
+        <
+        Details > Summary < /Details> <
+        Details2 > Order summary here < /Details2> < /
+        ConfirmationWrapper > <
+        /Wrapper>
+    );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div `
   position: relative;
   display: flex;
   flex-direction: column;
@@ -71,16 +87,16 @@ const Wrapper = styled.div`
   height: 800px;
 `;
 
-const Main = styled.div`
+const Main = styled.div `
   font-size: 40px;
   margin-bottom: 50px;
 `;
 
-const Processing = styled.div`
+const Processing = styled.div `
   margin-bottom: 50px;
 `;
 
-const Divider = styled.div`
+const Divider = styled.div `
   display: flex;
   flex-direction: row;
   width: 60vw;
@@ -89,13 +105,13 @@ const Divider = styled.div`
   margin-bottom: 50px;
 `;
 
-const ConfirmationWrapper = styled.div`
+const ConfirmationWrapper = styled.div `
   margin-bottom: 30px;
   display: flex;
   width: 800px;
 `;
 
-const Details = styled.div`
+const Details = styled.div `
   display: flex;
   width: 400px;
   font-weight: bold;
@@ -103,9 +119,9 @@ const Details = styled.div`
   padding-right: 40px;
 `;
 
-const Details2 = styled.div``;
-const Logo1 = styled.img``;
-const Logos = styled.div`
+const Details2 = styled.div ``;
+const Logo1 = styled.img ``;
+const Logos = styled.div `
   display: flex;
   margin-bottom: 30px;
 `;
