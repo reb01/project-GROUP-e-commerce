@@ -11,54 +11,37 @@ import Store from "./Store";
 import ErrorPage from "./ErrorPage";
 
 const Body = () => {
-    return ( <
-        > {
-            /* A <Switch> looks through its children <Route>s and
-                          renders the first one that matches the current URL. */
-        } <
-        Wrapper >
-        <
-        Switch >
-        <
-        Route exact path = "/store" >
-        <
-        Store / >
-        <
-        /Route> <
-        Route exact path = "/cart" >
-        <
-        Cart / >
-        <
-        /Route> <
-        Route exact path = "/contactinfo" >
-        <
-        Contact / >
-        <
-        /Route> <
-        Route exact path = "/confirmation" >
-        <
-        Confirmation / >
-        <
-        /Route> <
-        Route exact path = "/error" >
-        <
-        ErrorPage / >
-        <
-        /Route> <
-        Route path = "/item/:id" >
-        <
-        Item / >
-        <
-        /Route> <
-        Route exact path = "/" >
-        <
-        Main / >
-        <
-        /Route> <
-        /Switch> <
-        /Wrapper> <
-        />
-    );
+  return (
+    <>
+      {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+      <Wrapper>
+        <Switch>
+          <Route exact path="/store">
+            <Store />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
+          <Route exact path="/contactinfo">
+            <Contact />
+          </Route>
+          <Route exact path="/confirmation">
+            <Confirmation />
+          </Route>
+          <Route exact path="/error">
+            <ErrorPage />
+          </Route>
+          <Route path="/item/:id">
+            <Item/>
+          </Route>
+          <Route exact path="/">
+            <Main />
+          </Route>
+        </Switch>
+      </Wrapper>
+    </>
+  );
 };
 
 const Wrapper = styled.div `
