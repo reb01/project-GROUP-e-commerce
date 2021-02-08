@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPage from "./ErrorPage";
 
 import { COLORS } from "../constants";
 import styled from "styled-components";
@@ -7,6 +8,7 @@ const Store = () => {
   return (
     <>
       <Wrapper>
+      
         <p>This is the Store</p>
       </Wrapper>
     </>
