@@ -12,11 +12,13 @@ const Store = () => {
     fetch('/items')
     .then((res) => res.json())
     .then((json) => {
-        if(json){        
-          console.log([...json.data]);
+        if(json){       
           setStoreItems([...json.data]);
           setStatus('idle');     
-        }        
+        }   
+        else {
+          setStatus('error');
+        }     
     })  
     .catch(()=>{
       setStatus('error');
@@ -32,10 +34,7 @@ const Store = () => {
          {storeItems.map((item)=>{
           return(<StoreItem 
                     key={item._id}
-                    id={item._id}
-                    image={item.imageSrc} 
-                    name={item.name}
-                    price={item.price}
+                    item={item}                   
                     />)
         })}
         </ItemsWrapper>    
@@ -52,7 +51,8 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;   
-  min-height: 400px;
+  min-height: 500px;
+  padding: 40px 0;
 `;
 
 const ItemsWrapper = styled.div`  
