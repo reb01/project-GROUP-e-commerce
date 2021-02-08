@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import { COLORS } from "../constants";
 import { Link } from "react-router-dom";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 const StoreItem =({id, name, image, price })=>{
     const [hidden, setHidden] = useState(true);
@@ -18,13 +19,19 @@ const StoreItem =({id, name, image, price })=>{
     };
 
     return (
-        <StyledLink exact to={`/item/${id}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
+        <StyledLink to={`/item/${id}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
             <Wrapper>
                 <ImageWrapper>
                     <Image src={image} alt="itemImage"/>
                     <Button hidden={hidden} onClick={(ev)=>handleClick(ev)}>ADD TO CART</Button>
                 </ImageWrapper>
-                <Price>{price}</Price>
+                <Container>
+                    <Price>{price}</Price>
+                    <div>
+                    <AiOutlineExclamationCircle />
+                    <p>sold out</p>
+                    </div>
+                </Container>
                 <Name>{name}</Name>            
             </Wrapper>
         </StyledLink>
@@ -46,8 +53,9 @@ const Wrapper = styled.div`
     height: 420px;
     margin: 10px;
     padding: 10px 15px;
-    background-color: ${COLORS.lightGrey};
+    background-color: #edfafd; /*${COLORS.lightGrey}*///#ededed;
 `;
+
 const ImageWrapper = styled.div`
     position: relative;
     display: flex;
@@ -65,6 +73,7 @@ const Button = styled.button`
     bottom: 5%;
     background-color: ${COLORS.third};
     display: ${(p)=>p.hidden ? 'none' : 'block'};
+    opacity: 0.9;   
 
     :hover {   
         cursor: pointer;
@@ -86,6 +95,12 @@ const Price = styled.p`
 const StyledLink = styled(Link)`
   text-decoration: none;
 
+`;
+
+const Container = styled.div`
+    display: flex;
+    justify-content: space-between;
+    //align-items: center;
 `;
 
 export default StoreItem;

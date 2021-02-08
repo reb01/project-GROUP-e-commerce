@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;
-  height: 200px;
+  height: 200px; 
 `;
 
 const Logo = styled.img`
