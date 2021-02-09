@@ -17,7 +17,7 @@ const Body = () => {
               renders the first one that matches the current URL. */}
       <Wrapper>
         <Switch>
-          <Route path="/store">
+          <Route exact path="/store/:criteria/:type">
             <Store />
           </Route>
           <Route exact path="/cart">

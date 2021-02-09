@@ -28,10 +28,24 @@ express()
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
 
-  .get("/items", (req, res) => {
-    res.status(200).json({ status: 200, message: "success", data: items });
+  .get("/items", (req, res) => {    
+      res.status(200).json({ status: 200, message: "success", data: items });       
   })
-  .get("/companies", (req, res) => {
-    res.status(200).json({ status: 200, message: "success", data: companies });
+
+  .get("/items/group/:criteria/:type", (req, res) => {
+    const { criteria, type } = req.params;   
+    
+    if ( !criteria || !type)
+      return res.status(400).json({ status: 400, message: "unknown criteria and type", data: {criteria, type} });
+  
+    const itemsSorted = items.filter((item)=>{        
+          return item[criteria].toLowerCase().replace(/\s/g, "") === type.toLowerCase();       
+    });    
+    
+    return res.status(200).json({ status: 200, message: "success", data: itemsSorted });    
+  })
+
+  .get("/companies", (req, res) => {  
+      res.status(200).json({ status: 200, message: "success", data: companies });
   })
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

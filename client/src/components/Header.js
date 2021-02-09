@@ -34,7 +34,7 @@ const Header = () => {
             </NavLinkListItem>
             <NavLinkListItem tabindex="0">
               <RiStore2Line size="35" />
-              <NavigationLink to="/store">Store</NavigationLink>
+              <NavigationLink to="/store/products/all">Store</NavigationLink>
             </NavLinkListItem>
             <NavLinkListItem tabindex="0">
               <RiShoppingCartLine size="35" />
