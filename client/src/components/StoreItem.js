@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { COLORS } from "../constants";
 import { Link } from "react-router-dom";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-
+//added
 const StoreItem = ({ item }) => {
   const { _id, name, price, imageSrc, numInStock } = item;
   const dispatch = useDispatch();

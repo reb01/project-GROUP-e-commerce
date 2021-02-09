@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ErrorPage from "./ErrorPage";
-
+//added
 import { COLORS } from "../constants";
 
 import styled from "styled-components";

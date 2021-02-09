@@ -20,3 +20,4 @@ const Wrapper = styled.div`
   border-color: gray;
 `;
 export default CartItem;
+//added
