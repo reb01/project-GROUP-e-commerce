@@ -2,6 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
+
 html,
 body,
 div,
@@ -18,7 +20,7 @@ span {
 *:after {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  font-family: Montserrat, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 `;
 

@@ -17,7 +17,7 @@ const Body = () => {
               renders the first one that matches the current URL. */}
       <Wrapper>
         <Switch>
-          <Route exact path="/store">
+          <Route exact path="/store/:criteria/:type">
             <Store />
           </Route>
           <Route exact path="/cart">
@@ -46,8 +46,6 @@ const Body = () => {
 
 const Wrapper = styled.div `
   background: white;
-  padding-top: 16px;
-  padding-bottom: 16px;
   text-align: left;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Ubuntu, "Helvetica Neue", sans-serif;    

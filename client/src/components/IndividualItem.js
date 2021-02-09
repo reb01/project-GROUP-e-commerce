@@ -1,31 +1,24 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addItem } from "../actions";
 import styled from "styled-components";
 import { COLORS } from "../constants";
-import { Link } from "react-router-dom";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-//added
-const StoreItem = ({ item }) => {
-  const { _id, name, price, imageSrc, numInStock } = item;
-  const dispatch = useDispatch();
+
+const IndividualItem = ({
+  name,
+  price,
+  imageSrc,
+  numInStock,
+  companyName,
+  companyFrom,
+}) => {
   const [hidden, setHidden] = useState(true);
 
-  const handleMouseEnter = () => {
-    setHidden(false);
+  const handleClick = (ev) => {
+    ev.preventDefault();
   };
-  const handleMouseLeave = () => {
-    setHidden(true);
-  };
-
-
 
   return (
-    <StyledLink
-      to={`/item/${_id}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <DetailsWrapper>
       <Wrapper>
         <ImageWrapper>
           <Image
@@ -38,9 +31,7 @@ const StoreItem = ({ item }) => {
           />
           <Button
             hidden={hidden}
-            onClick={() => {
-              dispatch(addItem({ _id, name, price }));
-            }}
+            onClick={(ev) => handleClick(ev)}
             disabled={numInStock === 0}
           >
             ADD TO CART
@@ -55,42 +46,55 @@ const StoreItem = ({ item }) => {
             </SoldOut>
           )}
         </Container>
+      </Wrapper>
+      <Wrapper2>
+        <Description>Description</Description>
         <Name>
-          {" "}
           {typeof name != "undefined" && name ? name : "Unknown product"}
         </Name>
-      </Wrapper>
-    </StyledLink>
+        <WrapperCompany>
+          <SoldBy>Sold by {companyName}, </SoldBy>{" "}
+          <ShippedBy> {companyFrom}</ShippedBy>
+        </WrapperCompany>
+      </Wrapper2>
+    </DetailsWrapper>
   );
 };
 
 const Image = styled.img`
-  width: 200px;
-  height: 250px;
+  width: 300px;
   object-fit: contain;
 `;
+const Description = styled.h1``;
 
-
+const DetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: black;
+`;
+const Wrapper2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: black;
+  align-items: center;
+`;
+const SoldBy = styled.div`
+  font-size: 15px;
+`;
+const ShippedBy = styled.div``;
+const WrapperCompany = styled.div`
+  display: flex;
+  color: ${COLORS.secondary};
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 250px;
-  height: 415px;
+  width: 650px;
+  max-height: 480px;
   margin: 10px;
-  padding: 10px 15px;
+  padding: 50px 35px;
   background-color: ${COLORS.lightGrey};
-
-const Wrapper = styled.div`  
-    display: flex;
-    flex-direction:column;  
-    box-sizing: border-box;
-    width: 250px;   
-    height: 415px;
-    margin: 10px;
-    padding: 10px 15px;
-    background-color: ${COLORS.lightGrey};
-
 `;
 
 const ImageWrapper = styled.div`
@@ -98,6 +102,7 @@ const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: white;
+  padding-top: 35px;
   padding-bottom: 35px;
 `;
 
@@ -111,41 +116,28 @@ const Button = styled.button`
   background-color: ${COLORS.third};
   display: ${(p) => (p.hidden ? "none" : "block")};
   opacity: 0.9;
-
   :hover:enabled {
     cursor: pointer;
     opacity: 0.7;
   }
-
   :disabled {
     display: none;
   }
 `;
 
 const Name = styled.p`
-  font-size: 13px;
+  font-size: 18px;
   margin-top: auto;
-  color: black;
+  color: ${COLORS.primary};
+  font-weight: bold;
 `;
 
 const Price = styled.p`
+  font-size: 20px;
   font-weight: bold;
   color: ${COLORS.secondary};
   margin-bottom: 0px;
 `;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-
-
-`;
-
-const Container = styled.div`
-    display: flex;
-    justify-content: space-between;   
-
-`;
-
 
 const Container = styled.div`
   display: flex;
@@ -163,4 +155,4 @@ const SoldOutText = styled.p`
   margin: 0 5px;
 `;
 
-export default StoreItem;
+export default IndividualItem;
