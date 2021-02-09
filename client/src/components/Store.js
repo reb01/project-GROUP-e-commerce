@@ -10,7 +10,6 @@ const Store = () => {
   const [storeItems, setStoreItems] = useState([]);
   const [status, setStatus] = useState("idle");
   const { criteria, type } = useParams();
- console.log(useParams());
 
   useEffect(() => {
     setStatus("loading");
