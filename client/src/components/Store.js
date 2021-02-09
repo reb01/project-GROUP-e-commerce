@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import StoreItem from './StoreItem'
+import SideBar from './SideBar'
 import Spinner from './Tools/Spinner'
 
 const Store = () => {
@@ -27,6 +28,7 @@ const Store = () => {
 
   return (    
       <Wrapper>
+        <SideBar/>
       {status=== "loading" && <Spinner />}
       {status=== "error" && <p>error</p>}
       {status === "idle" &&
@@ -38,7 +40,7 @@ const Store = () => {
                     />)
         })}
         </ItemsWrapper>    
-        } 
+       } 
       </Wrapper>   
   );
 };
@@ -46,8 +48,8 @@ const Store = () => {
 const Wrapper = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+ // align-items: center;
+ // justify-content: center;
   border-style: solid;
   border-width: 1px;
   border-color: gray;   
@@ -57,7 +59,7 @@ const Wrapper = styled.div`
 
 const ItemsWrapper = styled.div`  
   display: flex;
-  justify-content: center;
+  //justify-content: center;
   flex-wrap: wrap;
 `;
 
