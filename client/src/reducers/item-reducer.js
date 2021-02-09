@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 const initialState = {};
+//added
 export default function itemReducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_ITEM": {
@@ -20,7 +21,7 @@ export default function itemReducer(state = initialState, action) {
         ...stateCopy,
       };
     }
-    
+
     case "UPDATE_QUANTITY": {
       return {
         ...state,
@@ -31,7 +32,8 @@ export default function itemReducer(state = initialState, action) {
       };
     }
     default:
-      return state
+      return state;
   }
 }
-  
+
+export const getStoreItemArray = (state) => Object.values(state);
