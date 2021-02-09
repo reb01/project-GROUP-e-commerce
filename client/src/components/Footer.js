@@ -4,16 +4,17 @@ import { COLORS } from "../constants";
 import styled from "styled-components";
 
 const Footer = () => {
-
   return (
     <>
       <Wrapper>
         <Logo
-          src={require("../Wearteklogo.png")}
+          src={require("../assets/wearteklogo.png")}
           alt="WearTek"
-          height="200px"
+          height="100px"
         ></Logo>
-        <p>This is the footer</p>
+        <div>
+          <p>© 2021 - Ellie, Rebecca, Sandra, Boris and their affiliates.</p>
+        </div>
       </Wrapper>
     </>
   );
@@ -28,7 +29,7 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;
-  height: 200px; 
+  height: 100px;
 `;
 
 const Logo = styled.img`
