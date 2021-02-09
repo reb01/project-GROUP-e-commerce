@@ -32,7 +32,11 @@ const Store = () => {
   return (
     <Wrapper>
       {status === "loading" && <Spinner />}
+
       {status === "error" && <ErrorPage/>}
+
+      {status === "error" && <p>error</p>}
+
       {status === "idle" && (
         <ItemsWrapper>
           {storeItems.map((item) => {

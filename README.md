@@ -89,11 +89,22 @@ Checkout master branch in local repo
 `git checkout master`
 Pull changes from origin
 `git pull`
-Create and checkout branch
+--------------------------------------------------------
+TO COMMIT TO NEW BRANCH 
+1. Create and checkout branch
 `git checkout -b "branch-name"`
 OR
 Checkout current branch
 `git checkout branch-name`
+2. Git add . 
+Add changes to created branch
+3. Git commit -m 'Your message'
+Commit with message
+4. Git push
+Push new changes
+5. Git push --set-upstream origin <branch-name>
+Final push, then merge on Github
+
  Merge changes from local master to current branch
  `git merge master`
 
