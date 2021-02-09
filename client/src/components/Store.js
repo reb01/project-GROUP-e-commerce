@@ -56,26 +56,10 @@ const Store = () => {
             return <StoreItem key={item._id} item={item} />;
           })}
         </ItemsWrapper>
+         
       )}
-
-
-  return (    
-      <Wrapper>          
-        <SideBar/>
-        {status=== "loading" && <Spinner />} 
-        {status === "idle" &&
-          <ItemsWrapper>
-          {storeItems.map((item)=>{
-            return(<StoreItem 
-                      key={item._id}
-                      item={item}                   
-                      />)
-          })}
-          </ItemsWrapper>    
-        } 
-      </Wrapper>   
-  );
-};
+   </Wrapper>  
+  )}
 
 const Wrapper = styled.div`
   position: relative;
