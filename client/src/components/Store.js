@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+
+
+import ErrorPage from "./ErrorPage";
+
+import { COLORS } from "../constants";
+
 import styled from "styled-components";
 import StoreItem from './StoreItem'
 import SideBar from './SideBar';
@@ -30,11 +36,29 @@ const Store = () => {
       });
   }, [criteria, type]);
 
+
   if (status=== "error"){
     return (
       <ErrorPage />
     );
   };
+
+  return (
+    <Wrapper>
+      {status === "loading" && <Spinner />}
+
+      {status === "error" && <ErrorPage/>}
+
+      {status === "error" && <p>error</p>}
+
+      {status === "idle" && (
+        <ItemsWrapper>
+          {storeItems.map((item) => {
+            return <StoreItem key={item._id} item={item} />;
+          })}
+        </ItemsWrapper>
+      )}
+
 
   return (    
       <Wrapper>          

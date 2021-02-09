@@ -109,8 +109,13 @@ const Price = styled.p`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-
 `;
+
+const Container = styled.div`
+    display: flex;
+    justify-content: space-between;   
+`;
+
 
 const Container = styled.div`
     display: flex;
