@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import ErrorPage from "./ErrorPage";
 
 import { COLORS } from "../constants";
@@ -31,7 +32,11 @@ const Store = () => {
   return (
     <Wrapper>
       {status === "loading" && <Spinner />}
+
+      {status === "error" && <ErrorPage/>}
+
       {status === "error" && <p>error</p>}
+
       {status === "idle" && (
         <ItemsWrapper>
           {storeItems.map((item) => {
