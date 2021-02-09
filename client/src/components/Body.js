@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import Cart from "./Cart";
 import Contact from "./Contact";
+import Confirmation from "./Confirmation";
 import Item from "./Item";
 import Main from "./Main";
 import Store from "./Store";
+import ErrorPage from "./ErrorPage";
 
 const Body = () => {
   return (
@@ -24,6 +26,12 @@ const Body = () => {
           <Route exact path="/contactinfo">
             <Contact />
           </Route>
+          <Route exact path="/confirmation">
+            <Confirmation />
+          </Route>
+          <Route exact path="/error">
+            <ErrorPage />
+          </Route>
           <Route path="/item/:id">
             <Item/>
           </Route>
@@ -36,7 +44,7 @@ const Body = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div `
   background: white;
   padding-top: 16px;
   padding-bottom: 16px;
