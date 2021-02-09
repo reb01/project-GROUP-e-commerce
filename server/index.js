@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const PORT = 4000;
 const items = require("./data/items");
 const companies = require("./data/companies");
+const handlers = require("./handlers");
 express()
   .use(function (req, res, next) {
     res.header(
@@ -34,4 +35,8 @@ express()
   .get("/companies", (req, res) => {
     res.status(200).json({ status: 200, message: "success", data: companies });
   })
+  .get("/item/:id", handlers.getSingleItem)
+
+  .get("/company/:id/", handlers.getCompanyById)
+  
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

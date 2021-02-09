@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { COLORS } from "../constants";
 import styled from "styled-components";
@@ -8,7 +8,6 @@ const Main = () => {
     <>
       <Wrapper>
         <p>This is the Main Page</p>
-        
       </Wrapper>
     </>
   );
