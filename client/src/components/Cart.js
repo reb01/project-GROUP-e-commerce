@@ -1,9 +1,13 @@
-import React from "react";
-//added
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getStoreItemArray } from "../reducers/item-reducer";
 import { COLORS } from "../constants";
 import styled from "styled-components";
+import CartItem from "./CartItem";
 
 const Cart = () => {
+
+
   return (
     <>
       <Wrapper>
@@ -13,7 +17,7 @@ const Cart = () => {
           </Title>
         </Header>
         <CartWrapper>
-          <p>This is the Cart</p>
+          <CartItem />
         </CartWrapper>
       </Wrapper>
     </>
@@ -41,12 +45,12 @@ const Header = styled.div`
 const CartWrapper = styled.div``;
 const TitleDiv = styled.div`
   border: 4px double white;
-  padding:15px;
-  font-family: 'Oswald', sans-serif;
-  background-color:#24465C;
+  padding: 15px;
+  font-family: "Oswald", sans-serif;
+  background-color: #24465c;
 `;
 const Title = styled.h1`
-color:  white;
+  color: white;
   font-size: 2em;
   position: relative;
   margin: 0 auto 1em;

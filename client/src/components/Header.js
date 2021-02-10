@@ -23,7 +23,7 @@ const Header = () => {
       <Wrapper>
         <InternalWrapper>
           <Logo
-            src={require("../assets/wearteklogo.png")}
+            src={require("../assets/Wearteklogo.png")}
             alt="WearTek"
             height="98px"
           ></Logo>
