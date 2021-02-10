@@ -7,21 +7,16 @@ import Header from "./Header";
 
 import GlobalStyles from "../GlobalStyles";
 
-
 function App() {
   return (
-    <>
-      <>
-        <Router>
-          <Wrapper>
-            <Header />
-            <Body />
-            <Footer />
-          </Wrapper>
-          <GlobalStyles />
-        </Router>
-      </>
-    </>
+    <Router>
+      <Wrapper>
+        <Header />
+        <Body />
+        <Footer />
+      </Wrapper>
+      <GlobalStyles />
+    </Router>
   );
 }
 
