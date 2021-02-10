@@ -8,7 +8,7 @@ const ErrorPage = () => {
     <Wrapper>
       <StyledDiv>
         <Logo
-          src={require("../sorrySmiley.png")}
+          src={require("../assets/sorrySmiley.png")}
           alt="Sorry"
           height="250px"
         ></Logo>
@@ -22,7 +22,7 @@ const ErrorPage = () => {
         </Text>
         <Divider />{" "}
         <Logo1
-          src={require("../Wearteklogo.png")}
+          src={require("../assets/Wearteklogo.png")}
           alt="WearTek"
           height="200px"
         ></Logo1>

@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { removeItem } from "../actions";
-import { getStoreItemArray } from "../reducers";
+import { getStoreItemArray } from "../reducers/item-reducer";
 const CartItem = () => {
-  const [newitem, setNewItem] = useState("");
+  const [newItem, setNewItem] = useState("");
   const dispatch = useDispatch();
   const storeState = useSelector(getStoreItemArray);
+useEffect(()=> {
+
   setNewItem(storeState);
-  console.log(newitem);
-  return <Wrapper></Wrapper>;
+},[storeState])
+
+
+  return (
+    <Wrapper>
+      <List>
+        {newItem &&
+          newItem.map((item) => {
+            return <Items key={item.id}>{item.name}</Items>;
+          })}
+      </List>{" "}
+    </Wrapper>
+  );
 };
 const Wrapper = styled.div`
   display: flex;
@@ -19,5 +32,6 @@ const Wrapper = styled.div`
   border-width: 1px;
   border-color: gray;
 `;
+const List = styled.ul``;
+const Items = styled.li``;
 export default CartItem;
-//added

@@ -1,16 +1,15 @@
 import React from "react";
 const initialState = {};
-//added
+
 export default function itemReducer(state = initialState, action) {
+
   switch (action.type) {
     case "ADD_ITEM": {
       return {
         ...state,
         [action.item.id]: {
           ...action.item,
-          quantity: state[action.item.id]
-            ? state[action.item.id].quantity + 1
-            : 1,
+          quantity: 1,
         },
       };
     }
