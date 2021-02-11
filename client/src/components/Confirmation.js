@@ -14,7 +14,7 @@ const Confirmation = () => {
           height="200px"
         ></Logo1>
         <Logo1
-          src={require("../assets/Wearteklogo.png")}
+          src={require("../assets/wearteklogo.png")}
           alt="WearTek"
           height="200px"
         ></Logo1>
