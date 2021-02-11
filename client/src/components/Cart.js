@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getStoreItemArray } from "../reducers/item-reducer";
+import { getStoreItemArray } from "../reducers";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 
 const Cart = () => {
+  const storeState = useSelector(getStoreItemArray);
 
-
+  const newItems = Object.values(storeState[0]);
+  const calculateTotalItem = (state) => {
+    const reducer = (accumulator, storeItem) => {
+      if (storeItem.id) {
+        return accumulator + storeItem.quantity;
+      } else {
+        return accumulator;
+      }
+    }
+    return state.reduce(reducer, 0);
+  }
+  // console.log(calculateTotalItem(storeState))
   return (
     <>
       <Wrapper>
@@ -16,9 +28,20 @@ const Cart = () => {
             <TitleDiv>YOUR CART</TitleDiv>
           </Title>
         </Header>
-        <CartWrapper>
-          <CartItem />
-        </CartWrapper>
+        <Main>
+          <CartWrapper>
+            <CartItem />
+          </CartWrapper>
+          {newItems && <ConfirmSideBar>
+          <Confirm>
+            <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
+            <Total>Total : </Total>
+            <ButtonDiv>
+              <Button>CHECKOUT</Button>
+            </ButtonDiv>
+          </Confirm>
+          </ConfirmSideBar>}
+        </Main>
       </Wrapper>
     </>
   );
@@ -27,7 +50,7 @@ const Cart = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-
+  height: 100vw;
   border-style: solid;
   border-width: 1px;
   border-color: gray;
@@ -42,13 +65,29 @@ const Header = styled.div`
   justify-content: center;
   width: 100vw;
 `;
-const CartWrapper = styled.div``;
+const Main = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+
+const CartWrapper = styled.div`
+  grid-area: main;
+`;
+const ConfirmSideBar = styled.div`
+  grid-area: sidebar;
+`;
+const QuantityItem = styled.div``;
+const Total = styled.div``;
+const ButtonDiv = styled.div``;
 const TitleDiv = styled.div`
   border: 4px double white;
   padding: 15px;
   font-family: "Oswald", sans-serif;
   background-color: #24465c;
 `;
+
 const Title = styled.h1`
   color: white;
   font-size: 2em;
@@ -57,5 +96,25 @@ const Title = styled.h1`
   padding: 1em 1em 0.25em 1em;
   text-align: center;
   text-transform: uppercase;
+`;
+const Confirm = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  height: 200px;
+  width: 300px;
+  border-radius: 10px;
+`;
+const Button = styled.button`
+  background-color: black;
+  border-style: none;
+  color: white;
+  font-weight: bolder;
+  height: 30px;
+  width: 150px;
+  border-radius: 20px;
 `;
 export default Cart;

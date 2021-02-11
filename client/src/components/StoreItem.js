@@ -5,9 +5,18 @@ import styled from "styled-components";
 import { COLORS } from "../constants";
 import { Link } from "react-router-dom";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-//added
+
 const StoreItem = ({ item }) => {
-  const { _id, name, price, imageSrc, numInStock } = item;
+  const {
+    _id,
+    name,
+    price,
+    imageSrc,
+    companyId,
+    numInStock,
+    category,
+    body_location,
+  } = item;
   const dispatch = useDispatch();
   const [hidden, setHidden] = useState(true);
 
@@ -17,8 +26,6 @@ const StoreItem = ({ item }) => {
   const handleMouseLeave = () => {
     setHidden(true);
   };
-
-
 
   return (
     <StyledLink
@@ -37,10 +44,20 @@ const StoreItem = ({ item }) => {
             alt="itemImage"
           />
           <Button
+            onClick={() =>
+              dispatch(
+                addItem({
+                  _id,
+                  name,
+                  price,
+                  imageSrc,
+                  companyId,
+                  category,
+                  body_location,
+                })
+              )
+            }
             hidden={hidden}
-            onClick={() => {
-              dispatch(addItem({ _id, name, price }));
-            }}
             disabled={numInStock === 0}
           >
             ADD TO CART
@@ -69,7 +86,6 @@ const Image = styled.img`
   height: 250px;
   object-fit: contain;
 `;
-
 
 const Wrapper = styled.div`
   display: flex;
@@ -125,15 +141,12 @@ const Price = styled.p`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-
 `;
 
 const Container = styled.div`
-    display: flex;
-    justify-content: space-between;   
-
+  display: flex;
+  justify-content: space-between;
 `;
-
 
 const SoldOut = styled.div`
   display: flex;

@@ -22,7 +22,7 @@ const ErrorPage = () => {
         </Text>
         <Divider />{" "}
         <Logo1
-          src={require("../assets/Wearteklogo.png")}
+          src={require("../assets/wearteklogo.png")}
           alt="WearTek"
           height="200px"
         ></Logo1>

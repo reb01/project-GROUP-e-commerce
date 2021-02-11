@@ -78,11 +78,11 @@ Should have something like:
 (Every time)
 To resolve conflicts and start new change
 Fetching changes (not merged yet)
-## Instead of :
+_Instead of :_
 `git fetch parent`
 `git merge parent/master`
 
- === [You can use git pull parent master ] =====
+ _You can use git pull parent master_
 BUT given we renamed things it would be:
 `git pull upstream main`
 ----------------------------------------------
