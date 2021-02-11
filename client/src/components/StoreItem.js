@@ -15,7 +15,7 @@ const StoreItem =({ item })=>{
    
     const [hidden, setHidden] = useState(true);
 
-    const handleMouseEnter = ()=>{
+    const handleMouseEnter = ()=> {
         setHidden(false);
     }
     const handleMouseLeave = ()=>{
