@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducers/item-reducer";
 import App from "./components/App";
+require("dotenv").config();
 
 const store = createStore(
   reducer,
@@ -17,4 +18,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-  
