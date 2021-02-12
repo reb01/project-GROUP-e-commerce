@@ -10,7 +10,7 @@ import { COLORS } from "../constants";
 
 const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
-    const [locationHidden, setLocationHidden] = useState(false);
+    const [locationHidden, setLocationHidden] = useState(true);
    
     const handleClickCategory = (ev)=>{       
         ev.preventDefault();  

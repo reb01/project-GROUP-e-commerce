@@ -6,9 +6,10 @@ import { getStoreItemArray } from "../reducers";
 const CartItem = () => {
   const dispatch = useDispatch();
   const storeState = useSelector(getStoreItemArray);
-
+console.log(storeState);
   const newItems = Object.values(storeState[0]);
 
+  
   return (
     <Wrapper>
       <List>

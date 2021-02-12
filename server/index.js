@@ -5,9 +5,8 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const PORT = 4000;
-const items = require("./data/items");
-const companies = require("./data/companies");
 const handlers = require("./handlers");
+
 express()
   .use(function (req, res, next) {
     res.header(
@@ -89,26 +88,12 @@ express()
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
 
 
-  .get("/items", (req, res) => {    
-      res.status(200).json({ status: 200, message: "success", data: items });       
-  })
+  .get("/items", handlers.getItems)
 
-  .get("/items/group/:criteria/:type", (req, res) => {
-    const { criteria, type } = req.params;   
-    
-    if ( !criteria || !type)
-      return res.status(400).json({ status: 400, message: "unknown criteria and type", data: {criteria, type} });
-  
-    const itemsSorted = items.filter((item)=>{        
-          return item[criteria].toLowerCase().replace(/\s/g, "") === type.toLowerCase();       
-    });    
-    
-    return res.status(200).json({ status: 200, message: "success", data: itemsSorted });    
-  })
+  .get("/items/group/:criteria/:type", handlers.getItemsGroup)
 
-  .get("/companies", (req, res) => {  
-      res.status(200).json({ status: 200, message: "success", data: companies });
-  })
+  .get("/companies", handlers.getCompagnies)
+
   .get("/item/:id", handlers.getSingleItem)
 
   .get("/company/:id/", handlers.getCompanyById)
