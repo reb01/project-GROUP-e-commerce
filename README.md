@@ -60,6 +60,7 @@ The most important aspect of this project is the ability to work in a team. No m
 see the [GITHUB Document](__documentation/GITHUB.md)
 
 ## For Boris, Sandra and Rebecca
+---------------------
 
 (1 time thing)
 Set Ellie's repo as parent
@@ -77,10 +78,14 @@ Should have something like:
 (Every time)
 To resolve conflicts and start new change
 Fetching changes (not merged yet)
+_Instead of :_
 `git fetch parent`
-
-To merge
 `git merge parent/master`
+
+ _You can use git pull parent master_
+BUT given we renamed things it would be:
+`git pull upstream main`
+----------------------------------------------
 
 ## For Ellie
 Before merging or starting a change 
@@ -121,3 +126,7 @@ See past changes
 `git log`
 Undo local last commit 
 `git reset --soft HEAD~1`
+
+
+
+

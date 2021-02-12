@@ -9,27 +9,16 @@ import Header from "./Header";
 
 import GlobalStyles from "../GlobalStyles";
 
-
-const location = {
-  address: '1600 Amphitheatre Parkway, Mountain View, california.',
-  lat: 37.42216,
-  lng: -122.08427,
-}
-
 function App() {
   return (
-    <>
-      <>
-        <Router>
-          <Wrapper>
-            <Header />
-            <Body />
-            <Footer />
-          </Wrapper>
-          <GlobalStyles />
-        </Router>
-      </>
-    </>
+    <Router>
+      <Wrapper>
+        <Header />
+        <Body />
+        <Footer />
+      </Wrapper>
+      <GlobalStyles />
+    </Router>
   );
 }
 

@@ -2,22 +2,27 @@ import React, { useState, useEffect } from "react";
 import ErrorPage from "./ErrorPage";
 
 import { COLORS } from "../constants";
-
 import styled from "styled-components";
-import StoreItem from "./StoreItem";
-import Spinner from "./Tools/Spinner";
+import StoreItem from './StoreItem'
+import SideBar from './SideBar';
+import Spinner from './Tools/Spinner';
+import ErrorPage from "./ErrorPage";
+import { useParams } from "react-router-dom";
 
 const Store = () => {
   const [storeItems, setStoreItems] = useState([]);
   const [status, setStatus] = useState("idle");
+  const { criteria, type } = useParams();
 
   useEffect(() => {
     setStatus("loading");
-    fetch("/items")
+    const text = criteria === 'products' ? '/items': `/items/group/${criteria}/${type}`;
+    fetch(text)
       .then((res) => res.json())
       .then((json) => {
-        if (json) {
-          setStoreItems([...json.data]);
+        const { status, data} = json;     
+        if (status === 200) {          
+          setStoreItems([...data]);
           setStatus("idle");
         } else {
           setStatus("error");
@@ -26,7 +31,14 @@ const Store = () => {
       .catch(() => {
         setStatus("error");
       });
-  }, []);
+  }, [criteria, type]);
+
+
+  if (status=== "error"){
+    return (
+      <ErrorPage />
+    );
+  };
 
   return (
     <Wrapper>
@@ -38,17 +50,14 @@ const Store = () => {
             return <StoreItem key={item._id} item={item} />;
           })}
         </ItemsWrapper>
+         
       )}
-
-      <p>This is the Store</p>
-    </Wrapper>
-  );
-};
+   </Wrapper>  
+  )}
 
 const Wrapper = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
   border-style: solid;
   border-width: 1px;
@@ -58,9 +67,11 @@ const Wrapper = styled.div`
 `;
 
 const ItemsWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  display: flex;   
+  justify-content: space-evenly;
   flex-wrap: wrap;
+  margin: 20px 30px;
+  width: 100%;
 `;
 
 export default Store;

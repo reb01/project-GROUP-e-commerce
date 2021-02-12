@@ -10,11 +10,13 @@ const Footer = () => {
         <Logo
           src={require("../assets/wearteklogo.png")}
           alt="WearTek"
-          height="100px"
+          height="98px"
         ></Logo>
-        <div>
-          <p>© 2021 - Ellie, Rebecca, Sandra, Boris and their affiliates.</p>
-        </div>
+        <FooterTextContainer>
+          <FooterText>
+            © 2021 - Ellie, Rebecca, Sandra, Boris and their affiliates.
+          </FooterText>
+        </FooterTextContainer>
       </Wrapper>
     </>
   );
@@ -37,6 +39,25 @@ const Logo = styled.img`
   position: absolute;
   top: 0px;
   left: 100px;
+  @media (max-width: 800px) {
+    left: 10px;
+  }
+`;
+
+const FooterTextContainer = styled.div`
+  display: flex;
+  height: 14px;
+  flex-wrap: wrap;
+  font-family: "Alata", sans-serif;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FooterText = styled.p`
+  position: absolute;
+  @media (max-width: 800px) {
+    left: 120px;
+  }
 `;
 
 export default Footer;

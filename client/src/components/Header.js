@@ -32,20 +32,31 @@ const Header = () => {
           <nav>
             <NavLinkList>
               <NavLinkListItem tabindex="0">
-                <RiHome2Line size="35" />
-                <NavigationLink to="/">Main</NavigationLink>
+                <Link href="/">
+                  <RiHome2Line size="35" />
+                  <NavigationLink>Main</NavigationLink>
+                </Link>
               </NavLinkListItem>
+
               <NavLinkListItem tabindex="0">
-                <RiStore2Line size="35" />
-                <NavigationLink to="/store">Store</NavigationLink>
+                <Link href="/store/products/all">
+                  <RiStore2Line size="35" />
+                  <NavigationLink>Store</NavigationLink>
+                </Link>
               </NavLinkListItem>
+
               <NavLinkListItem tabindex="0">
-                <RiInformationLine size="35" />
-                <NavigationLink to="/contactinfo">Support</NavigationLink>
+                <Link href="/contactinfo">
+                  <RiInformationLine size="35" />
+                  <NavigationLink>Support</NavigationLink>
+                </Link>
               </NavLinkListItem>
+
               <NavLinkListItem tabindex="0">
-                <RiShoppingCartLine size="35" />
-                <NavigationLink to="/cart">Cart</NavigationLink>
+                <Link href="/cart">
+                  <RiShoppingCartLine size="35" />
+                  <NavigationLink>Cart</NavigationLink>
+                </Link>
               </NavLinkListItem>
             </NavLinkList>
           </nav>
@@ -79,19 +90,27 @@ const InternalWrapper = styled.div`
 
 const Motto = styled.p`
   position: absolute;
+  font-family: 'Alata', sans-serif;
   left: 300px;
   color: ${COLORS.secondary};
   font-size: 35px;
   font-weight: 600;
+  @media (max-width: 1200px) {
+    visibility: hidden;
+  }
 `;
 
 const Ad = styled.div`
   display: flex;
   height: 40px;
+  font-family: 'Alata', sans-serif;
   background-color: ${COLORS.secondary};
   color: white;
   justify-content: center;
   align-items: center;
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const AdText = styled.p``;
@@ -102,11 +121,19 @@ const NavLinkList = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
+  @media (max-width: 750px) {
+    visibility: hidden;
+  }
 `;
 
 const NavLinkListItem = styled.li`
   display: flex;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   margin-right: 10px;
   outline: 0;
   &:active,
@@ -122,7 +149,7 @@ const NavLinkListItem = styled.li`
   }
 `;
 
-const NavigationLink = styled(NavLink)`
+const NavigationLink = styled.p`
   text-decoration: none;
   background-color: ${COLORS.fifth};
   border-style: solid;
@@ -130,7 +157,7 @@ const NavigationLink = styled(NavLink)`
   border-radius: 25px;
   color: ${COLORS.secondary};
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: 'Alata', sans-serif;
   font-weight: 600;
   padding: 6px;
   padding-left: 10px;
@@ -139,10 +166,20 @@ const NavigationLink = styled(NavLink)`
   outline: 0;
 `;
 
+const Link = styled.a`
+display: flex;
+  text-decoration: none;
+  color: black;
+  outline: 0;
+`;
+
 const Logo = styled.img`
   display: flex;
   position: absolute;
   left: 100px;
+  @media (max-width: 800px) {
+    left: 10px;
+  }
 `;
 
 export default Header;

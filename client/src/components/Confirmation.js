@@ -9,12 +9,12 @@ const Confirmation = () => {
     <Wrapper>
       <Logos>
         <Logo1
-          src={require("../ThankYou.jpg")}
+          src={require("../assets/ThankYou.jpg")}
           alt="WearTek"
           height="200px"
         ></Logo1>
         <Logo1
-          src={require("../Wearteklogo.png")}
+          src={require("../assets/wearteklogo.png")}
           alt="WearTek"
           height="200px"
         ></Logo1>

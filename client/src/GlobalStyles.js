@@ -7,12 +7,15 @@ const GlobalStyles = createGlobalStyle`
 html,
 body,
 div,
-span {
+span,
+p,
+ul {
   margin: 0;
   padding: 0;
   border: 0;
   vertical-align: baseline;
 }
+html {font-family: 'Alata', sans-serif;}
 
 /* GLOBAL STYLES */
 *,
@@ -20,7 +23,7 @@ span {
 *:after {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Roboto', sans-serif;
+  
 }
 `;
 
