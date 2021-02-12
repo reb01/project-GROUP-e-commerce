@@ -50,12 +50,10 @@ const getItems = (req, res) => {
   let clonedItems = JSON.parse(JSON.stringify(items));    
    // Sort the items if needed. 
   if (sort_by === 'price' && order_by === "asc") {
-    clonedItems.sort(compareAscNumber);
-    console.log('sortAscending');
+    clonedItems.sort(compareAscNumber);    
   }
   else if (sort_by === 'price' && order_by === "desc") {
-    clonedItems.sort(compareDescNumber);
-    console.log('sortDescanding');
+    clonedItems.sort(compareDescNumber);    
   }   
 
   res.status(200).json({ status: 200, message: "success", data: clonedItems });       
