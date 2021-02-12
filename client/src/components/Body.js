@@ -33,7 +33,7 @@ const Body = () => {
             <ErrorPage />
           </Route>
           <Route path="/item/:id">
-            <Item/>
+            <Item />
           </Route>
           <Route exact path="/">
             <Main />
@@ -44,11 +44,11 @@ const Body = () => {
   );
 };
 
-const Wrapper = styled.div `
+const Wrapper = styled.div`
   background: white;
   text-align: left;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", sans-serif;    
+    Ubuntu, "Helvetica Neue", sans-serif;
 `;
 
 export default Body;
