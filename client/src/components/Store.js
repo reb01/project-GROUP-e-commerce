@@ -1,4 +1,10 @@
+
+import React, { useState, useEffect } from "react";
+import ErrorPage from "./ErrorPage";
+
+
 import React, { useState, useEffect, useCallback } from "react";
+
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import StoreItem from './StoreItem'
@@ -55,6 +61,10 @@ const Store = () => {
 
   return (
     <Wrapper>
+
+      {status === "loading" && <Spinner />}
+      {status === "error" && <ErrorPage/>}
+
       <SideBar/>
       <RightWrapper>
       <DropDown>
@@ -66,6 +76,7 @@ const Store = () => {
           </Select>
         </DropDown>
       {status === "loading" && <Spinner />}  
+
       {status === "idle" && (
         
         <ItemsWrapper>

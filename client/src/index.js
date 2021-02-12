@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 
 import reducer from "./reducers";
 import App from "./components/App";
+require("dotenv").config();
 
 function saveToLocalStore(state) {
   try {
@@ -43,4 +44,8 @@ ReactDOM.render(
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
+
 );
+
+);
+
