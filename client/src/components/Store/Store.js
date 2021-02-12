@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 
-import { COLORS } from "../constants";
+import { COLORS } from "../../constants";
 import styled from "styled-components";
 import StoreItem from './StoreItem'
 import SideBar from './SideBar';
-import Spinner from './Tools/Spinner';
-import ErrorPage from "./ErrorPage";
+import Spinner from '../Tools/Spinner';
+import ErrorPage from "../ErrorPage";
 import { useParams } from "react-router-dom";
 
 const Store = () => {
@@ -60,7 +60,7 @@ const Store = () => {
       <SideBar/>
       <RightWrapper>
       <DropDown>
-          <label htmlFor="flight">SORT :</label>
+          <label htmlFor="sort">SORT :</label>
           <Select   id='sort' onChange={(ev)=>handleSortSelect(ev)}>       
             <option key="default" value="default">default </option>
             <option key="priceLowHigh" value="priceLowHigh">price - low to high</option>

@@ -7,7 +7,7 @@ import Contact from "./Contact";
 import Confirmation from "./Confirmation";
 import Item from "./Item";
 import Main from "./Main";
-import Store from "./Store";
+import Store from "./Store/Store";
 import ErrorPage from "./ErrorPage";
 
 const Body = () => {

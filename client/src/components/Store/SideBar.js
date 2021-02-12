@@ -6,7 +6,7 @@ import {
     FiPlus
   } from "react-icons/fi";
 
-import { COLORS } from "../constants";
+import { COLORS } from "../../constants";
 
 const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
@@ -28,7 +28,7 @@ const SideBar = ()=>{
         <Wrapper>  
               
         <NavBar >            
-            <NavigationLink exact to="/store/products/all" activeClassName='active'>All store products</NavigationLink> 
+            <NavigationLink exact to="/store/products/all" activeClassName='active'>All products</NavigationLink> 
             <Divider/>          
             <TitleWrapper>
                 <Title>BY CATEGORY</Title>
@@ -89,7 +89,7 @@ const Divider = styled.div`
 const SectionWrapper = styled.div`  
     max-height: 400px;
     overflow: hidden;   
-    transition: max-height 0.4s ease-in-out;
+    transition: max-height 0.45s ease-in-out;
 
   &.expanded { 
    max-height: 0px;
