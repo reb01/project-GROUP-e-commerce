@@ -6,7 +6,6 @@ import styled from "styled-components";
 import StoreItem from './StoreItem'
 import SideBar from './SideBar';
 import Spinner from './Tools/Spinner';
-import ErrorPage from "./ErrorPage";
 import { useParams } from "react-router-dom";
 
 const Store = () => {
