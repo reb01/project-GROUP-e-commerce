@@ -32,28 +32,28 @@ const Header = () => {
           <nav>
             <NavLinkList>
               <NavLinkListItem tabindex="0">
-                <Link href="/">
+                <Link to="/">
                   <RiHome2Line size="35" />
                   <NavigationLink>Main</NavigationLink>
                 </Link>
               </NavLinkListItem>
 
               <NavLinkListItem tabindex="0">
-                <Link href="/store/products/all">
+                <Link to="/store/products/all">
                   <RiStore2Line size="35" />
                   <NavigationLink>Store</NavigationLink>
                 </Link>
               </NavLinkListItem>
 
               <NavLinkListItem tabindex="0">
-                <Link href="/contactinfo">
+                <Link to="/contactinfo">
                   <RiInformationLine size="35" />
                   <NavigationLink>Support</NavigationLink>
                 </Link>
               </NavLinkListItem>
 
               <NavLinkListItem tabindex="0">
-                <Link href="/cart">
+                <Link to="/cart">
                   <RiShoppingCartLine size="35" />
                   <NavigationLink>Cart</NavigationLink>
                 </Link>
@@ -90,7 +90,7 @@ const InternalWrapper = styled.div`
 
 const Motto = styled.p`
   position: absolute;
-  font-family: 'Alata', sans-serif;
+  font-family: "Alata", sans-serif;
   left: 300px;
   color: ${COLORS.secondary};
   font-size: 35px;
@@ -103,7 +103,7 @@ const Motto = styled.p`
 const Ad = styled.div`
   display: flex;
   height: 40px;
-  font-family: 'Alata', sans-serif;
+  font-family: "Alata", sans-serif;
   background-color: ${COLORS.secondary};
   color: white;
   justify-content: center;
@@ -157,7 +157,7 @@ const NavigationLink = styled.p`
   border-radius: 25px;
   color: ${COLORS.secondary};
   font-size: 20px;
-  font-family: 'Alata', sans-serif;
+  font-family: "Alata", sans-serif;
   font-weight: 600;
   padding: 6px;
   padding-left: 10px;
@@ -166,8 +166,8 @@ const NavigationLink = styled.p`
   outline: 0;
 `;
 
-const Link = styled.a`
-display: flex;
+const Link = styled(NavLink)`
+  display: flex;
   text-decoration: none;
   color: black;
   outline: 0;
