@@ -38,7 +38,8 @@ const StoreItem = ({ item }) => {
           />
           <Button
             hidden={hidden}
-            onClick={() => {
+            onClick={(ev) => {
+              ev.preventDefault();
               dispatch(addItem({ _id, name, price }));
             }}
             disabled={numInStock === 0}
