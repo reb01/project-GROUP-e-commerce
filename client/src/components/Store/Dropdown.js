@@ -17,7 +17,10 @@ const Dropdown = ( { handleSortSelect } )=>{
 
 const Wrapper = styled.div`
   align-self: flex-end;
-  margin: 10px 50px;
+  margin: 10px 50px; 
+  @media (max-width: 768px) {
+    align-self: center;   
+  }
 `;
 
 const Select = styled.select`
