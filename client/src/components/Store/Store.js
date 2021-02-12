@@ -1,16 +1,13 @@
 
-import React, { useState, useEffect } from "react";
-import ErrorPage from "./ErrorPage";
-
-
 import React, { useState, useEffect, useCallback } from "react";
 
-import { COLORS } from "../constants";
+import { COLORS } from "../../constants";
 import styled from "styled-components";
 import StoreItem from './StoreItem'
 import SideBar from './SideBar';
-import Spinner from './Tools/Spinner';
-import ErrorPage from "./ErrorPage";
+import Spinner from '../Tools/Spinner';
+import ErrorPage from "../ErrorPage";
+import Dropdown from './Dropdown';
 import { useParams } from "react-router-dom";
 
 const Store = () => {
@@ -23,6 +20,15 @@ const Store = () => {
       ev.preventDefault(); 
       setSort(ev.target.value);
   };
+
+  const createTitle = ()=>{    
+    let typeNewStyle = type.charAt(0).toUpperCase() + type.slice(1);
+    if (type === 'all')
+      typeNewStyle = 'All Products';
+    if (type === 'petsandanimals')
+      typeNewStyle = 'Pets and Animals';
+    return typeNewStyle;
+  }
 
   const createFetchEndPoint = useCallback(() =>{
     let text = criteria === 'products' ? '/items': `/items/group/${criteria}/${type}`;
@@ -60,31 +66,18 @@ const Store = () => {
   };
 
   return (
-    <Wrapper>
-
-      {status === "loading" && <Spinner />}
-      {status === "error" && <ErrorPage/>}
-
+    <Wrapper>  
       <SideBar/>
       <RightWrapper>
-      <DropDown>
-          <label htmlFor="flight">SORT :</label>
-          <Select   id='sort' onChange={(ev)=>handleSortSelect(ev)}>       
-            <option key="default" value="default">default </option>
-            <option key="priceLowHigh" value="priceLowHigh">price - low to high</option>
-            <option key="priceHighLow" value="priceHighLow">price - high to low</option>
-          </Select>
-        </DropDown>
+      <Title><i>{createTitle()}</i></Title>
+      <Dropdown handleSortSelect={handleSortSelect} />         
       {status === "loading" && <Spinner />}  
-
-      {status === "idle" && (
-        
+      {status === "idle" && (        
         <ItemsWrapper>
           {storeItems.map((item) => {
             return <StoreItem key={item._id} item={item} />;
           })}
-        </ItemsWrapper>
-         
+        </ItemsWrapper>         
      )}
      </RightWrapper> 
    </Wrapper>  
@@ -114,17 +107,12 @@ const ItemsWrapper = styled.div`
   width: 100%;
 `;
 
-const DropDown = styled.div`
-  align-self: flex-end;
-  margin: 10px 50px;
-`;
-
-const Select = styled.select`
-  align-self: flex-end;
-  margin-left: 15px;
-  height: 35px;
-  width: 150px;
-  border-radius: 5px;
+const Title = styled.p`
+ margin: 0 30px;
+ font-size: 90px;
+ font-family: 'Open Sans Condensed', sans-serif;
+ color: ${COLORS.lightGreen};
+ text-shadow: 3px 3px lightgray;
 `;
 
 export default Store;

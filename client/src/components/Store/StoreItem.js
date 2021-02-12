@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addItem } from "../actions";
+import { addItem } from "../../actions";
 import styled from "styled-components";
-import { COLORS } from "../constants";
+import { COLORS } from "../../constants";
 import { Link } from "react-router-dom";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 
@@ -54,7 +54,7 @@ const StoreItem = ({ item }) => {
             src={
               typeof imageSrc != "undefined" && imageSrc
                 ? imageSrc
-                : require("../assets/noImage.gif")
+                : require("../../assets/noImage.gif")
             }
             alt="itemImage"
           />
