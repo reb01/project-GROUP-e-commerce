@@ -27,6 +27,21 @@ const StoreItem = ({ item }) => {
     setHidden(true);
   };
 
+  const handleClick = (ev) =>{
+    ev.preventDefault();
+    dispatch(
+      addItem({
+        _id,
+        name,
+        price,
+        imageSrc,
+        companyId,
+        category,
+        body_location,
+      })
+    );   
+  };
+
   return (
     <StyledLink
       to={`/item/${_id}`}
@@ -44,19 +59,7 @@ const StoreItem = ({ item }) => {
             alt="itemImage"
           />
           <Button
-            onClick={() =>
-              dispatch(
-                addItem({
-                  _id,
-                  name,
-                  price,
-                  imageSrc,
-                  companyId,
-                  category,
-                  body_location,
-                })
-              )
-            }
+            onClick={(ev) => handleClick(ev)}
             hidden={hidden}
             disabled={numInStock === 0}
           >
