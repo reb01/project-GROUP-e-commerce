@@ -7,8 +7,8 @@ const Dropdown = ( { handleSortSelect } )=>{
           <label htmlFor="sort"><strong>SORT BY:</strong></label>
           <Select   id='sort' onChange={(ev)=>handleSortSelect(ev)}>       
             <option key="default" value="default">most popular </option>
-            <option key="priceLowHigh" value="priceLowHigh">price - low to high</option>
-            <option key="priceHighLow" value="priceHighLow">price - high to low</option>
+            <option key="priceLowHigh" value={`${encodeURIComponent('+')}price`}>price - low to high</option>
+            <option key="priceHighLow" value="-price">price - high to low</option>
           </Select>
         </Wrapper>
     );

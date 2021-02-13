@@ -14,6 +14,7 @@ const Store = () => {
   const [storeItems, setStoreItems] = useState([]);
   const [status, setStatus] = useState("idle");
   const [sort, setSort] = useState("default");
+  const [filterPrice, setFilterPrice] = useState("default");
   const { criteria, type } = useParams();
 
   const handleSortSelect = (ev) => {  
@@ -21,7 +22,13 @@ const Store = () => {
       setSort(ev.target.value);
   };
 
+  const handleClickFilterPrice = (ev) => { 
+    setFilterPrice(ev.target.value);   
+  };
+
   const createTitle = ()=>{    
+    if (status !== "idle")
+      return "";
     let typeNewStyle = type.charAt(0).toUpperCase() + type.slice(1);
     if (type === 'all')
       typeNewStyle = 'All Products';
@@ -31,17 +38,17 @@ const Store = () => {
   }
 
   const createFetchEndPoint = useCallback(() =>{
-    let text = criteria === 'products' ? '/items': `/items/group/${criteria}/${type}`;
-    if (sort === 'priceLowHigh')
-      text += '?sort_by=price&order_by=asc';
-    if (sort === 'priceHighLow')
-      text += '?sort_by=price&order_by=desc';
-    return text;
-  }, [criteria, type, sort]);
+    let text = criteria === 'products' && type ==="all" ? '/items?': `/items/group/${criteria}/${type}?`;
+    if (sort !== 'default')
+      text += 'sort_by=' + sort;    
+    if (filterPrice !== 'default')
+      text += '&' + filterPrice;  
+    return text;  
+  }, [criteria, type, sort, filterPrice]);
 
   useEffect(() => {
     setStatus("loading");
-    const text = createFetchEndPoint();
+    const text = createFetchEndPoint(); 
     fetch(text)
       .then((res) => res.json())
       .then((json) => {
@@ -67,7 +74,7 @@ const Store = () => {
 
   return (
     <Wrapper>  
-      <SideBar/>
+      <SideBar handleClickFilterPrice={handleClickFilterPrice}/>
       <RightWrapper>
         <Title><i>{createTitle()}</i></Title>
         <Dropdown handleSortSelect={handleSortSelect} />         
@@ -113,14 +120,17 @@ const ItemsWrapper = styled.div`
 `;
 
 const Title = styled.p`
+box-sizing:border-box;
  margin: 0 30px;
  font-size: 90px;
  font-family: 'Open Sans Condensed', sans-serif;
  color: ${COLORS.lightGreen};
  text-shadow: 3px 3px lightgray;
+ min-height: 122px;
 
  @media (max-width: 940px) {
   font-size: 56px;
+  min-height: 76px;
  }
 
 `;

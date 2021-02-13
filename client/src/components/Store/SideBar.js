@@ -5,12 +5,16 @@ import {
     FiMinus,
     FiPlus
   } from "react-icons/fi";
+import RadioButton from './RadioButton';
+import { priceRadioButtonData } from './Utilities';
 
 import { COLORS } from "../../constants";
 
-const SideBar = ()=>{
+const SideBar = ({ handleClickFilterPrice })=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
     const [locationHidden, setLocationHidden] = useState(true);
+    const [priceHidden, setPriceHidden] = useState(true);
+   
    
     const handleClickCategory = (ev)=>{       
         ev.preventDefault();  
@@ -20,51 +24,76 @@ const SideBar = ()=>{
     const handleClickLocation = (ev)=>{       
         ev.preventDefault();  
         setLocationHidden(!locationHidden);  
-
     };
+
+    const handleClickPrice = (ev)=>{       
+        ev.preventDefault();  
+        setPriceHidden(!priceHidden);  
+    };   
 
     return (
         <>
-        <Wrapper>  
-              
-        <NavBar >            
-            <NavigationLink exact to="/store/products/all" activeClassName='active'>All products</NavigationLink> 
-            <Divider/>          
-            <TitleWrapper>
-                <Title>BY CATEGORY</Title>
-                <Button onClick={((ev)=>(handleClickCategory(ev)))}>
-                    {categoryHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
+        <Wrapper>
+            <NavBar >            
+                <NavigationLink exact to="/store/products/all" activeClassName='active'>All products</NavigationLink> 
+                <Divider/>          
+                <TitleWrapper>
+                    <Title>BY CATEGORY</Title>
+                    <Button onClick={((ev)=>(handleClickCategory(ev)))}>
+                        {categoryHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
                     </Button>
-            </TitleWrapper>
-            <SectionWrapper className={categoryHidden && 'expanded'} >
-                <NavigationLink exact to={`/store/category/entertainment`} activeClassName='active' >Entertainment</NavigationLink>
-                <NavigationLink exact to="/store/category/fitness" activeClassName='active'>Fitness</NavigationLink>
-                <NavigationLink exact to="/store/category/lifestyle" activeClassName='active'>Lifestyle</NavigationLink>
-                <NavigationLink exact to="/store/category/gaming" activeClassName='active'>Gaming</NavigationLink>
-                <NavigationLink exact to="/store/category/industrial" activeClassName='active'>Industrial</NavigationLink>
-                <NavigationLink exact to="/store/category/medical" activeClassName='active'>Medical</NavigationLink>
-                <NavigationLink exact to="/store/category/petsandanimals" activeClassName='active'>Pets and Animals</NavigationLink>
-            </SectionWrapper>   
-            <Divider/>       
-            <TitleWrapper>
-                <Title>BY BODY LOCATION</Title>
-                <Button onClick={((ev)=>(handleClickLocation(ev)))}>
-                    {locationHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
+                </TitleWrapper>
+                <SectionWrapper className={categoryHidden && 'expanded'} >
+                    <NavigationLink exact to={`/store/category/entertainment`} activeClassName='active' >Entertainment</NavigationLink>
+                    <NavigationLink exact to="/store/category/fitness" activeClassName='active'>Fitness</NavigationLink>
+                    <NavigationLink exact to="/store/category/lifestyle" activeClassName='active'>Lifestyle</NavigationLink>
+                    <NavigationLink exact to="/store/category/gaming" activeClassName='active'>Gaming</NavigationLink>
+                    <NavigationLink exact to="/store/category/industrial" activeClassName='active'>Industrial</NavigationLink>
+                    <NavigationLink exact to="/store/category/medical" activeClassName='active'>Medical</NavigationLink>
+                    <NavigationLink exact to="/store/category/petsandanimals" activeClassName='active'>Pets and Animals</NavigationLink>
+                </SectionWrapper>   
+                <Divider/>       
+                <TitleWrapper>
+                    <Title>BY BODY LOCATION</Title>
+                    <Button onClick={((ev)=>(handleClickLocation(ev)))}>
+                        {locationHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
                     </Button>
-            </TitleWrapper>
-            <SectionWrapper className={locationHidden && 'expanded'} >
-                <NavigationLink exact to={`/store/body_location/arms`} activeClassName='active' >Arms</NavigationLink>
-                <NavigationLink exact to="/store/body_location/chest" activeClassName='active'>Chest</NavigationLink>
-                <NavigationLink exact to="/store/body_location/feet" activeClassName='active'>Feet</NavigationLink>
-                <NavigationLink exact to="/store/body_location/hands" activeClassName='active'>Hands</NavigationLink>
-                <NavigationLink exact to="/store/body_location/head" activeClassName='active'>Head</NavigationLink>
-                <NavigationLink exact to="/store/body_location/neck" activeClassName='active'>Neck</NavigationLink>
-                <NavigationLink exact to="/store/body_location/torso" activeClassName='active'>Torso</NavigationLink>
-                <NavigationLink exact to="/store/body_location/waist" activeClassName='active'>Waist</NavigationLink>
-                <NavigationLink exact to="/store/body_location/wrist" activeClassName='active'>Wrist</NavigationLink>
-            </SectionWrapper>   
-            <Divider/>           
-        </NavBar >        
+                </TitleWrapper>
+                <SectionWrapper className={locationHidden && 'expanded'} >
+                    <NavigationLink exact to={`/store/body_location/arms`} activeClassName='active' >Arms</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/chest" activeClassName='active'>Chest</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/feet" activeClassName='active'>Feet</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/hands" activeClassName='active'>Hands</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/head" activeClassName='active'>Head</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/neck" activeClassName='active'>Neck</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/torso" activeClassName='active'>Torso</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/waist" activeClassName='active'>Waist</NavigationLink>
+                    <NavigationLink exact to="/store/body_location/wrist" activeClassName='active'>Wrist</NavigationLink>
+                </SectionWrapper>   
+                <Divider/>           
+                <TitleWrapper>
+                    <Title>FILTER BY PRICE</Title>
+                    <Button onClick={((ev)=>(handleClickPrice(ev)))}>
+                        {priceHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
+                    </Button>
+                </TitleWrapper>
+                <SectionWrapper className={priceHidden && 'expanded'} >
+                    {priceRadioButtonData.map((priceData)=>{
+                        return (
+                            <RadioButton
+                                id={priceData.id}
+                                value={priceData.value}                           
+                                name={priceData.name}
+                                isDefault={priceData.isDefault}
+                                handleClick={handleClickFilterPrice}
+                            >
+                                {priceData.label}
+                            </RadioButton>
+                        )
+                    })}                
+                </SectionWrapper>   
+                <Divider/>           
+            </NavBar >        
         </Wrapper>
         </>
     );
@@ -104,7 +133,6 @@ const SectionWrapper = styled.div`
 `;
 
 const NavigationLink = styled(NavLink)`
-  /* default styles here */
   text-decoration: none;
   margin: 0px 0 0 25px; 
   padding: 7px 10px ;
