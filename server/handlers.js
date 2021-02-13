@@ -1,15 +1,6 @@
-// Write functions for GET/POST methods here
-
 const items = require("./data/items");
 const companies = require("./data/companies");
-
-const compareAscNumber = (a, b) =>{  
-  return parseFloat(a.price.replace(/[$,]/g,"")) - parseFloat(b.price.replace(/[$,]/g,""));
-};
-
-const compareDescNumber = (a, b) =>{
-  return parseFloat(b.price.replace(/[$,]/g,"")) - parseFloat(a.price.replace(/[$,]/g,""));
-};
+const { sortAndFilter } = require("./helpers");
 
 
 const getSingleItem = (req, res) => {
@@ -43,18 +34,13 @@ const getCompanyById = (req, res) => {
 };
 
 const getItems = (req, res) => {    
-  const { sort_by, order_by } = req.query;  
-
+  const { sort_by, price } = req.query;  
+ 
    //We need to clone the array because we want to keep the original intact and keep our default order.
   // This way of cloning an array is good only with array of JSON data. 
-  let clonedItems = JSON.parse(JSON.stringify(items));    
-   // Sort the items if needed. 
-  if (sort_by === 'price' && order_by === "asc") {
-    clonedItems.sort(compareAscNumber);    
-  }
-  else if (sort_by === 'price' && order_by === "desc") {
-    clonedItems.sort(compareDescNumber);    
-  }   
+  let clonedItems = JSON.parse(JSON.stringify(items)); 
+  //sort and filter the items if needed   
+  clonedItems = sortAndFilter(clonedItems, sort_by, price); 
 
   res.status(200).json({ status: 200, message: "success", data: clonedItems });       
 };
@@ -65,10 +51,11 @@ const getCompagnies = (req, res) => {
 
 const getItemsGroup = (req, res) => {
     const { criteria, type } = req.params;   
-    const { sort_by, order_by } = req.query;  
-    
+    const { sort_by, price } = req.query; 
+    console.log(req.query);
+   
     if ( !criteria || !type)
-      return res.status(400).json({ status: 400, message: "unknown criteria and type", data: {criteria, type} });
+      return res.status(400).json({ status: 400, message: "unknown criteria or type", data: {criteria, type} });
   
       //filter the group by criteria and type
     let itemsGroup = items.filter((item)=>{    
@@ -76,16 +63,12 @@ const getItemsGroup = (req, res) => {
             return item[criteria].toLowerCase().replace(/\s/g, "") === type.toLowerCase();  
           return false;     
     });
+
+    if (itemsGroup.length === 0)
+      return res.status(400).json({ status: 400, message: "criteria or type not found", data: {criteria, type} });
     
-    //sort the items if needed
-    if (sort_by === 'price' && order_by === "asc") {
-      itemsGroup.sort(compareAscNumber);
-      console.log('sortAscending');
-    }
-    else if (sort_by === 'price' && order_by === "desc") {
-      itemsGroup.sort(compareDescNumber);
-      console.log('sortDescanding');
-    }     
+    //sort and filter the items if needed
+    itemsGroup = sortAndFilter(itemsGroup, sort_by, price);   
     
     return res.status(200).json({ status: 200, message: "success", data: itemsGroup });  
 };
