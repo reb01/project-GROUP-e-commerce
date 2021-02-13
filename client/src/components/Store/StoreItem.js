@@ -88,6 +88,10 @@ const Image = styled.img`
   width: 200px;
   height: 250px;
   object-fit: contain;
+
+  @media (max-width: 940px) {
+    width: 150px;
+ } 
 `;
 
 const Wrapper = styled.div`
@@ -99,6 +103,10 @@ const Wrapper = styled.div`
   margin: 10px;
   padding: 10px 15px;
   background-color: ${COLORS.lightGrey};
+  @media (max-width: 940px) {
+    width: 200px;
+ } 
+ 
 `;
 
 const ImageWrapper = styled.div`

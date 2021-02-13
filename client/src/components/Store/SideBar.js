@@ -39,6 +39,7 @@ const SideBar = ()=>{
             <SectionWrapper className={categoryHidden && 'expanded'} >
                 <NavigationLink exact to={`/store/category/entertainment`} activeClassName='active' >Entertainment</NavigationLink>
                 <NavigationLink exact to="/store/category/fitness" activeClassName='active'>Fitness</NavigationLink>
+                <NavigationLink exact to="/store/category/lifestyle" activeClassName='active'>Lifestyle</NavigationLink>
                 <NavigationLink exact to="/store/category/gaming" activeClassName='active'>Gaming</NavigationLink>
                 <NavigationLink exact to="/store/category/industrial" activeClassName='active'>Industrial</NavigationLink>
                 <NavigationLink exact to="/store/category/medical" activeClassName='active'>Medical</NavigationLink>
@@ -72,14 +73,20 @@ const SideBar = ()=>{
 const Wrapper = styled.div`
    margin: 20px 20px;
    min-width: 340px;
-   box-sizing:border-box;   
+   box-sizing:border-box;  
+   @media (max-width: 940px) {
+     min-width: 260px;   
+ } 
+ @media (max-width: 768px) {
+    margin-top: 0; 
+ } 
 `;
 
 const NavBar = styled.nav`
    display: flex;
    flex-direction: column; 
    font-weight: bold;
-   margin-top: 7px;  
+   margin-top: 7px;    
 `;
 
 const Divider = styled.div`
@@ -93,7 +100,7 @@ const SectionWrapper = styled.div`
 
   &.expanded { 
    max-height: 0px;
-}
+    }
 `;
 
 const NavigationLink = styled(NavLink)`

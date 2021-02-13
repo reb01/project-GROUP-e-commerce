@@ -69,16 +69,16 @@ const Store = () => {
     <Wrapper>  
       <SideBar/>
       <RightWrapper>
-      <Title><i>{createTitle()}</i></Title>
-      <Dropdown handleSortSelect={handleSortSelect} />         
-      {status === "loading" && <Spinner />}  
-      {status === "idle" && (        
-        <ItemsWrapper>
-          {storeItems.map((item) => {
-            return <StoreItem key={item._id} item={item} />;
-          })}
-        </ItemsWrapper>         
-     )}
+        <Title><i>{createTitle()}</i></Title>
+        <Dropdown handleSortSelect={handleSortSelect} />         
+        {status === "loading" && <Spinner />}  
+        {status === "idle" && (        
+          <ItemsWrapper>
+            {storeItems.map((item) => {
+              return <StoreItem key={item._id} item={item} />;
+            })}
+          </ItemsWrapper>         
+      )}
      </RightWrapper> 
    </Wrapper>  
   )}
@@ -91,12 +91,17 @@ const Wrapper = styled.div`
   border-color: gray;
   min-height: 665px;
   padding: 40px 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0px;   
+  }
 `;
 
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: column; 
-  width: 100%;
+  width: 100%;  
 `;
 
 const ItemsWrapper = styled.div`
@@ -113,6 +118,11 @@ const Title = styled.p`
  font-family: 'Open Sans Condensed', sans-serif;
  color: ${COLORS.lightGreen};
  text-shadow: 3px 3px lightgray;
+
+ @media (max-width: 940px) {
+  font-size: 56px;
+ }
+
 `;
 
 export default Store;
