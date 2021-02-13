@@ -39,6 +39,7 @@ const SideBar = ()=>{
             <SectionWrapper className={categoryHidden && 'expanded'} >
                 <NavigationLink exact to={`/store/category/entertainment`} activeClassName='active' >Entertainment</NavigationLink>
                 <NavigationLink exact to="/store/category/fitness" activeClassName='active'>Fitness</NavigationLink>
+                <NavigationLink exact to="/store/category/lifestyle" activeClassName='active'>Lifestyle</NavigationLink>
                 <NavigationLink exact to="/store/category/gaming" activeClassName='active'>Gaming</NavigationLink>
                 <NavigationLink exact to="/store/category/industrial" activeClassName='active'>Industrial</NavigationLink>
                 <NavigationLink exact to="/store/category/medical" activeClassName='active'>Medical</NavigationLink>
