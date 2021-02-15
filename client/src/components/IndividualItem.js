@@ -1,52 +1,68 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../actions";
 import styled from "styled-components";
 import { COLORS } from "../constants";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 const IndividualItem = ({
+  id,
   name,
   price,
   imageSrc,
   numInStock,
   companyName,
   companyFrom,
+  bodyLocation,
 }) => {
   const [hidden, setHidden] = useState(true);
-
+  const dispatch = useDispatch();
   const handleClick = (ev) => {
     ev.preventDefault();
+    dispatch(
+      addItem({
+        id,
+        name,
+        price,
+        imageSrc,
+        companyName,
+        companyFrom,
+        bodyLocation,
+      })
+    );
   };
 
   return (
     <DetailsWrapper>
-      <Wrapper>
-        <ImageWrapper>
-          <Image
-            src={
-              typeof imageSrc != "undefined" && imageSrc
-                ? imageSrc
-                : require("../assets/noImage.gif")
-            }
-            alt="itemImage"
-          />
-          <Button
-            hidden={hidden}
-            onClick={(ev) => handleClick(ev)}
-            disabled={numInStock === 0}
-          >
+      <Main>
+        <Wrapper>
+          <ImageWrapper>
+            <Image
+              src={
+                typeof imageSrc != "undefined" && imageSrc
+                  ? imageSrc
+                  : require("../assets/noImage.gif")
+              }
+              alt="itemImage"
+            />
+          </ImageWrapper>
+
+          <Container>
+            <Price>{typeof price != "undefined" && price ? price : "$0"}</Price>
+            {numInStock === 0 && (
+              <SoldOut>
+                <AiOutlineExclamationCircle color="red" />
+                <SoldOutText>sold out!</SoldOutText>
+              </SoldOut>
+            )}
+          </Container>
+        </Wrapper>
+        <ButtonWrap>
+          <Button onClick={(ev) => handleClick(ev)} disabled={numInStock === 0}>
             ADD TO CART
           </Button>
-        </ImageWrapper>
-        <Container>
-          <Price>{typeof price != "undefined" && price ? price : "$0"}</Price>
-          {numInStock === 0 && (
-            <SoldOut>
-              <AiOutlineExclamationCircle color="red" />
-              <SoldOutText>sold out!</SoldOutText>
-            </SoldOut>
-          )}
-        </Container>
-      </Wrapper>
+        </ButtonWrap>
+      </Main>
       <Wrapper2>
         <Description>Description</Description>
         <Name>
@@ -61,16 +77,16 @@ const IndividualItem = ({
   );
 };
 
-const Image = styled.img`
-  width: 300px;
-  object-fit: contain;
-`;
-const Description = styled.h1``;
-
 const DetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: black;
+`;
+const Main = styled.div`
+  display: flex;
+`;
+const ButtonWrap = styled.div`
+  display: flex;
 `;
 const Wrapper2 = styled.div`
   display: flex;
@@ -106,6 +122,11 @@ const ImageWrapper = styled.div`
   padding-bottom: 35px;
 `;
 
+const Image = styled.img`
+  width: 300px;
+  object-fit: contain;
+`;
+const Description = styled.h1``;
 const Button = styled.button`
   position: absolute;
   border: none;
