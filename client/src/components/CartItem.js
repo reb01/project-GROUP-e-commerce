@@ -42,7 +42,7 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
           return accumulator;
         }
       };
-      return storeState.reduce(reduceTotal, 0);
+      return newItems.reduce(reduceTotal, 0);
     };
 
     const total = calculateTotal(newItems).toFixed(2);
