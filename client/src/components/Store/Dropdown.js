@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from "react-redux";
+import { updateStoreSort } from "../../actions";
 
-const Dropdown = ( { handleSortSelect } )=>{
+const Dropdown = ( )=>{
+  const dispatch = useDispatch();    
+
+  const handleSortSelect = (ev) => {  
+    ev.preventDefault(); 
+    dispatch(updateStoreSort(ev.target.value));
+  };
+
     return (
         <Wrapper>
           <label htmlFor="sort"><strong>SORT BY:</strong></label>

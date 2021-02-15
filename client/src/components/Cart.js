@@ -1,9 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getStoreItemArray } from "../reducers";
+import { getStoreItemArray } from "../reducers/item-reducer";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
+
+
+const Cart = () => {  
+  const newItems = useSelector(getStoreItemArray);  
+  const calculateTotalItem = (state) => {
+    const reducer = (accumulator, storeItem) => {
+      if (storeItem.id) {
+        return accumulator + storeItem.quantity;
+      } else {
+        return accumulator;
+      }
+    }
+    return state.reduce(reducer, 0);
+  }
+  // console.log(calculateTotalItem(storeState))
 
 const Cart = () => {
   const [totalItems, setTotalItems] = useState(0);
@@ -12,6 +27,7 @@ const Cart = () => {
   const newItems = Object.values(storeState[0]);
 
   console.log(totalItems)
+
 
 
   return (

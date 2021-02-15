@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { removeItem, updateQuantity } from "../actions";
+
+import { getStoreItemArray } from "../reducers/item-reducer";
+const CartItem = () => {
+  const dispatch = useDispatch();
+  const newItems = useSelector(getStoreItemArray);  
+   
+
 import { getStoreItemArray } from "../reducers";
 const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const dispatch = useDispatch();
@@ -48,6 +55,7 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
     const total = calculateTotal(newItems).toFixed(2);
     setTotalPrice(total);
   }, [storeState]);
+
 
   return (
     <Wrapper>

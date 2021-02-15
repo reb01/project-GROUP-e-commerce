@@ -12,3 +12,27 @@ export const updateQuantity = ({ itemId, quantity }) => ({
   itemId,
   quantity,
 });
+
+export const requestStoreInfo = () => ({
+  type: "REQUEST_STORE_INFO",
+});
+
+export const receiveStoreInfo = (store) => ({
+  type: "RECEIVE_STORE_INFO",
+  store,
+});
+
+export const receiveStoreInfoError = (error) => ({
+  type: 'RECEIVE_STORE_INFO_ERROR',
+  error,
+});
+
+export const updateStoreSort = (value) => ({
+  type: 'UPDATE_STORE_SORT',
+  value,
+});
+
+export const updateStoreFilterPrice = (value) => ({
+  type: 'UPDATE_STORE_FILTER_PRICE',
+  value,
+});

@@ -1,6 +1,8 @@
+import React, { useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import React, { useState, useEffect, useCallback } from "react";
-
+import { requestStoreInfo, receiveStoreInfo, receiveStoreInfoError } from "../../actions";
 import { COLORS } from "../../constants";
 import styled from "styled-components";
 import StoreItem from './StoreItem'
@@ -8,23 +10,12 @@ import SideBar from './SideBar';
 import Spinner from '../Tools/Spinner';
 import ErrorPage from "../ErrorPage";
 import Dropdown from './Dropdown';
-import { useParams } from "react-router-dom";
 
-const Store = () => {
-  const [storeItems, setStoreItems] = useState([]);
-  const [status, setStatus] = useState("idle");
-  const [sort, setSort] = useState("default");
-  const [filterPrice, setFilterPrice] = useState("default");
-  const { criteria, type } = useParams();
 
-  const handleSortSelect = (ev) => {  
-      ev.preventDefault(); 
-      setSort(ev.target.value);
-  };
-
-  const handleClickFilterPrice = (ev) => { 
-    setFilterPrice(ev.target.value);   
-  };
+const Store = () => {   
+  const {currentStore , status, sort, filterPrice } = useSelector((state)=>state.store);
+  const { criteria, type } = useParams();  
+  const dispatch = useDispatch(); 
 
   const createTitle = ()=>{    
     if (status !== "idle")
@@ -41,27 +32,26 @@ const Store = () => {
     let text = criteria === 'products' && type ==="all" ? '/items?': `/items/group/${criteria}/${type}?`;
     if (sort !== 'default')
       text += 'sort_by=' + sort;    
-    if (filterPrice !== 'default')
-      text += '&' + filterPrice;  
+    if (filterPrice.value !== 'default')
+      text += '&' + filterPrice.value;  
     return text;  
   }, [criteria, type, sort, filterPrice]);
 
-  useEffect(() => {
-    setStatus("loading");
+  useEffect(() => {   
+    dispatch(requestStoreInfo());
     const text = createFetchEndPoint(); 
     fetch(text)
       .then((res) => res.json())
       .then((json) => {
-        const { status, data} = json;     
-        if (status === 200) {          
-          setStoreItems([...data]);
-          setStatus("idle");
-        } else {
-          setStatus("error");
+        const { status, data, message} = json;     
+        if (status === 200) {           
+          dispatch(receiveStoreInfo(data));
+        } else {         
+          dispatch(receiveStoreInfoError(message));
         }
       })
-      .catch(() => {
-        setStatus("error");
+      .catch((e) => {       
+        dispatch(receiveStoreInfoError(e));
       });
   }, [createFetchEndPoint]);
 
@@ -74,14 +64,14 @@ const Store = () => {
 
   return (
     <Wrapper>  
-      <SideBar handleClickFilterPrice={handleClickFilterPrice}/>
+      <SideBar />
       <RightWrapper>
         <Title><i>{createTitle()}</i></Title>
-        <Dropdown handleSortSelect={handleSortSelect} />         
+        <Dropdown />         
         {status === "loading" && <Spinner />}  
         {status === "idle" && (        
           <ItemsWrapper>
-            {storeItems.map((item) => {
+            {currentStore.store.map((item) => {
               return <StoreItem key={item._id} item={item} />;
             })}
           </ItemsWrapper>         
@@ -120,19 +110,18 @@ const ItemsWrapper = styled.div`
 `;
 
 const Title = styled.p`
-box-sizing:border-box;
- margin: 0 30px;
- font-size: 90px;
- font-family: 'Open Sans Condensed', sans-serif;
- color: ${COLORS.lightGreen};
- text-shadow: 3px 3px lightgray;
- min-height: 122px;
+  box-sizing:border-box;
+  margin: 0 30px;
+  font-size: 90px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: ${COLORS.lightGreen};
+  text-shadow: 3px 3px lightgray;
+  min-height: 122px;
 
- @media (max-width: 940px) {
-  font-size: 56px;
-  min-height: 76px;
- }
-
-`;
+  @media (max-width: 940px) {
+    font-size: 56px;
+    min-height: 76px;
+  }
+  `;
 
 export default Store;
