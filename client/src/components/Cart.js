@@ -6,30 +6,13 @@ import styled from "styled-components";
 import CartItem from "./CartItem";
 
 
-const Cart = () => {  
-  const newItems = useSelector(getStoreItemArray);  
-  const calculateTotalItem = (state) => {
-    const reducer = (accumulator, storeItem) => {
-      if (storeItem.id) {
-        return accumulator + storeItem.quantity;
-      } else {
-        return accumulator;
-      }
-    }
-    return state.reduce(reducer, 0);
-  }
-  // console.log(calculateTotalItem(storeState))
-
 const Cart = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const storeState = useSelector(getStoreItemArray);
   const newItems = Object.values(storeState[0]);
 
-  console.log(totalItems)
-
-
-
+  console.log(totalItems);
   return (
     <>
       <Wrapper>
