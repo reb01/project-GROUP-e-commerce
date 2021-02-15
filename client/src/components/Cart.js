@@ -6,20 +6,14 @@ import styled from "styled-components";
 import CartItem from "./CartItem";
 
 const Cart = () => {
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const storeState = useSelector(getStoreItemArray);
-
   const newItems = Object.values(storeState[0]);
-  const calculateTotalItem = (state) => {
-    const reducer = (accumulator, storeItem) => {
-      if (storeItem.id) {
-        return accumulator + storeItem.quantity;
-      } else {
-        return accumulator;
-      }
-    }
-    return state.reduce(reducer, 0);
-  }
-  // console.log(calculateTotalItem(storeState))
+
+  console.log(totalItems)
+
+
   return (
     <>
       <Wrapper>
@@ -30,17 +24,19 @@ const Cart = () => {
         </Header>
         <Main>
           <CartWrapper>
-            <CartItem />
+            <CartItem totalItems={totalItems} setTotalItems={setTotalItems}/>
           </CartWrapper>
-          {newItems && <ConfirmSideBar>
-          <Confirm>
-            <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
-            <Total>Total : </Total>
-            <ButtonDiv>
-              <Button>CHECKOUT</Button>
-            </ButtonDiv>
-          </Confirm>
-          </ConfirmSideBar>}
+          {newItems && (
+            <ConfirmSideBar>
+              <Confirm>
+                <QuantityItem>Item(s) total: {totalItems}</QuantityItem>
+                <Total>Total :</Total>
+                <ButtonDiv>
+                  <Button>CHECKOUT</Button>
+                </ButtonDiv>
+              </Confirm>
+            </ConfirmSideBar>
+          )}
         </Main>
       </Wrapper>
     </>
@@ -70,7 +66,6 @@ const Main = styled.div`
   justify-content: space-evenly;
   align-items: center;
 `;
-
 
 const CartWrapper = styled.div`
   grid-area: main;

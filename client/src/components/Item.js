@@ -56,9 +56,11 @@ const Item = () => {
             name={itemData.name}
             price={itemData.price}
             imageSrc={itemData.imageSrc}
+            bodyLocation={itemData.body_location}
             numInStock={itemData.numInStock}
             companyName={company.name}
             companyFrom={company.country}
+     
           />
         </ItemsWrapper>
       )}

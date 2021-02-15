@@ -1,5 +1,5 @@
 import React from "react";
-const initialState = {};
+const initialState = [];
 
 export default function itemReducer(state = initialState, action) {
   console.log(Object.values(state));

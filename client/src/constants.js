@@ -11,3 +11,8 @@ export const COLORS = {
   lightGreen: '#67dba5'
 
 };
+
+export const FONTS = {
+
+  
+}
