@@ -3,13 +3,52 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { removeItem, updateQuantity } from "../actions";
 import { getStoreItemArray } from "../reducers";
-const CartItem = () => {
+const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const dispatch = useDispatch();
   const storeState = useSelector(getStoreItemArray);
-console.log(storeState);
+
   const newItems = Object.values(storeState[0]);
 
-  
+  useEffect(() => {
+    const calculateTotalItem = (storeState) => {
+      const reducer = (accumulator, storeItem) => {
+        if (storeItem._id) {
+          return Number(accumulator + storeItem.quantity);
+        } else {
+          return accumulator;
+        }
+      };
+      return storeState.reduce(reducer, 0);
+    };
+
+    const total = calculateTotalItem(newItems);
+    setTotalItems(total);
+  }, [storeState]);
+  useEffect(() => {
+    const calculateTotal = (storeState) => {
+      const newArray = storeState.map((item) => {
+        const price = item.price;
+        return price.replace("$", "");
+      });
+
+      console.log(newArray);
+
+      const reduceTotal = (accumulator, storeItem) => {
+        if (storeItem._id) {
+          return (
+            accumulator + parseFloat(newArray).toFixed(2) * storeItem.quantity
+          );
+        } else {
+          return accumulator;
+        }
+      };
+      return storeState.reduce(reduceTotal, 0);
+    };
+
+    const total = calculateTotal(newItems).toFixed(2);
+    setTotalPrice(total);
+  }, [storeState]);
+
   return (
     <Wrapper>
       <List>
@@ -22,7 +61,13 @@ console.log(storeState);
                     <h3>{item.name} </h3>
                   </Title>
                   <Delete>
-                    <DeleteButton onClick={() => { dispatch(removeItem( item._id ))}}>X</DeleteButton>
+                    <DeleteButton
+                      onClick={() => {
+                        dispatch(removeItem(item._id));
+                      }}
+                    >
+                      X
+                    </DeleteButton>
                   </Delete>
                 </Header>
 
@@ -42,10 +87,11 @@ console.log(storeState);
                       <InputQt
                         value={item.quantity}
                         onChange={(event) => {
+                          event.preventDefault();
                           dispatch(
                             updateQuantity({
                               itemId: item._id,
-                              quantity: event.target.value,
+                              quantity: Number(event.target.value),
                             })
                           );
                         }}
@@ -87,16 +133,15 @@ const Header = styled.div`
 const Title = styled.div``;
 const Delete = styled.div``;
 const DeleteButton = styled.button`
-background-color:white;
-border:none;
-border-radius:20px;
-height:25px;
-font-weight:bold;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  height: 25px;
+  font-weight: bold;
   transition: 0.3s;
-&:hover{
-  background-color:lightgray;
-
-}
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const ItemWrapper = styled.div`
