@@ -9,8 +9,7 @@ import CartItem from "./CartItem";
 const Cart = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const storeState = useSelector(getStoreItemArray);
-  const newItems = Object.values(storeState[0]);
+  const newItems = useSelector(getStoreItemArray);  
 
   console.log(totalItems);
   return (
