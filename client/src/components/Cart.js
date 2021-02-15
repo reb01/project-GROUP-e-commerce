@@ -24,13 +24,13 @@ const Cart = () => {
         </Header>
         <Main>
           <CartWrapper>
-            <CartItem totalItems={totalItems} setTotalItems={setTotalItems}/>
+            <CartItem totalItems={totalItems} setTotalItems={setTotalItems} setTotalPrice={setTotalPrice}/>
           </CartWrapper>
           {newItems && (
             <ConfirmSideBar>
               <Confirm>
                 <QuantityItem>Item(s) total: {totalItems}</QuantityItem>
-                <Total>Total :</Total>
+                <Total>Total : ${totalPrice} </Total>
                 <ButtonDiv>
                   <Button>CHECKOUT</Button>
                 </ButtonDiv>
