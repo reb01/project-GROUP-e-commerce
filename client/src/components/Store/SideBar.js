@@ -5,16 +5,18 @@ import {
     FiMinus,
     FiPlus
   } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import RadioButton from './RadioButton';
 import { priceRadioButtonData } from './Utilities';
 
 import { COLORS } from "../../constants";
+import { updateStoreFilterPrice } from "../../actions";
 
-const SideBar = ({ handleClickFilterPrice })=>{
+const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
     const [locationHidden, setLocationHidden] = useState(true);
     const [priceHidden, setPriceHidden] = useState(true);
-   
+    const dispatch = useDispatch();    
    
     const handleClickCategory = (ev)=>{       
         ev.preventDefault();  
@@ -30,6 +32,10 @@ const SideBar = ({ handleClickFilterPrice })=>{
         ev.preventDefault();  
         setPriceHidden(!priceHidden);  
     };   
+
+    const handleClickFilterPrice = (ev, id) => { 
+        dispatch(updateStoreFilterPrice({id: id, value: ev.target.value}));  
+      };
 
     return (
         <>
@@ -81,6 +87,7 @@ const SideBar = ({ handleClickFilterPrice })=>{
                     {priceRadioButtonData.map((priceData)=>{
                         return (
                             <RadioButton
+                                key={priceData.id}
                                 id={priceData.id}
                                 value={priceData.value}                           
                                 name={priceData.name}

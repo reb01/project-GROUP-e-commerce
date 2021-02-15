@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { removeItem, updateQuantity } from "../actions";
-import { getStoreItemArray } from "../reducers";
+import { getStoreItemArray } from "../reducers/item-reducer";
 const CartItem = () => {
   const dispatch = useDispatch();
-  const storeState = useSelector(getStoreItemArray);
-console.log(storeState);
-  const newItems = Object.values(storeState[0]);
-
-  
+  const newItems = useSelector(getStoreItemArray);  
+   
   return (
     <Wrapper>
       <List>

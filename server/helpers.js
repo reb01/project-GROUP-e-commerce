@@ -6,8 +6,7 @@ const compareAscPrice = (a, b) =>{
     return parseFloat(b.price.replace(/[$,]/g,"")) - parseFloat(a.price.replace(/[$,]/g,""));
   };
   
-  const sortAndFilter = (itemsArray, sortBy, priceFilter) =>{
-    let filterItemsArray = itemsArray;
+  const sortAndFilter = (itemsArray, sortBy, priceFilter) =>{   
     if (sortBy === '+price') {
       itemsArray.sort(compareAscPrice);      
     }
@@ -17,11 +16,11 @@ const compareAscPrice = (a, b) =>{
     if (priceFilter) {
       const gte = priceFilter.gte ? priceFilter.gte : 0;
       const lte = priceFilter.lte ? priceFilter.lte : Number.MAX_SAFE_INTEGER;
-      filterItemsArray = itemsArray.filter((item)=>{  
+      itemsArray = itemsArray.filter((item)=>{  
           return parseFloat(item.price.replace(/[$,]/g,"")) >= gte &&  parseFloat(item.price.replace(/[$,]/g,"")) < lte; 
         });
     }
-    return filterItemsArray;  
+    return itemsArray;  
   };
 
   module.exports = {

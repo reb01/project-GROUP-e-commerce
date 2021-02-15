@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const RadioButton = ({ id, value, name, isDefault, handleClick, children })=>{
     return (
         <RadioButtonWrapper>            
-            <input type="radio" name={name} id={id} onClick={handleClick} value={value} defaultChecked={isDefault} />
+            <input type="radio" name={name} id={id} onClick={(ev)=>handleClick(ev, id)} value={value} defaultChecked={isDefault} />
             <Label htmlFor={id}>{children}</Label>         
         </RadioButtonWrapper>  
     );
