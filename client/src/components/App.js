@@ -6,12 +6,16 @@ import styled from "styled-components";
 import Body from "./Body";
 import Footer from "./Footer";
 import Header from "./Header";
+import { createBrowserHistory } from 'history';
+import { useHistory } from 'react-router-dom';
 
 import GlobalStyles from "../GlobalStyles";
 
 function App() {
+  const historyInstance = createBrowserHistory();
+  const history = useHistory();
   return (
-    <Router>
+    <Router history={historyInstance}>
       <Wrapper>
         <Header />
         <Body />
