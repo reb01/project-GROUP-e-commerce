@@ -90,7 +90,7 @@ express()
 
   .get("/items", handlers.getItems)
 
-  .get("/items/group/:criteria/:type", handlers.getItemsGroup)
+  .get("/items/categories/:category", handlers.getItemsCategory)
 
   .get("/companies", handlers.getCompagnies)
 

@@ -3,8 +3,65 @@ const initialState = {
     status: 'loading',
     error: null,
     sort: 'default',
-    filterPrice: {id:'0',  
-                value: 'default'}
+    filters: {
+            price: {id:'0', value: 'default'},
+            body_location: {
+                0:{ 
+                id:0,                
+                value: 'arms',     
+                label: 'Arms',               
+                isChecked: false
+                },
+                1:{ 
+                    id:1,                 
+                    value: 'chest',    
+                    label: 'Chest',              
+                    isChecked: false
+                },
+                2:{      
+                    id:2,            
+                    value: 'feet',    
+                    label: 'Feet',           
+                    isChecked: false
+                },
+                3:{     
+                    id:3,            
+                    value: 'hands',    
+                    label: 'Hands',               
+                    isChecked: false
+                },
+                4:{  
+                    id:4,                
+                    value: 'head',    
+                    label: 'Head',               
+                    isChecked: false
+                },
+                5:{   
+                    id:5,            
+                    value: 'neck',    
+                    label: 'Neck',               
+                    isChecked: false
+                },
+                6:{   
+                    id:6,              
+                    value: 'torso',    
+                    label: 'Torso',               
+                    isChecked: false
+                },
+                7:{ 
+                    id:7,               
+                    value: 'waist',    
+                    label: 'Waist',               
+                    isChecked: false
+                },
+                8:{  
+                    id:8,                  
+                    value: 'wrist',    
+                    label: 'Wrist',              
+                    isChecked: false
+                }
+            }
+    },   
 };
 
 export default function storeReducer(state = initialState, action) {
@@ -42,7 +99,22 @@ export default function storeReducer(state = initialState, action) {
         case 'UPDATE_STORE_FILTER_PRICE':{
             return {
                 ...state,
-                filterPrice: {...action.value}
+                filters: {
+                        ...state.filters,
+                        price: {...action.value}
+                }
+            };        
+        }
+        case 'UPDATE_STORE_FILTER_BODY_LOCATION':{
+            return {
+                ...state,
+                filters: {
+                        ...state.filters,
+                        body_location: {
+                                        ...state.filters.body_location,
+                                       [action.id]: {...action.value}
+                                    }
+                }
             };        
         }
         default: {
