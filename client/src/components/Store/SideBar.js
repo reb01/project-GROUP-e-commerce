@@ -76,20 +76,20 @@ const SideBar = ()=>{
                     </Button>
                 </TitleWrapper>
                 <SectionWrapper className={locationHidden && 'expanded'} >
-                {Object.values(body_location).map((data)=>{
-                        return (
-                            <CheckBox
-                                key={data.id}
-                                id={data.id}
-                                value={data.value}                           
-                                name={data.value}
-                                isChecked={data.isCkecked}
-                                handleClick={handleClickFilterBodyLocation}
-                            >
-                                {data.label}
-                            </CheckBox>
-                        )
-                    })} 
+                    {Object.values(body_location).map((data)=>{
+                            return (
+                                <CheckBox
+                                    key={data.id}
+                                    id={data.id}
+                                    value={data.value}                           
+                                    name={data.value}
+                                    isChecked={data.isCkecked}
+                                    handleClick={handleClickFilterBodyLocation}
+                                >
+                                    {data.label}
+                                </CheckBox>
+                            )
+                        })} 
                 </SectionWrapper>   
                 <Divider/>           
                 <TitleWrapper>
