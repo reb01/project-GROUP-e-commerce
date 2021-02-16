@@ -36,3 +36,8 @@ export const updateStoreFilterPrice = (value) => ({
   type: 'UPDATE_STORE_FILTER_PRICE',
   value,
 });
+export const updateStoreFilterBodyLocation = (id, value) => ({
+  type: 'UPDATE_STORE_FILTER_BODY_LOCATION',
+  id,
+  value,
+});

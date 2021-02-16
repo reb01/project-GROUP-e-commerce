@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { requestStoreInfo, receiveStoreInfo, receiveStoreInfoError } from "../../actions";
+import { TitleStore } from './Utilities';
 import { COLORS } from "../../constants";
 import styled from "styled-components";
 import StoreItem from './StoreItem'
@@ -13,29 +14,24 @@ import Dropdown from './Dropdown';
 
 
 const Store = () => {   
-  const {currentStore , status, sort, filterPrice } = useSelector((state)=>state.store);
-  const { criteria, type } = useParams();  
+  const {currentStore , status, sort, filters:{price, body_location} } = useSelector((state)=>state.store);  
+  const { category } = useParams();  
   const dispatch = useDispatch(); 
 
-  const createTitle = ()=>{    
-    if (status !== "idle")
-      return "";
-    let typeNewStyle = type.charAt(0).toUpperCase() + type.slice(1);
-    if (type === 'all')
-      typeNewStyle = 'All Products';
-    if (type === 'petsandanimals')
-      typeNewStyle = 'Pets and Animals';
-    return typeNewStyle;
-  }
-
-  const createFetchEndPoint = useCallback(() =>{
-    let text = criteria === 'products' && type ==="all" ? '/items?': `/items/group/${criteria}/${type}?`;
+   const createFetchEndPoint = useCallback(() =>{
+    let text = category === 'allProducts' ? '/items?': `/items/categories/${category}?`;
     if (sort !== 'default')
       text += 'sort_by=' + sort;    
-    if (filterPrice.value !== 'default')
-      text += '&' + filterPrice.value;  
+    if (price.value !== 'default'){
+      text += '&' + price.value; 
+    }
+    Object.values(body_location).forEach((item)=>{
+      if (item.isChecked)
+        text += `&body_location[]=${item.value}`;  
+    });   
+   
     return text;  
-  }, [criteria, type, sort, filterPrice]);
+  }, [category, sort, price, body_location]);  
 
   useEffect(() => {   
     dispatch(requestStoreInfo());
@@ -66,7 +62,7 @@ const Store = () => {
     <Wrapper>  
       <SideBar />
       <RightWrapper>
-        <Title><i>{createTitle()}</i></Title>
+        <Title><i>{TitleStore[category]}</i></Title>
         <Dropdown />         
         {status === "loading" && <Spinner />}  
         {status === "idle" && (        

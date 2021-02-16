@@ -34,13 +34,13 @@ const getCompanyById = (req, res) => {
 };
 
 const getItems = (req, res) => {    
-  const { sort_by, price } = req.query;  
+  const { sort_by, price, body_location } = req.query;  
  
    //We need to clone the array because we want to keep the original intact and keep our default order.
   // This way of cloning an array is good only with array of JSON data. 
   let clonedItems = JSON.parse(JSON.stringify(items)); 
   //sort and filter the items if needed   
-  clonedItems = sortAndFilter(clonedItems, sort_by, price); 
+  clonedItems = sortAndFilter(clonedItems, sort_by, price, body_location); 
 
   res.status(200).json({ status: 200, message: "success", data: clonedItems });       
 };
@@ -49,26 +49,26 @@ const getCompagnies = (req, res) => {
   res.status(200).json({ status: 200, message: "success", data: companies });
 };
 
-const getItemsGroup = (req, res) => {
-    const { criteria, type } = req.params;   
-    const { sort_by, price } = req.query; 
+const getItemsCategory = (req, res) => {
+    const { category } = req.params;   
+    const { sort_by, price, body_location } = req.query; 
     console.log(req.query);
    
-    if ( !criteria || !type)
-      return res.status(400).json({ status: 400, message: "unknown criteria or type", data: {criteria, type} });
+    if ( !category)
+      return res.status(400).json({ status: 400, message: "unknown category", data: {category} });
   
-      //filter the group by criteria and type
+      //filter the group by category
     let itemsGroup = items.filter((item)=>{    
-          if (item[criteria])    
-            return item[criteria].toLowerCase().replace(/\s/g, "") === type.toLowerCase();  
+          if (item.category)    
+            return item.category.toLowerCase().replace(/\s/g, "") === category.toLowerCase();  
           return false;     
     });
 
     if (itemsGroup.length === 0)
-      return res.status(400).json({ status: 400, message: "criteria or type not found", data: {criteria, type} });
+      return res.status(400).json({ status: 400, message: "category not found", data: {category} });
     
     //sort and filter the items if needed
-    itemsGroup = sortAndFilter(itemsGroup, sort_by, price);   
+    itemsGroup = sortAndFilter(itemsGroup, sort_by, price, body_location);   
     
     return res.status(200).json({ status: 200, message: "success", data: itemsGroup });  
 };
@@ -79,5 +79,5 @@ module.exports = {
   getCompanyById,
   getCompagnies,
   getItems,
-  getItemsGroup
+  getItemsCategory
 };

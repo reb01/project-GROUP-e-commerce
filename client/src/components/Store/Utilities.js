@@ -57,3 +57,14 @@ export const priceRadioButtonData = [
     }
   
 ];
+
+export const TitleStore = {
+    allProducts: 'All Products',
+    entertainment: 'Entertainment',
+    fitness: 'Fitness',
+    lifestyle: 'Lifestyle',
+    gaming: 'Gaming',
+    industrial: 'Industrial',
+    medical: 'Medical',
+    petsandanimals: 'Pets And Animals'
+};
