@@ -5,19 +5,21 @@ import {
     FiMinus,
     FiPlus
   } from "react-icons/fi";
+ 
+  import { FcClearFilters } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import RadioButton from './RadioButton';
 import CheckBox from './CheckBox';
 import { priceRadioButtonData } from './Utilities';
 
 import { COLORS } from "../../constants";
-import { updateStoreFilterPrice, updateStoreFilterBodyLocation} from "../../actions";
+import { updateStoreFilterPrice, updateStoreFilterBodyLocation, clearAllStoreFilterBodyLocation, clearStoreFilterPrice} from "../../actions";
 
 const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
     const [locationHidden, setLocationHidden] = useState(true);
     const [priceHidden, setPriceHidden] = useState(true);
-    const {filters:{body_location}}= useSelector((state)=>state.store); 
+    const {filters:{price, body_location}}= useSelector((state)=>state.store); 
     const dispatch = useDispatch();    
    
     const handleClickCategory = (ev)=>{       
@@ -35,16 +37,23 @@ const SideBar = ()=>{
         setPriceHidden(!priceHidden);  
     };   
 
-    const handleClickFilterPrice = (ev, id) => { 
-        dispatch(updateStoreFilterPrice({id: id, value: ev.target.value}));  
+    const handleChangeFilterPrice = (ev, id, label) => { 
+        dispatch(updateStoreFilterPrice({id: id, value: ev.target.value, label: label}));  
       };
 
-    const handleClickFilterBodyLocation = (ev, id, label) => { 
-         dispatch(updateStoreFilterBodyLocation(id, {id: id,
-                                                    value: ev.target.value,     
-                                                    label: label,               
-                                                    isChecked: ev.target.checked}));  
+    const handleChangeFilterBodyLocation = (ev, id, label) => { 
+         dispatch(updateStoreFilterBodyLocation(id, ev.target.checked));  
       };
+    
+    const handleClearAllFilterBodyLocation = (ev) => { 
+        ev.preventDefault();  
+        dispatch(clearAllStoreFilterBodyLocation());  
+     };
+
+     const handleClearFilterPrice = (ev) => { 
+        ev.preventDefault();  
+        dispatch(clearStoreFilterPrice());  
+     };
 
 
     return (
@@ -71,9 +80,14 @@ const SideBar = ()=>{
                 <Divider/>       
                 <TitleWrapper>
                     <Title>BY BODY LOCATION</Title>
-                    <Button onClick={((ev)=>(handleClickLocation(ev)))}>
-                        {locationHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
-                    </Button>
+                    <ButtonWrapper>
+                        <Button title="Clear filters">
+                            <FcClearFilters size={18} onClick={((ev)=>(handleClearAllFilterBodyLocation(ev)))}/>
+                        </Button>
+                        <Button onClick={((ev)=>(handleClickLocation(ev)))}>
+                            {locationHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
+                        </Button>
+                    </ButtonWrapper>
                 </TitleWrapper>
                 <SectionWrapper className={locationHidden && 'expanded'} >
                     {Object.values(body_location).map((data)=>{
@@ -83,8 +97,8 @@ const SideBar = ()=>{
                                     id={data.id}
                                     value={data.value}                           
                                     name={data.value}
-                                    isChecked={data.isCkecked}
-                                    handleClick={handleClickFilterBodyLocation}
+                                    isChecked={data.isChecked}
+                                    handleChange={handleChangeFilterBodyLocation}
                                 >
                                     {data.label}
                                 </CheckBox>
@@ -94,9 +108,14 @@ const SideBar = ()=>{
                 <Divider/>           
                 <TitleWrapper>
                     <Title>BY PRICE</Title>
-                    <Button onClick={((ev)=>(handleClickPrice(ev)))}>
-                        {priceHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
-                    </Button>
+                    <ButtonWrapper>
+                        <Button title="Clear filters">
+                            <FcClearFilters size={18} onClick={((ev)=>(handleClearFilterPrice(ev)))}/>
+                        </Button>
+                        <Button onClick={((ev)=>(handleClickPrice(ev)))}>
+                            {priceHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
+                        </Button>
+                    </ButtonWrapper>
                 </TitleWrapper>
                 <SectionWrapper className={priceHidden && 'expanded'} >
                     {priceRadioButtonData.map((priceData)=>{
@@ -105,9 +124,9 @@ const SideBar = ()=>{
                                 key={priceData.id}
                                 id={priceData.id}
                                 value={priceData.value}                           
-                                name={priceData.name}
-                                isDefault={priceData.isDefault}
-                                handleClick={handleClickFilterPrice}
+                                name={priceData.name}                               
+                                isChecked={priceData.id === price.id}
+                                handleChange={handleChangeFilterPrice}
                             >
                                 {priceData.label}
                             </RadioButton>
@@ -198,5 +217,11 @@ const Button = styled.button`
         outline: none;
     }
   
+`;
+
+const ButtonWrapper = styled.div`
+    display: flex;
+    align-items: center;
+
 `;
 export default SideBar;

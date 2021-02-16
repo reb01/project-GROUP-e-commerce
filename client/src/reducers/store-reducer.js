@@ -4,7 +4,7 @@ const initialState = {
     error: null,
     sort: 'default',
     filters: {
-            price: {id:'0', value: 'default'},
+            price: {id:'0', value: 'default', label: 'all prices'},
             body_location: {
                 0:{ 
                 id:0,                
@@ -105,18 +105,55 @@ export default function storeReducer(state = initialState, action) {
                 }
             };        
         }
-        case 'UPDATE_STORE_FILTER_BODY_LOCATION':{
+        case 'CLEAR_ALL_STORE_FILTER_BODY_LOCATION' :{
+            return {
+                ...state,
+                filters: {
+                        ...state.filters,
+                        body_location: {...initialState.filters.body_location}
+                }
+            };        
+        }
+        case 'CLEAR_STORE_FILTER_BODY_LOCATION' :{
             return {
                 ...state,
                 filters: {
                         ...state.filters,
                         body_location: {
                                         ...state.filters.body_location,
-                                       [action.id]: {...action.value}
+                                       [action.id]: {
+                                                    ...state.filters.body_location[action.id],
+                                                    isChecked: false}
                                     }
                 }
             };        
+
+        }        
+        case 'CLEAR_STORE_FILTER_PRICE' :{
+            return {
+                ...state,
+                filters: {
+                        ...state.filters,
+                        price: {...initialState.filters.price}
+                }
+            };      
+
         }
+        case 'UPDATE_STORE_FILTER_BODY_LOCATION' :{
+            return {
+                ...state,
+                filters: {
+                        ...state.filters,
+                        body_location: {
+                                        ...state.filters.body_location,
+                                       [action.id]: {
+                                                    ...state.filters.body_location[action.id],
+                                                    isChecked: action.value}
+                                    }
+                }
+            };        
+
+        }        
         default: {
             return state;
         }

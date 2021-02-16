@@ -41,3 +41,16 @@ export const updateStoreFilterBodyLocation = (id, value) => ({
   id,
   value,
 });
+
+export const clearAllStoreFilterBodyLocation = () => ({
+  type: 'CLEAR_ALL_STORE_FILTER_BODY_LOCATION'  
+});
+
+export const clearStoreFilterPrice = () => ({
+  type: 'CLEAR_STORE_FILTER_PRICE'  
+});
+
+export const clearStoreFilterBodyLocation = (id) => ({
+  type: 'CLEAR_STORE_FILTER_BODY_LOCATION',
+  id  
+});
