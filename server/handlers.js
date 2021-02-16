@@ -57,7 +57,7 @@ const getItemsCategory = (req, res) => {
     if ( !category)
       return res.status(400).json({ status: 400, message: "unknown category", data: {category} });
   
-      //filter the group by criteria and type
+      //filter the group by category
     let itemsGroup = items.filter((item)=>{    
           if (item.category)    
             return item.category.toLowerCase().replace(/\s/g, "") === category.toLowerCase();  
