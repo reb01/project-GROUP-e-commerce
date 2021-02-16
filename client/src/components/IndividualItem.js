@@ -46,33 +46,42 @@ const IndividualItem = ({
               alt="itemImage"
             />
           </ImageWrapper>
-
-          <Container>
-            <Price>{typeof price != "undefined" && price ? price : "$0"}</Price>
-            {numInStock === 0 && (
-              <SoldOut>
-                <AiOutlineExclamationCircle color="red" />
-                <SoldOutText>sold out!</SoldOutText>
-              </SoldOut>
-            )}
-          </Container>
         </Wrapper>
-        <ButtonWrap>
-          <Button onClick={(ev) => handleClick(ev)} disabled={numInStock === 0}>
-            ADD TO CART
-          </Button>
-        </ButtonWrap>
+        <Confirm>
+        
+            <Wrapper2>
+              <WrapperCompany>
+                <SoldBy>Sold by {companyName}, </SoldBy>{" "}
+                <ShippedBy> {companyFrom}</ShippedBy>
+                <Description>Description</Description>
+                <Name>
+                  {typeof name != "undefined" && name
+                    ? name
+                    : "Unknown product"}
+                </Name>
+              </WrapperCompany>
+            </Wrapper2>
+            <Container>
+              <Price>
+                {typeof price != "undefined" && price ? price : "$0"}
+              </Price>
+              {numInStock === 0 && (
+                <SoldOut>
+                  <AiOutlineExclamationCircle color="red" />
+                  <SoldOutText>sold out!</SoldOutText>
+                </SoldOut>
+              )}
+            </Container>
+              <ButtonWrap>
+            <Button
+              onClick={(ev) => handleClick(ev)}
+              disabled={numInStock === 0}
+            >
+              ADD TO CART
+            </Button>
+          </ButtonWrap>
+        </Confirm>
       </Main>
-      <Wrapper2>
-        <Description>Description</Description>
-        <Name>
-          {typeof name != "undefined" && name ? name : "Unknown product"}
-        </Name>
-        <WrapperCompany>
-          <SoldBy>Sold by {companyName}, </SoldBy>{" "}
-          <ShippedBy> {companyFrom}</ShippedBy>
-        </WrapperCompany>
-      </Wrapper2>
     </DetailsWrapper>
   );
 };
@@ -84,22 +93,27 @@ const DetailsWrapper = styled.div`
 `;
 const Main = styled.div`
   display: flex;
+  align-items:center;
 `;
-const ButtonWrap = styled.div`
-  display: flex;
-`;
-const Wrapper2 = styled.div`
+const Confirm = styled.div`
   display: flex;
   flex-direction: column;
-  color: black;
+  justify-content: flex-start;
   align-items: center;
+  height:40vh;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+text-align:center;
+  border-radius: 10px;
+`;
+const ButtonWrap = styled.div``;
+const Wrapper2 = styled.div`
+  color: black;
 `;
 const SoldBy = styled.div`
   font-size: 15px;
 `;
 const ShippedBy = styled.div``;
 const WrapperCompany = styled.div`
-  display: flex;
   color: ${COLORS.secondary};
 `;
 const Wrapper = styled.div`
@@ -121,19 +135,24 @@ const ImageWrapper = styled.div`
   padding-top: 35px;
   padding-bottom: 35px;
 `;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
+const SoldOut = styled.div``;
 const Image = styled.img`
   width: 300px;
   object-fit: contain;
 `;
 const Description = styled.h1``;
 const Button = styled.button`
-  position: absolute;
+  font-weight: bolder;
   border: none;
   border-radius: 15px;
   padding: 10px 20px;
   color: white;
-  bottom: 5%;
+
   background-color: ${COLORS.third};
   display: ${(p) => (p.hidden ? "none" : "block")};
   opacity: 0.9;
@@ -160,15 +179,7 @@ const Price = styled.p`
   margin-bottom: 0px;
 `;
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
-const SoldOut = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 const SoldOutText = styled.p`
   color: red;
