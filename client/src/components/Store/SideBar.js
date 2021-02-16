@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import styled, { keyframes, css }  from 'styled-components';
+import styled  from 'styled-components';
 import { NavLink } from "react-router-dom";
 import {
     FiMinus,
     FiPlus
   } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RadioButton from './RadioButton';
+import CheckBox from './CheckBox';
 import { priceRadioButtonData } from './Utilities';
 
 import { COLORS } from "../../constants";
-import { updateStoreFilterPrice } from "../../actions";
+import { updateStoreFilterPrice, updateStoreFilterBodyLocation} from "../../actions";
 
 const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
     const [locationHidden, setLocationHidden] = useState(true);
     const [priceHidden, setPriceHidden] = useState(true);
+    const {filters:{body_location}}= useSelector((state)=>state.store); 
     const dispatch = useDispatch();    
    
     const handleClickCategory = (ev)=>{       
@@ -37,11 +39,19 @@ const SideBar = ()=>{
         dispatch(updateStoreFilterPrice({id: id, value: ev.target.value}));  
       };
 
+    const handleClickFilterBodyLocation = (ev, id, label) => { 
+         dispatch(updateStoreFilterBodyLocation(id, {id: id,
+                                                    value: ev.target.value,     
+                                                    label: label,               
+                                                    isChecked: ev.target.checked}));  
+      };
+
+
     return (
         <>
         <Wrapper>
             <NavBar >            
-                <NavigationLink exact to="/store/products/all" activeClassName='active'>All products</NavigationLink> 
+                <NavigationLink exact to="/store/category/allProducts" activeClassName='active'>All products</NavigationLink> 
                 <Divider/>          
                 <TitleWrapper>
                     <Title>BY CATEGORY</Title>
@@ -66,19 +76,24 @@ const SideBar = ()=>{
                     </Button>
                 </TitleWrapper>
                 <SectionWrapper className={locationHidden && 'expanded'} >
-                    <NavigationLink exact to={`/store/body_location/arms`} activeClassName='active' >Arms</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/chest" activeClassName='active'>Chest</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/feet" activeClassName='active'>Feet</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/hands" activeClassName='active'>Hands</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/head" activeClassName='active'>Head</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/neck" activeClassName='active'>Neck</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/torso" activeClassName='active'>Torso</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/waist" activeClassName='active'>Waist</NavigationLink>
-                    <NavigationLink exact to="/store/body_location/wrist" activeClassName='active'>Wrist</NavigationLink>
+                    {Object.values(body_location).map((data)=>{
+                            return (
+                                <CheckBox
+                                    key={data.id}
+                                    id={data.id}
+                                    value={data.value}                           
+                                    name={data.value}
+                                    isChecked={data.isCkecked}
+                                    handleClick={handleClickFilterBodyLocation}
+                                >
+                                    {data.label}
+                                </CheckBox>
+                            )
+                        })} 
                 </SectionWrapper>   
                 <Divider/>           
                 <TitleWrapper>
-                    <Title>FILTER BY PRICE</Title>
+                    <Title>BY PRICE</Title>
                     <Button onClick={((ev)=>(handleClickPrice(ev)))}>
                         {priceHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
                     </Button>
