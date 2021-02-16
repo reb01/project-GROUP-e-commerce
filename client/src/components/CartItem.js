@@ -4,18 +4,11 @@ import styled from "styled-components";
 import { removeItem, updateQuantity } from "../actions";
 
 import { getStoreItemArray } from "../reducers/item-reducer";
-const CartItem = () => {
-  const dispatch = useDispatch();
-  const newItems = useSelector(getStoreItemArray);  
-   
 
-import { getStoreItemArray } from "../reducers";
 const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
-  const dispatch = useDispatch();
-  const storeState = useSelector(getStoreItemArray);
-
-  const newItems = Object.values(storeState[0]);
-
+  const dispatch = useDispatch(); 
+  const newItems = useSelector(getStoreItemArray);
+  
   useEffect(() => {
     const calculateTotalItem = (storeState) => {
       const reducer = (accumulator, storeItem) => {
@@ -30,7 +23,7 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
 
     const total = calculateTotalItem(newItems);
     setTotalItems(total);
-  }, [storeState]);
+  }, [newItems]);
   useEffect(() => {
     const calculateTotal = (storeState) => {
       const newArray = storeState.map((item) => {
@@ -54,7 +47,7 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
 
     const total = calculateTotal(newItems).toFixed(2);
     setTotalPrice(total);
-  }, [storeState]);
+  }, [newItems]);
 
 
   return (
