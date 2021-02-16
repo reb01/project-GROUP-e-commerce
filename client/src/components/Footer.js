@@ -8,7 +8,7 @@ const Footer = () => {
     <>
       <Wrapper>
         <Logo
-          src={require("../assets/wearteklogo.png")}
+          src={require("../assets/newwearteklogo.png")}
           alt="WearTek"
           height="98px"
         ></Logo>
