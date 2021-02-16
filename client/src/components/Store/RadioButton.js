@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const RadioButton = ({ id, value, name, isDefault, handleClick, children })=>{
+const RadioButton = ({ id, value, name, handleChange, isChecked, children })=>{
     return (
         <RadioButtonWrapper>            
-            <input type="radio" name={name} id={id} onClick={(ev)=>handleClick(ev, id)} value={value} defaultChecked={isDefault} />
+            <Input type="radio" name={name} id={id} onChange={(ev)=>handleChange(ev, id, children)} value={value} checked={isChecked} />
             <Label htmlFor={id}>{children}</Label>         
         </RadioButtonWrapper>  
     );
@@ -27,6 +27,11 @@ const RadioButtonWrapper = styled.div`
 
 const Label = styled.label`
     margin-left: 15px;
+`;
+
+const Input = styled.input`   
+    width: 15px;
+    height: 15px;
 `;
 
 export default RadioButton;

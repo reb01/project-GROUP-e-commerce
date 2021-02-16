@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CheckBox = ({ id, value, name, handleClick, isChecked, children })=>{   
+const CheckBox = ({ id, value, name, handleChange, isChecked, children })=>{ 
     return (
         <Wrapper> 
-            <label >           
-                <Input type="checkbox" name={name} onClick={(ev)=>handleClick(ev, id, children)} value={value} checked={isChecked} />
+            <Label >           
+                <Input type="checkbox" name={name} onChange={(ev)=>handleChange(ev, id, children)} value={value} checked={isChecked} />
             {children}
-            </label>         
+            </Label>         
         </Wrapper>  
     );
 };
@@ -25,9 +25,15 @@ const Wrapper = styled.div`
    color: gray;  
   }
 `;
+const Label = styled.label`
+    display: flex;
+    align-items: center;
+`;
 
 const Input = styled.input`
     margin-right: 15px;
+    width: 15px;
+    height: 15px;
 `;
 
 export default CheckBox;
