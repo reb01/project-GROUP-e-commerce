@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getStoreItemArray } from "../reducers/item-reducer";
+import { getStoreItemArray } from "../reducers";
+import Checkout from "./Checkout";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
-
+import { useHistory } from "react-router-dom";
 
 const Cart = () => {
-  const [totalItems, setTotalItems] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const newItems = useSelector(getStoreItemArray);  
+  const history = useHistory();
+  const storeState = useSelector(getStoreItemArray);
 
-  console.log(totalItems);
+  const newItems = Object.values(storeState[0]);
+  const calculateTotalItem = (state) => {
+    const reducer = (accumulator, storeItem) => {
+      if (storeItem.id) {
+        return accumulator + storeItem.quantity;
+      } else {
+        return accumulator;
+      }
+    };
+    return state.reduce(reducer, 0);
+  };
+
+  const handleClick = () => history.push("/checkout");
+  // console.log(calculateTotalItem(storeState))
   return (
     <>
       <Wrapper>
@@ -22,15 +35,21 @@ const Cart = () => {
         </Header>
         <Main>
           <CartWrapper>
-            <CartItem totalItems={totalItems} setTotalItems={setTotalItems} setTotalPrice={setTotalPrice}/>
+            <CartItem
+              totalItems={totalItems}
+              setTotalItems={setTotalItems}
+              setTotalPrice={setTotalPrice}
+            />
           </CartWrapper>
           {newItems && (
             <ConfirmSideBar>
               <Confirm>
-                <QuantityItem>Item(s) total: {totalItems}</QuantityItem>
-                <Total>Total : ${totalPrice} </Total>
+                <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
+                <Total>Total : </Total>
                 <ButtonDiv>
-                  <Button>CHECKOUT</Button>
+                  <Button calculateTotalItem={newItems} onClick={handleClick}>
+                    CHECKOUT
+                  </Button>
                 </ButtonDiv>
               </Confirm>
             </ConfirmSideBar>

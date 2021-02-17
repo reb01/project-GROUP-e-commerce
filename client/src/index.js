@@ -9,7 +9,7 @@ require("dotenv").config();
 
 function saveToLocalStore(state) {
   try {
-    const initState = JSON.stringify({item: state.item});
+    const initState = JSON.stringify({ item: state.item });
     localStorage.setItem("state", initState);
   } catch (e) {
     console.log(e);
@@ -17,7 +17,7 @@ function saveToLocalStore(state) {
 }
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = localStorage.getItem("state");
     if (serializedState === null) {
       return undefined;
     }
@@ -25,14 +25,14 @@ export const loadState = () => {
   } catch (err) {
     return undefined;
   }
-}; 
+};
 
 const persistedItemState = loadState();
 
 const store = createStore(
-   reducer,
-   persistedItemState ,
-   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  reducer,
+  persistedItemState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 store.subscribe(() => saveToLocalStore(store.getState()));
 ReactDOM.render(
@@ -42,8 +42,4 @@ ReactDOM.render(
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
-
 );
-
-
-
