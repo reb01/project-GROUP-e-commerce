@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getStoreItemArray } from "../reducers";
+import Checkout from "./Checkout";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
+import { useHistory } from "react-router-dom";
 
 const Cart = () => {
+  const history = useHistory();
   const storeState = useSelector(getStoreItemArray);
 
   const newItems = Object.values(storeState[0]);
@@ -16,9 +19,11 @@ const Cart = () => {
       } else {
         return accumulator;
       }
-    }
+    };
     return state.reduce(reducer, 0);
-  }
+  };
+
+  const handleClick = () => history.push("/checkout");
   // console.log(calculateTotalItem(storeState))
   return (
     <>
@@ -32,15 +37,17 @@ const Cart = () => {
           <CartWrapper>
             <CartItem />
           </CartWrapper>
-          {newItems && <ConfirmSideBar>
-          <Confirm>
-            <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
-            <Total>Total : </Total>
-            <ButtonDiv>
-              <Button>CHECKOUT</Button>
-            </ButtonDiv>
-          </Confirm>
-          </ConfirmSideBar>}
+          {newItems && (
+            <ConfirmSideBar>
+              <Confirm>
+                <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
+                <Total>Total : </Total>
+                <ButtonDiv>
+                  <Button calculateTotalItem={newItems} onClick={handleClick}>CHECKOUT</Button>
+                </ButtonDiv>
+              </Confirm>
+            </ConfirmSideBar>
+          )}
         </Main>
       </Wrapper>
     </>
@@ -70,7 +77,6 @@ const Main = styled.div`
   justify-content: space-evenly;
   align-items: center;
 `;
-
 
 const CartWrapper = styled.div`
   grid-area: main;
