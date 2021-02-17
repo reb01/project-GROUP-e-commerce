@@ -8,7 +8,7 @@ import { removeItem, updateQuantity } from "../actions";
 import { getStoreItemArray } from "../reducers";
 import { COLORS } from "../constants";
 const errorMessages = {
-  "missing-data": "Oops! Looks like we're missing some information.",
+  "missing-data": "Oops!! Looks like we're missing some information.",
 };
 const initialState = {
   givenName: "",
