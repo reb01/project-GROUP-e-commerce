@@ -7,6 +7,12 @@ export const COLORS = {
   third: "#00B4D8",
   fourth: "#90E0EF",
   fifth: "#CAF0F8",
-  lightGrey:' #f0f4ef'
+  lightGrey: '#f0f4ef',
+  lightGreen: '#67dba5'
 
 };
+
+export const FONTS = {
+
+  
+}

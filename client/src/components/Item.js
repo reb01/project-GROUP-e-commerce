@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Spinner from "./Tools/Spinner";
 import ErrorPage from "./ErrorPage";
 import IndividualItem from "./IndividualItem";
@@ -8,11 +9,12 @@ import { COLORS } from "../constants";
 import styled from "styled-components";
 
 const Item = () => {
+  const { currentStore } = useSelector((state) => state.store);
   const [itemData, setItemData] = useState([]);
   const [company, setCompany] = useState([]);
   const [status, setStatus] = useState("idle");
   let { id } = useParams();
-
+  console.log(currentStore);
   useEffect(() => {
     setStatus("loading");
     if (id) {
@@ -42,7 +44,7 @@ const Item = () => {
         });
     }
   }, []);
-
+  console.log(itemData);
   return (
     <Wrapper>
       {status === "loading" && <Spinner />}
@@ -51,11 +53,12 @@ const Item = () => {
         <ItemsWrapper>
           <IndividualItem
             key={itemData._id}
-            id={itemData._id}
-            image={itemData.imageSrc}
+            _id={itemData._id}
             name={itemData.name}
             price={itemData.price}
             imageSrc={itemData.imageSrc}
+            category={itemData.category}
+            bodyLocation={itemData.body_location}
             numInStock={itemData.numInStock}
             companyName={company.name}
             companyFrom={company.country}
@@ -67,16 +70,11 @@ const Item = () => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-style: solid;
   border-width: 1px;
   border-color: gray;
   color: ${COLORS.primary};
   min-height: 700px;
 `;
-const ItemsWrapper = styled.div`
-  display: flex;
-`;
+const ItemsWrapper = styled.div``;
 export default Item;

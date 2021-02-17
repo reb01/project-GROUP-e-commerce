@@ -7,7 +7,7 @@ import Contact from "./Contact";
 import Confirmation from "./Confirmation";
 import Item from "./Item";
 import Main from "./Main";
-import Store from "./Store";
+import Store from "./Store/Store";
 import ErrorPage from "./ErrorPage";
 import Checkout from "./Checkout";
 import About from "./About";
@@ -19,7 +19,7 @@ const Body = () => {
               renders the first one that matches the current URL. */}
       <Wrapper>
         <Switch>
-          <Route exact path="/store/:criteria/:type">
+          <Route exact path="/store/category/:category">
             <Store />
           </Route>
           <Route exact path="/cart">

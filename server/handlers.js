@@ -1,5 +1,3 @@
-// Write functions for GET/POST methods here
-
 const items = require("./data/items");
 const companies = require("./data/companies");
 const purchases = require("./data/purchases");
@@ -50,18 +48,14 @@ const getCompanyById = (req, res) => {
   }
 };
 
-const getItems = (req, res) => {
-  const { sort_by, order_by } = req.query;
-
-  //We need to clone the array because we want to keep the original intact and keep our default order.
-  // This way of cloning an array is good only with array of JSON data.
-  let clonedItems = JSON.parse(JSON.stringify(items));
-  // Sort the items if needed.
-  if (sort_by === "price" && order_by === "asc") {
-    clonedItems.sort(compareAscNumber);
-  } else if (sort_by === "price" && order_by === "desc") {
-    clonedItems.sort(compareDescNumber);
-  }
+const getItems = (req, res) => {    
+  const { sort_by, price, body_location } = req.query;  
+ 
+   //We need to clone the array because we want to keep the original intact and keep our default order.
+  // This way of cloning an array is good only with array of JSON data. 
+  let clonedItems = JSON.parse(JSON.stringify(items)); 
+  //sort and filter the items if needed   
+  clonedItems = sortAndFilter(clonedItems, sort_by, price, body_location); 
 
   res.status(200).json({ status: 200, message: "success", data: clonedItems });
 };
@@ -70,38 +64,28 @@ const getCompagnies = (req, res) => {
   res.status(200).json({ status: 200, message: "success", data: companies });
 };
 
-const getItemsGroup = (req, res) => {
-  const { criteria, type } = req.params;
-  const { sort_by, order_by } = req.query;
-
-  if (!criteria || !type)
-    return res.status(400).json({
-      status: 400,
-      message: "unknown criteria and type",
-      data: { criteria, type },
+const getItemsCategory = (req, res) => {
+    const { category } = req.params;   
+    const { sort_by, price, body_location } = req.query; 
+    console.log(req.query);
+   
+    if ( !category)
+      return res.status(400).json({ status: 400, message: "unknown category", data: {category} });
+  
+      //filter the group by category
+    let itemsGroup = items.filter((item)=>{    
+          if (item.category)    
+            return item.category.toLowerCase().replace(/\s/g, "") === category.toLowerCase();  
+          return false;     
     });
 
-  //filter the group by criteria and type
-  let itemsGroup = items.filter((item) => {
-    if (item[criteria])
-      return (
-        item[criteria].toLowerCase().replace(/\s/g, "") === type.toLowerCase()
-      );
-    return false;
-  });
-
-  //sort the items if needed
-  if (sort_by === "price" && order_by === "asc") {
-    itemsGroup.sort(compareAscNumber);
-    console.log("sortAscending");
-  } else if (sort_by === "price" && order_by === "desc") {
-    itemsGroup.sort(compareDescNumber);
-    console.log("sortDescanding");
-  }
-
-  return res
-    .status(200)
-    .json({ status: 200, message: "success", data: itemsGroup });
+    if (itemsGroup.length === 0)
+      return res.status(400).json({ status: 400, message: "category not found", data: {category} });
+    
+    //sort and filter the items if needed
+    itemsGroup = sortAndFilter(itemsGroup, sort_by, price, body_location);   
+    
+    return res.status(200).json({ status: 200, message: "success", data: itemsGroup });  
 };
 
 // add a purchase "/purchase"
@@ -193,6 +177,10 @@ module.exports = {
   getCompanyById,
   getCompagnies,
   getItems,
+<<<<<<< HEAD
   getItemsGroup,
   addPurchase,
+=======
+  getItemsCategory
+>>>>>>> f0c8309ad576fd3ffc2437fd80bdc2e7767a23ba
 };

@@ -1,109 +1,144 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+// import data from "../data";
+import data from "../components/items.json";
 
 import {
   RiHome2Line,
   RiShoppingCartLine,
   RiInformationLine,
   RiStore2Line,
-  RiTeamFill
+  RiTeamFill,
 } from "react-icons/ri";
 import { COLORS } from "../constants";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 const Header = () => {
-  let history = useHistory();
-
-  function handleClick() {
-    // history.push(`/`);
-  }
-
-
   return (
     <>
       <Wrapper>
-        <InternalWrapper>
+        <FirstWrapper>
           <Logo
-            src={require("../assets/wearteklogo.png")}
+            src={require("../assets/newwearteklogo.png")}
             alt="WearTek"
             height="98px"
           ></Logo>
+          {/* <Button>3</Button> */}
+
           <Motto>How do you wear it?</Motto>
-          <nav>
-            <NavLinkList>
-              <NavLinkListItem tabindex="0">
-                <Link to="/">
-                  <RiHome2Line size="35" />
-                  <NavigationLink>Main</NavigationLink>
-                </Link>
-              </NavLinkListItem>
-
-              <NavLinkListItem tabindex="0">
-                <Link to="/about">
-                  <RiTeamFill size="35" />
-                  <NavigationLink>About</NavigationLink>
-                </Link>
-              </NavLinkListItem>
-
-              <NavLinkListItem tabindex="0">
-                <Link to="/store/products/all">
-                  <RiStore2Line size="35" />
-                  <NavigationLink>Store</NavigationLink>
-                </Link>
-              </NavLinkListItem>
-
-              <NavLinkListItem tabindex="0">
-                <Link to="/contactinfo">
-                  <RiInformationLine size="35" />
-                  <NavigationLink>Support</NavigationLink>
-                </Link>
-              </NavLinkListItem>
-
-              <NavLinkListItem tabindex="0">
-                <Link to="/cart">
-                  <RiShoppingCartLine size="35" />
-                  <NavigationLink>Cart</NavigationLink>
-                </Link>
-              </NavLinkListItem>
-            </NavLinkList>
-          </nav>
-        </InternalWrapper>
-        <Ad>
-          <AdText>
-            FREE SHIPPING ON ORDERS $25 AND UP. FREE EXPRESS SHIPPING ON MOST
-            ORDERS $999 AND UP.*
-          </AdText>
-        </Ad>
+          <SearchBarContainer>
+            <NavLinkListItem tabindex="0">
+              <SearchBar data={data} />
+            </NavLinkListItem>
+          </SearchBarContainer>
+        </FirstWrapper>
+        <SecondWrapper>
+          <NavLinkList>
+            <NavLinkListItem tabindex="0">
+              <Link to="/">
+                <RiHome2Line size="35" />
+                <NavigationLink>Main</NavigationLink>
+              </Link>
+            </NavLinkListItem>
+            <NavLinkListItem tabindex="0">
+              <Link to="/about">
+                <RiTeamFill size="35" />
+                <NavigationLink>About</NavigationLink>
+              </Link>
+            </NavLinkListItem>
+            <NavLinkListItem tabindex="0">
+              <Link to="/store/category/allProducts">
+                <RiStore2Line size="35" />
+                <NavigationLink>Store</NavigationLink>
+              </Link>
+            </NavLinkListItem>
+            <NavLinkListItem tabindex="0">
+              <Link to="/contactinfo">
+                <RiInformationLine size="35" />
+                <NavigationLink>Support</NavigationLink>
+              </Link>
+            </NavLinkListItem>
+            <NavLinkListItem tabindex="0">
+              <Link to="/cart">
+                <RiShoppingCartLine size="35" />
+                <NavigationLink>Cart</NavigationLink>
+              </Link>
+            </NavLinkListItem>
+          </NavLinkList>
+        </SecondWrapper>
       </Wrapper>
+      <Ad>
+        <AdText>
+          FREE SHIPPING ON ORDERS $25 AND UP. FREE EXPRESS SHIPPING ON MOST
+          ORDERS $999 AND UP.*
+        </AdText>
+      </Ad>
     </>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-const InternalWrapper = styled.div`
+  justify-content: space-between;
   position: relative;
+  width: 100vw;
+  background-color: ${COLORS.fifth};
+`;
+
+const FirstWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100px;
+`;
+const SecondWrapper = styled.div`
   background-color: ${COLORS.fifth};
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  border-style: solid;
-  border-width: 1px;
-  border-color: gray;
   height: 100px;
+`;
+const Button = styled.div`
+  position: absolute;
+  font-family: "Alata", sans-serif;
+  font-size: 15px;
+  right: 65px;
+  top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px;
+  background-color: "black";
+  border-style: "solid";
+  outline: none;
+`;
+const SearchBarContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 28%;
+  left: 525px;
+  @media (max-width: 1600px) {
+    left: 170px;
+  }
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const Motto = styled.p`
   position: absolute;
+  left: 180px;
+  top: 22%;
   font-family: "Alata", sans-serif;
-  left: 300px;
   color: ${COLORS.secondary};
   font-size: 35px;
   font-weight: 600;
-  @media (max-width: 1200px) {
+  @media (max-width: 1600px) {
     visibility: hidden;
   }
 `;
@@ -129,9 +164,6 @@ const NavLinkList = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
-  @media (max-width: 750px) {
-    visibility: hidden;
-  }
 `;
 
 const NavLinkListItem = styled.li`
@@ -172,6 +204,10 @@ const NavigationLink = styled.p`
   padding-right: 10px;
   margin-left: 5px;
   outline: 0;
+  @media (max-width: 800px) {
+    display: none;
+    padding-right: 0px;
+  }
 `;
 
 const Link = styled(NavLink)`
@@ -184,7 +220,7 @@ const Link = styled(NavLink)`
 const Logo = styled.img`
   display: flex;
   position: absolute;
-  left: 100px;
+  left: 50px;
   @media (max-width: 800px) {
     left: 10px;
   }

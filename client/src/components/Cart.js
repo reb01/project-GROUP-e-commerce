@@ -35,7 +35,11 @@ const Cart = () => {
         </Header>
         <Main>
           <CartWrapper>
-            <CartItem />
+            <CartItem
+              totalItems={totalItems}
+              setTotalItems={setTotalItems}
+              setTotalPrice={setTotalPrice}
+            />
           </CartWrapper>
           {newItems && (
             <ConfirmSideBar>
@@ -43,7 +47,9 @@ const Cart = () => {
                 <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
                 <Total>Total : </Total>
                 <ButtonDiv>
-                  <Button calculateTotalItem={newItems} onClick={handleClick}>CHECKOUT</Button>
+                  <Button calculateTotalItem={newItems} onClick={handleClick}>
+                    CHECKOUT
+                  </Button>
                 </ButtonDiv>
               </Confirm>
             </ConfirmSideBar>
