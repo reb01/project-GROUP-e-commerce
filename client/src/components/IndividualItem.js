@@ -6,25 +6,28 @@ import { COLORS } from "../constants";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 
 const IndividualItem = ({
-  id,
+  _id,
   name,
   price,
   imageSrc,
+  category,
   numInStock,
   companyName,
   companyFrom,
   bodyLocation,
 }) => {
+  console.log(name);
   const [hidden, setHidden] = useState(true);
   const dispatch = useDispatch();
   const handleClick = (ev) => {
     ev.preventDefault();
     dispatch(
       addItem({
-        id,
+        _id,
         name,
         price,
         imageSrc,
+        numInStock,
         companyName,
         companyFrom,
         bodyLocation,
@@ -33,99 +36,104 @@ const IndividualItem = ({
   };
 
   return (
-    <DetailsWrapper>
-      <Main>
-        <Wrapper>
-          <ImageWrapper>
-            <Image
-              src={
-                typeof imageSrc != "undefined" && imageSrc
-                  ? imageSrc
-                  : require("../assets/noImage.gif")
-              }
-              alt="itemImage"
-            />
-          </ImageWrapper>
-        </Wrapper>
-        <Confirm>
-        
-            <Wrapper2>
-              <WrapperCompany>
-                <SoldBy>Sold by {companyName}, </SoldBy>{" "}
-                <ShippedBy> {companyFrom}</ShippedBy>
-                <Description>Description</Description>
-                <Name>
-                  {typeof name != "undefined" && name
-                    ? name
-                    : "Unknown product"}
-                </Name>
-              </WrapperCompany>
-            </Wrapper2>
-            <Container>
-              <Price>
-                {typeof price != "undefined" && price ? price : "$0"}
-              </Price>
-              {numInStock === 0 && (
-                <SoldOut>
-                  <AiOutlineExclamationCircle color="red" />
-                  <SoldOutText>sold out!</SoldOutText>
-                </SoldOut>
-              )}
-            </Container>
-              <ButtonWrap>
-            <Button
-              onClick={(ev) => handleClick(ev)}
-              disabled={numInStock === 0}
-            >
-              ADD TO CART
-            </Button>
-          </ButtonWrap>
-        </Confirm>
-      </Main>
-    </DetailsWrapper>
+    <Main>
+      <Wrapper>
+        <ImageWrapper>
+          <Image
+            src={
+              typeof imageSrc != "undefined" && imageSrc
+                ? imageSrc
+                : require("../assets/noImage.gif")
+            }
+            alt="itemImage"
+          />
+        </ImageWrapper>
+      </Wrapper>
+      <Confirm>
+   
+          <SoldBy>
+            Sold by <Span>{companyName}</Span>,{" "}
+          </SoldBy>{" "}
+          <ShippedBy>{companyFrom} </ShippedBy>
+          <WrapperCompany>
+          <Description>Description</Description>
+          <Name>
+            {typeof name != "undefined" && name ? name : "Unknown product"}
+          </Name>
+        </WrapperCompany>
+
+        <Container>
+          <Price>{typeof price != "undefined" && price ? price : "$0"}</Price>
+          {numInStock === 0 && (
+            <SoldOut>
+              <AiOutlineExclamationCircle color="red" />
+              <SoldOutText>sold out!</SoldOutText>
+            </SoldOut>
+          )}
+        </Container>
+        <ButtonWrap>
+          <Button onClick={(ev) => handleClick(ev)} disabled={numInStock === 0}>
+            ADD TO CART
+          </Button>
+        </ButtonWrap>
+      </Confirm>
+    </Main>
   );
 };
 
-const DetailsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: black;
-`;
 const Main = styled.div`
   display: flex;
-  align-items:center;
-`;
-const Confirm = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  height:40vh;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-text-align:center;
-  border-radius: 10px;
-`;
-const ButtonWrap = styled.div``;
-const Wrapper2 = styled.div`
+  justify-content: space-evenly;
+  align-content: space-around;
+  padding:100px;
   color: black;
-`;
-const SoldBy = styled.div`
-  font-size: 15px;
-`;
-const ShippedBy = styled.div``;
-const WrapperCompany = styled.div`
-  color: ${COLORS.secondary};
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  width: 650px;
+  width: 600px;
   max-height: 480px;
   margin: 10px;
   padding: 50px 35px;
   background-color: ${COLORS.lightGrey};
 `;
+const Confirm = styled.div`
+  display: flex;
+  flex-direction: column;
+padding:10px;
+  min-width: 20vw;
+  max-width:25vw;
+  min-height: 30vh;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 10px;
+`;
+const WrapperCompany = styled.div`
+display:flex;
+flex-direction:column;
+margin-top:10px;
+
+padding:5px;
+  color: ${COLORS.secondary};
+  color: black;
+`;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+`;
+const SoldBy = styled.div`
+  font-size: 15px;
+`;
+const ShippedBy = styled.div``;
+
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -135,17 +143,27 @@ const ImageWrapper = styled.div`
   padding-top: 35px;
   padding-bottom: 35px;
 `;
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
+const Name = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding-top:15px;
+  padding-bottom:15px;
+  font-size: 20px;
+  color: ${COLORS.primary};
+  font-weight: bold;
+`;
 const SoldOut = styled.div``;
 const Image = styled.img`
   width: 300px;
   object-fit: contain;
 `;
-const Description = styled.h1``;
+const Description = styled.div`
+font-size:20px;
+padding-bottom:10px;
+font-weight:bolder;
+  text-decoration: underline;
+`;
 const Button = styled.button`
   font-weight: bolder;
   border: none;
@@ -165,26 +183,20 @@ const Button = styled.button`
   }
 `;
 
-const Name = styled.p`
-  font-size: 18px;
-  margin-top: auto;
-  color: ${COLORS.primary};
-  font-weight: bold;
-`;
-
-const Price = styled.p`
+const Price = styled.div`
   font-size: 20px;
   font-weight: bold;
   color: ${COLORS.secondary};
-  margin-bottom: 0px;
+  margin-top: 20px;
 `;
-
-
 
 const SoldOutText = styled.p`
   color: red;
   font-size: 12px;
   margin: 0 5px;
+`;
+const Span = styled.span`
+  font-weight: bolder;
 `;
 
 export default IndividualItem;
