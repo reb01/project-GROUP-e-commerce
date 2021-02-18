@@ -3,20 +3,8 @@ const companies = require("./data/companies");
 const purchases = require("./data/purchases");
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
+const { sortAndFilter } = require("./helpers");
 
-const compareAscNumber = (a, b) => {
-  return (
-    parseFloat(a.price.replace(/[$,]/g, "")) -
-    parseFloat(b.price.replace(/[$,]/g, ""))
-  );
-};
-
-const compareDescNumber = (a, b) => {
-  return (
-    parseFloat(b.price.replace(/[$,]/g, "")) -
-    parseFloat(a.price.replace(/[$,]/g, ""))
-  );
-};
 
 const getSingleItem = (req, res) => {
   const id = req.params.id;
