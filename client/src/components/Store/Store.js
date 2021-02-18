@@ -72,7 +72,7 @@ const Store = () => {
     <Wrapper>  
       <SideBar />
       <RightWrapper>       
-        {<Image src={TitleStore[category].image} alt="image"></Image>}
+        {<Image src={TitleStore[category].image} alt="image" objectPosition={TitleStore[category].objectPosition}></Image>}
         {<Banner />}
         <Title>{TitleStore[category].name.toUpperCase()}</Title>        
         <FilterWrapper>
@@ -133,18 +133,26 @@ const ItemsWrapper = styled.div`
 
 const Title = styled.p`
   box-sizing:border-box;
+  padding-left: 15px;
   margin: 0 40px;
-  font-size: 54px; 
+  font-size: 46px; 
   color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center; 
    min-height: 122px;
   z-index:3;  
 
-  @media (max-width: 940px) {
-    font-size: 42px;
-    min-height: 122px;
+  @media (max-width: 1000px) {
+    font-size: 40px;  
+    padding-left: 10px; 
+  }
+
+  @media (max-width: 768px) {
+    font-size: 30px; 
+    margin-left: 20px;  
+    padding-left: 0px; 
+    height: 110px;  
   }
   `;
 
@@ -192,15 +200,20 @@ const Title = styled.p`
 
   const Image = styled.img`  
     position: absolute;
-    left: 15px;
+    right: 0px;
     height: 122px;
     width: 40%;
     background-color: ${COLORS.secondary};
     filter: grayscale(100%) opacity(0.5);
     object-fit: cover;
-    object-position: 50% 35%;
-    z-index: 1;
-    border-top-right-radius: 60px;   
+    object-position: ${(p)=>p.objectPosition};
+    z-index: 1;    
+    border-top-left-radius: 60px;
+
+    @media (max-width: 768px) {       
+    height: 112px;
+    top: 4px;
+  }
   `;
 
 const Banner = styled.div`
@@ -208,8 +221,17 @@ const Banner = styled.div`
     left: 15px;
     top: 15px;
     height: 90px;
-    width: 99%;
+    width: 100%;
     background-color:${COLORS.secondary};  
+    @media (max-width: 1000px) {
+    font-size: 40px;  
+    padding-left: 10px; 
+  }
+  @media (max-width: 768px) {
+    left: 0px;    
+    height: 80px;
+    top: 20px;
+  }
 
 `;
 

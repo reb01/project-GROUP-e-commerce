@@ -93,7 +93,7 @@ const Checkout = () => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, storeState }),
+        body: JSON.stringify({ ...formData, newItems }),
       })
         .then((response) => response.json())
         .then((response) => {
@@ -111,7 +111,7 @@ const Checkout = () => {
         });
     }
   };
-  const totalCost = storeState.reduce(
+  const totalCost = newItems.reduce(
     (sum, i) => (sum += i.quantity * parseFloat(i.price.replace(/[$,]+/g, ""))),
     0.0
   );

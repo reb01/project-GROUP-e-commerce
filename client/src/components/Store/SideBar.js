@@ -4,9 +4,8 @@ import { NavLink } from "react-router-dom";
 import {
     FiMinus,
     FiPlus
-  } from "react-icons/fi";
+  } from "react-icons/fi"; 
  
-  import { FcClearFilters } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import RadioButton from './RadioButton';
 import CheckBox from './CheckBox';
@@ -81,8 +80,8 @@ const SideBar = ()=>{
                 <TitleWrapper>
                     <Title>BODY LOCATION</Title>
                     <ButtonWrapper>
-                        <Button title="Clear filters">
-                            <FcClearFilters size={18} onClick={((ev)=>(handleClearAllFilterBodyLocation(ev)))}/>
+                        <Button title="Clear filters" onClick={((ev)=>(handleClearAllFilterBodyLocation(ev)))}>
+                            CLEAR
                         </Button>
                         <Button onClick={((ev)=>(handleClickLocation(ev)))}>
                             {locationHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
@@ -109,8 +108,8 @@ const SideBar = ()=>{
                 <TitleWrapper>
                     <Title>PRICE</Title>
                     <ButtonWrapper>
-                        <Button title="Clear filters">
-                            <FcClearFilters size={18} onClick={((ev)=>(handleClearFilterPrice(ev)))}/>
+                        <Button title="Clear filters" onClick={((ev)=>(handleClearFilterPrice(ev)))}>
+                            CLEAR
                         </Button>
                         <Button onClick={((ev)=>(handleClickPrice(ev)))}>
                             {priceHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
@@ -147,6 +146,9 @@ const Wrapper = styled.div`
    @media (max-width: 940px) {
      min-width: 260px;   
  } 
+ @media (max-width: 768px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const NavBar = styled.nav`
@@ -203,10 +205,15 @@ const Title = styled.p`
 const Button = styled.button`    
     border: none;   
     background-color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-left: 10px;
 
     :hover:enabled {   
         cursor: pointer;
-        opacity: 0.7;         
+        opacity: 0.7;      
+        text-decoration: none;   
     }
 
     :focus,
