@@ -35,10 +35,8 @@ const Checkout = () => {
   const [dataReceived, setDataReceived] = useState("");
   const [errMessage, setErrMessage] = useState("");
 
-  const dispatch = useDispatch();
-  const storeState = useSelector(getStoreItemArray);
-  // console.log("storeState",storeState);
-  const newItems = Object.values(storeState[0]);
+  const dispatch = useDispatch();  
+  const newItems = useSelector(getStoreItemArray);
   console.log("newItems", newItems);
   const history = useHistory();
 
@@ -95,7 +93,7 @@ const Checkout = () => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, storeState }),
+        body: JSON.stringify({ ...formData, newItems }),
       })
         .then((response) => response.json())
         .then((response) => {
@@ -113,7 +111,7 @@ const Checkout = () => {
         });
     }
   };
-  const totalCost = storeState.reduce(
+  const totalCost = newItems.reduce(
     (sum, i) => (sum += i.quantity * parseFloat(i.price.replace(/[$,]+/g, ""))),
     0.0
   );

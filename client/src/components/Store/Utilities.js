@@ -59,12 +59,12 @@ export const priceRadioButtonData = [
 ];
 
 export const TitleStore = {
-    allProducts: {name:'All Products', image: require("../../assets/allproducts.jpg")},
-    entertainment: {name:'Entertainment', image: require("../../assets/Entertainment.jpg")},
-    fitness: {name:'Fitness', image: require("../../assets/fitness.jpg")},
-    lifestyle: {name:'Lifestyle', image: require("../../assets/Lifestyle.jpg")},
-    gaming: {name:'Gaming', image: require("../../assets/gaming.jpg")},
-    industrial: {name:'Industrial', image: require("../../assets/industrial.jpg")},
-    medical: {name:'Medical', image: require("../../assets/Medical.jpg")},
-    petsandanimals: {name:'Pets And Animals', image: require("../../assets/petsandanimals.jpg")}
+    allProducts: {name:'All Products', image: require("../../assets/allproducts.jpg"), objectPosition: '50% 50%'},
+    entertainment: {name:'Entertainment', image: require("../../assets/Entertainment.jpg"), objectPosition: '50% 35%'},
+    fitness: {name:'Fitness', image: require("../../assets/fitness.jpg"), objectPosition: '50% 30%'},
+    lifestyle: {name:'Lifestyle', image: require("../../assets/Lifestyle.jpg"), objectPosition: '50% 50%'},
+    gaming: {name:'Gaming', image: require("../../assets/gaming.jpg"), objectPosition: '50% 75%'},
+    industrial: {name:'Industrial', image: require("../../assets/industrial.jpg"), objectPosition: '50% 50%'},
+    medical: {name:'Medical', image: require("../../assets/Medical.jpg"), objectPosition: '50% 50%'},
+    petsandanimals: {name:'Pets And Animals', image: require("../../assets/petsandanimals.jpg"), objectPosition: '50% 30%'}
 };

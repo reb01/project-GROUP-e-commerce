@@ -99,9 +99,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   width: 250px;
-  height: 415px;
+  height: 400px;
   margin: 10px;
-  padding: 10px 15px;
+  padding: 10px 10px;
   background-color: ${COLORS.lightGrey};
   @media (max-width: 940px) {
     width: 200px;
@@ -142,6 +142,9 @@ const Name = styled.p`
   font-size: 13px;
   margin-top: auto;
   color: black;
+  padding: 0 5px 5px 5px;
+  overflow: hidden;
+  
 `;
 
 const Price = styled.p`
@@ -157,6 +160,8 @@ const StyledLink = styled(Link)`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 0 5px;
+  
 `;
 
 const SoldOut = styled.div`
