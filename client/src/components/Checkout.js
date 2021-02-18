@@ -35,10 +35,8 @@ const Checkout = () => {
   const [dataReceived, setDataReceived] = useState("");
   const [errMessage, setErrMessage] = useState("");
 
-  const dispatch = useDispatch();
-  const storeState = useSelector(getStoreItemArray);
-  // console.log("storeState",storeState);
-  const newItems = Object.values(storeState[0]);
+  const dispatch = useDispatch();  
+  const newItems = useSelector(getStoreItemArray);
   console.log("newItems", newItems);
   const history = useHistory();
 
