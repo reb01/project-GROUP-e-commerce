@@ -8,10 +8,12 @@ import CartItem from "./CartItem";
 import { useHistory } from "react-router-dom";
 
 const Cart = () => {
+  const [totalItems, setTotalItems] = useState()
+  const [totalprice, setTotalPrice] = useState();
   const history = useHistory();
   const storeState = useSelector(getStoreItemArray);
 
-  const newItems = Object.values(storeState[0]);
+ 
   const calculateTotalItem = (state) => {
     const reducer = (accumulator, storeItem) => {
       if (storeItem.id) {
@@ -41,13 +43,13 @@ const Cart = () => {
               setTotalPrice={setTotalPrice}
             />
           </CartWrapper>
-          {newItems && (
+          {storeState && (
             <ConfirmSideBar>
               <Confirm>
-                <QuantityItem>Item(s) total: {newItems.length} </QuantityItem>
-                <Total>Total : </Total>
+                <QuantityItem>Item(s) total: {storeState.length} </QuantityItem>
+                <Total>Total : {calculateTotalItem(storeState)} </Total>
                 <ButtonDiv>
-                  <Button calculateTotalItem={newItems} onClick={handleClick}>
+                  <Button  onClick={handleClick}>
                     CHECKOUT
                   </Button>
                 </ButtonDiv>
