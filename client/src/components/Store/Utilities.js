@@ -59,12 +59,12 @@ export const priceRadioButtonData = [
 ];
 
 export const TitleStore = {
-    allProducts: 'All Products',
-    entertainment: 'Entertainment',
-    fitness: 'Fitness',
-    lifestyle: 'Lifestyle',
-    gaming: 'Gaming',
-    industrial: 'Industrial',
-    medical: 'Medical',
-    petsandanimals: 'Pets And Animals'
+    allProducts: {name:'All Products', image: require("../../assets/allproducts.jpg")},
+    entertainment: {name:'Entertainment', image: require("../../assets/Entertainment.jpg")},
+    fitness: {name:'Fitness', image: require("../../assets/fitness.jpg")},
+    lifestyle: {name:'Lifestyle', image: require("../../assets/Lifestyle.jpg")},
+    gaming: {name:'Gaming', image: require("../../assets/gaming.jpg")},
+    industrial: {name:'Industrial', image: require("../../assets/industrial.jpg")},
+    medical: {name:'Medical', image: require("../../assets/Medical.jpg")},
+    petsandanimals: {name:'Pets And Animals', image: require("../../assets/petsandanimals.jpg")}
 };

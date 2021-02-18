@@ -71,8 +71,10 @@ const Store = () => {
   return (
     <Wrapper>  
       <SideBar />
-      <RightWrapper>
-        <Title><i>{TitleStore[category]}</i></Title>
+      <RightWrapper>       
+        {<Image src={TitleStore[category].image} alt="image"></Image>}
+        {<Banner />}
+        <Title>{TitleStore[category].name.toUpperCase()}</Title>        
         <FilterWrapper>
           {Object.values(body_location).map((item)=>{
               if (item.isChecked) {
@@ -115,6 +117,7 @@ const Wrapper = styled.div`
 `;
 
 const RightWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column; 
   width: 100%;  
@@ -130,25 +133,29 @@ const ItemsWrapper = styled.div`
 
 const Title = styled.p`
   box-sizing:border-box;
-  margin: 0 30px;
-  font-size: 90px;
-  font-family: 'Open Sans Condensed', sans-serif;
-  color: ${COLORS.lightGreen};
-  text-shadow: 3px 3px lightgray;
-  min-height: 122px;
+  margin: 0 40px;
+  font-size: 54px; 
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; 
+   min-height: 122px;
+  z-index:3;  
 
   @media (max-width: 940px) {
-    font-size: 56px;
-    min-height: 76px;
+    font-size: 42px;
+    min-height: 122px;
   }
   `;
 
-  const Span = styled.span`  
+  const Span = styled.span`     
+    display: flex;
+    align-items: center;
     font-size: 14px;    
-    background-color: lightgrey;
+    background-color: #E0E0E0;
     margin: 5px;
-    border-radius: 15px;
-    padding: 0px 10px 2px 10px;
+    border-radius: 8px;
+    padding: 0px 10px 2px 10px;    
   `;
 
   const FilterWrapper = styled.div`  
@@ -167,10 +174,10 @@ const Title = styled.p`
 
   const Button = styled.button`
     border: none;   
-    background-color: lightgray;
+    background-color: #E0E0E0;
     margin-left: 10px;
     padding: 0;
-
+    color: gray; 
     :hover:enabled {   
         cursor: pointer;
         opacity: 0.7;         
@@ -182,5 +189,28 @@ const Title = styled.p`
     }
   
   `;
+
+  const Image = styled.img`  
+    position: absolute;
+    left: 15px;
+    height: 122px;
+    width: 40%;
+    background-color: ${COLORS.secondary};
+    filter: grayscale(100%) opacity(0.5);
+    object-fit: cover;
+    object-position: 50% 35%;
+    z-index: 1;
+    border-top-right-radius: 60px;   
+  `;
+
+const Banner = styled.div`
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    height: 90px;
+    width: 99%;
+    background-color:${COLORS.secondary};  
+
+`;
 
 export default Store;

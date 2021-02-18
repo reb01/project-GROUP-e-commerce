@@ -59,16 +59,16 @@ const SideBar = ()=>{
     return (
         <>
         <Wrapper>
-            <NavBar >            
-                <NavigationLink exact to="/store/category/allProducts" activeClassName='active'>All products</NavigationLink> 
+            <NavBar >   
                 <Divider/>          
                 <TitleWrapper>
-                    <Title>BY CATEGORY</Title>
+                    <Title>CATEGORY</Title>
                     <Button onClick={((ev)=>(handleClickCategory(ev)))}>
                         {categoryHidden ? <FiPlus color='grey' size={20}/> : <FiMinus color='grey' size={20}/>}
                     </Button>
                 </TitleWrapper>
                 <SectionWrapper className={categoryHidden && 'expanded'} >
+                <NavigationLink exact to="/store/category/allProducts" activeClassName='active'>All products</NavigationLink> 
                     <NavigationLink exact to={`/store/category/entertainment`} activeClassName='active' >Entertainment</NavigationLink>
                     <NavigationLink exact to="/store/category/fitness" activeClassName='active'>Fitness</NavigationLink>
                     <NavigationLink exact to="/store/category/lifestyle" activeClassName='active'>Lifestyle</NavigationLink>
@@ -79,7 +79,7 @@ const SideBar = ()=>{
                 </SectionWrapper>   
                 <Divider/>       
                 <TitleWrapper>
-                    <Title>BY BODY LOCATION</Title>
+                    <Title>BODY LOCATION</Title>
                     <ButtonWrapper>
                         <Button title="Clear filters">
                             <FcClearFilters size={18} onClick={((ev)=>(handleClearAllFilterBodyLocation(ev)))}/>
@@ -107,7 +107,7 @@ const SideBar = ()=>{
                 </SectionWrapper>   
                 <Divider/>           
                 <TitleWrapper>
-                    <Title>BY PRICE</Title>
+                    <Title>PRICE</Title>
                     <ButtonWrapper>
                         <Button title="Clear filters">
                             <FcClearFilters size={18} onClick={((ev)=>(handleClearFilterPrice(ev)))}/>
@@ -141,14 +141,11 @@ const SideBar = ()=>{
 };
 
 const Wrapper = styled.div`
-   margin: 20px 20px;
+   margin: 0px 20px;
    min-width: 340px;
    box-sizing:border-box;  
    @media (max-width: 940px) {
      min-width: 260px;   
- } 
- @media (max-width: 768px) {
-    margin-top: 0; 
  } 
 `;
 
@@ -156,13 +153,13 @@ const NavBar = styled.nav`
    display: flex;
    flex-direction: column; 
    font-weight: bold;
-   margin-top: 7px;    
+   margin-top: 0px;    
 `;
 
 const Divider = styled.div`
  border-top: solid 1px #E8E8E8;
- margin-top: 5px;
 `;
+
 const SectionWrapper = styled.div`  
     max-height: 400px;
     overflow: hidden;   
@@ -184,7 +181,7 @@ const NavigationLink = styled(NavLink)`
   font-weight: normal; 
  
   &.active {
-    background-color: ${COLORS.fourth};
+    background-color: ${COLORS.fifth};
   }
 
   &:hover {     
@@ -195,7 +192,7 @@ const NavigationLink = styled(NavLink)`
 const TitleWrapper = styled.div`
     display: flex;
     justify-content: space-between;   
-    margin-top: 5px;
+    margin: 5px 0px;
 `;
 const Title = styled.p`
     padding: 0px 0 5px 0;

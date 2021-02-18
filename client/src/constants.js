@@ -8,7 +8,7 @@ export const COLORS = {
   fourth: "#90E0EF",
   fifth: "#CAF0F8",
   lightGrey: '#f0f4ef',
-  lightGreen: '#67dba5'
+ 
 
 };
 
