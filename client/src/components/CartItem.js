@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { COLORS } from "../constants";
 import styled from "styled-components";
 import { removeItem, updateQuantity } from "../actions";
 
 import { getStoreItemArray } from "../reducers/item-reducer";
 
 const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const newItems = useSelector(getStoreItemArray);
-  
+
   useEffect(() => {
     const calculateTotalItem = (storeState) => {
       const reducer = (accumulator, storeItem) => {
@@ -49,7 +51,6 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
     setTotalPrice(total);
   }, [newItems]);
 
-
   return (
     <Wrapper>
       <List>
@@ -58,9 +59,11 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
             return (
               <Items key={item._id}>
                 <Header>
-                  <Title>
-                    <h3>{item.name} </h3>
-                  </Title>
+                  <StyledLink to={`/item/${item._id}`}>
+                    <Title>
+                      <h3>{item.name} </h3>
+                    </Title>
+                  </StyledLink>
                   <Delete>
                     <DeleteButton
                       onClick={() => {
@@ -73,12 +76,21 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
                 </Header>
 
                 <ItemWrapper>
-                  <ItemImg src={item.imageSrc} />
-                  <Description>
-                    <Category> Category: {item.category}</Category>
+                  <StyledLink to={`/item/${item._id}`}>
+                    <Description>
+                      <ItemImg src={item.imageSrc} />
+                      <Category>
+                        <SubCategory>
+                          {" "}
+                          <Span>Category:</Span> {item.category}
+                        </SubCategory>
 
-                    <Location> Body Location: {item.body_location}</Location>
-                  </Description>
+                        <Location>
+                          <Span>Body Location:</Span> {item.body_location}
+                        </Location>
+                      </Category>
+                    </Description>
+                  </StyledLink>
                   <ItemTotals>
                     <div>
                       <Price>{item.price}</Price>
@@ -149,7 +161,10 @@ const ItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
 const ItemTotals = styled.div`
   display: flex;
   flex-direction: column;
@@ -157,9 +172,14 @@ const ItemTotals = styled.div`
 `;
 const Description = styled.div`
   display: flex;
-  flex-direction: column;
 `;
-const Category = styled.div``;
+const Category = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+`;
+const SubCategory = styled.div``;
+
 const Location = styled.div``;
 const Quantity = styled.div`
   padding: 5px;
@@ -185,5 +205,9 @@ const ItemImg = styled.img`
   max-height: 150px;
   max-width: 150px;
   border-radius: 10px;
+`;
+const Span = styled.span`
+  font-weight: bolder;
+  color: ${COLORS.secondary};
 `;
 export default CartItem;
