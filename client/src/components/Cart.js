@@ -9,24 +9,14 @@ import { useHistory } from "react-router-dom";
 
 const Cart = () => {
   const [totalItems, setTotalItems] = useState()
-  const [totalprice, setTotalPrice] = useState();
+  const [totalPrice, setTotalPrice] = useState();
   const history = useHistory();
   const storeState = useSelector(getStoreItemArray);
 
- 
-  const calculateTotalItem = (state) => {
-    const reducer = (accumulator, storeItem) => {
-      if (storeItem.id) {
-        return accumulator + storeItem.quantity;
-      } else {
-        return accumulator;
-      }
-    };
-    return state.reduce(reducer, 0);
-  };
+  
 
   const handleClick = () => history.push("/checkout");
-  // console.log(calculateTotalItem(storeState))
+
   return (
     <>
       <Wrapper>
@@ -47,7 +37,7 @@ const Cart = () => {
             <ConfirmSideBar>
               <Confirm>
                 <QuantityItem>Item(s) total: {storeState.length} </QuantityItem>
-                <Total>Total : {calculateTotalItem(storeState)} </Total>
+                <Total>Total : {totalPrice} </Total>
                 <ButtonDiv>
                   <Button  onClick={handleClick}>
                     CHECKOUT
