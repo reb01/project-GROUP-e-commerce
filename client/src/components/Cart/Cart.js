@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getStoreItemArray } from "../reducers/item-reducer";
-import Checkout from "./Checkout";
-import { COLORS } from "../constants";
+import { getStoreItemArray } from "../../reducers/item-reducer";
+import EmptyCart from "./EmptyCart";
+import Checkout from "../Checkout";
+import { COLORS } from "../../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import { useHistory } from "react-router-dom";
 
 const Cart = () => {
-  const [totalItems, setTotalItems] = useState()
+  const [totalItems, setTotalItems] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const history = useHistory();
   const storeState = useSelector(getStoreItemArray);
-
-  
 
   const handleClick = () => history.push("/checkout");
 
@@ -33,18 +32,18 @@ const Cart = () => {
               setTotalPrice={setTotalPrice}
             />
           </CartWrapper>
-          {storeState && (
+          {storeState.length > 0 ? (
             <ConfirmSideBar>
               <Confirm>
                 <QuantityItem>Item(s) total: {storeState.length} </QuantityItem>
                 <Total>Total : {totalPrice} </Total>
                 <ButtonDiv>
-                  <Button  onClick={handleClick}>
-                    CHECKOUT
-                  </Button>
+                  <Button onClick={handleClick}>CHECKOUT</Button>
                 </ButtonDiv>
               </Confirm>
             </ConfirmSideBar>
+          ) : (
+            <EmptyCart />
           )}
         </Main>
       </Wrapper>
@@ -55,10 +54,12 @@ const Cart = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vw;
+  position: relative;
   border-style: solid;
   border-width: 1px;
   border-color: gray;
+  height: 100%;
+  padding-bottom: 50px;
 `;
 const Header = styled.div`
   display: flex;
@@ -73,14 +74,13 @@ const Header = styled.div`
 const Main = styled.div`
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
 `;
 
 const CartWrapper = styled.div`
   grid-area: main;
 `;
 const ConfirmSideBar = styled.div`
-  grid-area: sidebar;
+  grid-area: sd;
 `;
 const QuantityItem = styled.div``;
 const Total = styled.div``;
@@ -104,7 +104,7 @@ const Title = styled.h1`
 const Confirm = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 50px;
   justify-content: space-evenly;
   align-items: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
