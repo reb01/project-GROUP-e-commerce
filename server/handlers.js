@@ -1,7 +1,22 @@
 const items = require("./data/items");
 const companies = require("./data/companies");
-const { sortAndFilter } = require("./helpers");
+const purchases = require("./data/purchases");
+const { v4: uuidv4 } = require("uuid");
+const fs = require("fs");
 
+const compareAscNumber = (a, b) => {
+  return (
+    parseFloat(a.price.replace(/[$,]/g, "")) -
+    parseFloat(b.price.replace(/[$,]/g, ""))
+  );
+};
+
+const compareDescNumber = (a, b) => {
+  return (
+    parseFloat(b.price.replace(/[$,]/g, "")) -
+    parseFloat(a.price.replace(/[$,]/g, ""))
+  );
+};
 
 const getSingleItem = (req, res) => {
   const id = req.params.id;
@@ -42,10 +57,10 @@ const getItems = (req, res) => {
   //sort and filter the items if needed   
   clonedItems = sortAndFilter(clonedItems, sort_by, price, body_location); 
 
-  res.status(200).json({ status: 200, message: "success", data: clonedItems });       
+  res.status(200).json({ status: 200, message: "success", data: clonedItems });
 };
 
-const getCompagnies = (req, res) => {  
+const getCompagnies = (req, res) => {
   res.status(200).json({ status: 200, message: "success", data: companies });
 };
 
@@ -73,11 +88,96 @@ const getItemsCategory = (req, res) => {
     return res.status(200).json({ status: 200, message: "success", data: itemsGroup });  
 };
 
+// add a purchase "/purchase"
+const addPurchase = (req, res) => {
+  const newId = uuidv4();
+
+  const {
+    givenName,
+    surname,
+    email,
+    phoneNumber,
+    AddressLine1,
+    City,
+    Province,
+    Country,
+    Postcode,
+    CardNumber,
+    ExpiryDate,
+    CVC,
+    newItems,
+  } = req.body;
+  const purchase = {
+    id: newId,
+    givenName,
+    surname,
+    email,
+    phoneNumber,
+    AddressLine1,
+    City,
+    Province,
+    Country,
+    Postcode,
+    CardNumber,
+    ExpiryDate,
+    CVC,
+    newItems,
+  };
+  console.log(purchase);
+  if (
+    !givenName ||
+    !surname ||
+    !email ||
+    !phoneNumber ||
+    !AddressLine1 ||
+    !City ||
+    !Province ||
+    !Country ||
+    !Postcode ||
+    !CardNumber ||
+    !ExpiryDate ||
+    !CVC
+  ) {
+    res.status(400).json({
+      status: "error",
+      error: "missing-data",
+    });
+  } else if (CardNumber.length !== 16) {
+    res.status(400).json({
+      status: "error",
+      error: "missing-data",
+    });
+  } else if (ExpiryDate.length !== 4) {
+    res.status(400).json({
+      status: "error",
+      error: "missing-data",
+    });
+  } else if (CVC.length !== 3) {
+    res.status(400).json({
+      status: "error",
+      error: "missing-data",
+    });
+  } else if (!email.includes("@")) {
+    res.status(400).json({
+      status: "error",
+      error: "missing-data",
+    });
+  } else {
+    purchases.push(req.body);
+    fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
+    res.status(200).send({
+      status: 200,
+      data: purchase,
+    });
+  }
+};
 
 module.exports = {
   getSingleItem,
   getCompanyById,
   getCompagnies,
   getItems,
+  //getItemsGroup,
+  addPurchase,
   getItemsCategory
 };

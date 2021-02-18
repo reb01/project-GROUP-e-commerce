@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { COLORS } from "../constants";
 import Map from "./Map";
 import styled from "styled-components";
+
 
 const location = {
   address: "WEAR TEK, 1814 Blvd. De La Côte-Vertu, Saint-Laurent, QC H4L 2A6",
@@ -10,9 +11,6 @@ const location = {
 };
 
 const Contact = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <>
       <Wrapper>
@@ -29,7 +27,7 @@ const Contact = () => {
               support rep. Don’t worry… we’re here for you to chat 24/7.
             </Textparagraph>
             <EmailPhoneNo>
-              <Bold>+1 801-954-9887</Bold>
+               <Bold>+1 801-954-9887</Bold>
             </EmailPhoneNo>
           </BoxTextWrapper>
           <BoxTextWrapper>
@@ -40,7 +38,7 @@ const Contact = () => {
               that we will get back to you as fast as we can!
             </Textparagraph>
             <EmailPhoneNo>
-              <Bold>wearteksupport@weartek.com</Bold>
+               <Bold>wearteksupport@weartek.com</Bold>
             </EmailPhoneNo>
           </BoxTextWrapper>
         </BoxWrapper>

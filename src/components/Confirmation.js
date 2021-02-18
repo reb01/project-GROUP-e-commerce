@@ -1,33 +1,10 @@
-import React, { useState, useEffect } from "react";
-
-import { spinner6 } from "react-icons-kit/icomoon/spinner6";
-import { Icon } from "react-icons-kit";
+import React from "react";
+import styled from "styled-components";
 import { COLORS } from "../constants";
-import styled, { keyframes } from "styled-components";
 
 const moment = require("moment");
 
 const Confirmation = () => {
-  const [data, setData] = useState("");
-  useEffect(() => {
-    const receivedData = localStorage.getItem("received");
-    console.log("receivedData", JSON.parse(receivedData));
-    setData(JSON.parse(receivedData));
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  console.log("data", data);
-
-  if (!data) {
-    return (
-      <div>
-        <StyledIcon size={50} icon={spinner6} />
-      </div>
-    );
-  }
-
   return (
     <Wrapper>
       <Logos>
@@ -51,12 +28,12 @@ const Confirmation = () => {
 
       <ConfirmationWrapper>
         <Details>Confirmation will be sent to</Details>
-        <Details2>{data.email}</Details2>
+        <Details2>email@email.com</Details2>
       </ConfirmationWrapper>
 
       <ConfirmationWrapper>
         <Details>Order number</Details>
-        <Details2>{data.id.substring(0, 8)}</Details2>
+        <Details2>Order number here</Details2>
       </ConfirmationWrapper>
 
       <ConfirmationWrapper>
@@ -65,30 +42,18 @@ const Confirmation = () => {
       </ConfirmationWrapper>
 
       <ConfirmationWrapper>
-        <Details>Delivery address</Details>
+        <Details>Delivery details</Details>
         <Details2>
-          <div>{data.AddressLine1}</div>
-          <div>{data.City}</div>
-          <div>{data.Province}</div>
-          <div>{data.Country}</div>
-          <div>{data.Postcode}</div>
+          <div>Client address here</div>
+          <div>
+            Expected delivery date: {moment().add(7, "days").format("LL")}
+          </div>
         </Details2>
       </ConfirmationWrapper>
 
       <ConfirmationWrapper>
-        <Details>Expected delivery date:</Details>
-        <Details2>{moment().add(7, "days").format("LL")}</Details2>
-      </ConfirmationWrapper>
-
-      <ConfirmationWrapper>
-        <Details>Your Order Summary:</Details>
-        <FlexWrapper>
-          {data.newItems.map((item) => (
-            <Details2>
-              {item.name} - Quantity ({item.quantity})
-            </Details2>
-          ))}
-        </FlexWrapper>
+        <Details>Summary</Details>
+        <Details2>Order summary here</Details2>
       </ConfirmationWrapper>
     </Wrapper>
   );
@@ -103,6 +68,7 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;
+  height: 800px;
 `;
 
 const Main = styled.div`
@@ -117,7 +83,7 @@ const Processing = styled.div`
 const Divider = styled.div`
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 60vw;
   height: 2px;
   background-color: ${COLORS.fourth};
   margin-bottom: 50px;
@@ -126,45 +92,22 @@ const Divider = styled.div`
 const ConfirmationWrapper = styled.div`
   margin-bottom: 30px;
   display: flex;
-  width: 100%;
-`;
-
-const FlexWrapper = styled.div`
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  width: 50%;
+  width: 800px;
 `;
 
 const Details = styled.div`
   display: flex;
-  width: 50%;
+  width: 400px;
   font-weight: bold;
   justify-content: flex-end;
   padding-right: 40px;
 `;
 
-const Details2 = styled.div`
-  padding-bottom: 10px;
-  color: ${COLORS.secondary};
-`;
+const Details2 = styled.div``;
 const Logo1 = styled.img``;
 const Logos = styled.div`
-  margin-top: 40px;
   display: flex;
   margin-bottom: 30px;
-`;
-const spinner = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-const StyledIcon = styled(Icon)`
-  margin: 5% auto;
-  animation: ${spinner} linear 1000ms infinite;
 `;
 
 export default Confirmation;

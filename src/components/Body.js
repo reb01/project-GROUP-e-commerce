@@ -9,8 +9,6 @@ import Item from "./Item";
 import Main from "./Main";
 import Store from "./Store/Store";
 import ErrorPage from "./ErrorPage";
-import Checkout from "./Checkout";
-import About from "./About";
 
 const Body = () => {
   return (
@@ -33,12 +31,6 @@ const Body = () => {
           </Route>
           <Route exact path="/error">
             <ErrorPage />
-          </Route>
-          <Route exact path="/checkout">
-            <Checkout />
-          </Route>
-          <Route exact path="/about">
-            <About />
           </Route>
           <Route path="/item/:id">
             <Item />

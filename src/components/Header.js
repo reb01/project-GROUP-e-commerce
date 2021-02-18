@@ -8,7 +8,6 @@ import {
   RiShoppingCartLine,
   RiInformationLine,
   RiStore2Line,
-  RiTeamFill,
 } from "react-icons/ri";
 import { COLORS } from "../constants";
 import styled from "styled-components";
@@ -39,12 +38,6 @@ const Header = () => {
               <Link to="/">
                 <RiHome2Line size="35" />
                 <NavigationLink>Main</NavigationLink>
-              </Link>
-            </NavLinkListItem>
-            <NavLinkListItem tabindex="0">
-              <Link to="/about">
-                <RiTeamFill size="35" />
-                <NavigationLink>About</NavigationLink>
               </Link>
             </NavLinkListItem>
             <NavLinkListItem tabindex="0">
