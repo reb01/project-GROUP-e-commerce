@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, updateQuantity } from "../actions";
-import { getStoreItemArray } from "../reducers";
+import { getStoreItemArray } from "../reducers/item-reducer";
 import { COLORS } from "../constants";
 const errorMessages = {
   "missing-data": "Oops!! Looks like we're missing some information.",

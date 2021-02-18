@@ -1,32 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getStoreItemArray } from "../reducers/item-reducer";
-import Checkout from "./Checkout";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
-import { useHistory } from "react-router-dom";
+
 
 const Cart = () => {
-  const [totalItems, setTotalItems] = useState()
-  const [totalprice, setTotalPrice] = useState();
-  const history = useHistory();
-  const storeState = useSelector(getStoreItemArray);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const newItems = useSelector(getStoreItemArray);  
 
- 
-  const calculateTotalItem = (state) => {
-    const reducer = (accumulator, storeItem) => {
-      if (storeItem.id) {
-        return accumulator + storeItem.quantity;
-      } else {
-        return accumulator;
-      }
-    };
-    return state.reduce(reducer, 0);
-  };
-
-  const handleClick = () => history.push("/checkout");
-  // console.log(calculateTotalItem(storeState))
+  console.log(totalItems);
   return (
     <>
       <Wrapper>
@@ -37,21 +22,15 @@ const Cart = () => {
         </Header>
         <Main>
           <CartWrapper>
-            <CartItem
-              totalItems={totalItems}
-              setTotalItems={setTotalItems}
-              setTotalPrice={setTotalPrice}
-            />
+            <CartItem totalItems={totalItems} setTotalItems={setTotalItems} setTotalPrice={setTotalPrice}/>
           </CartWrapper>
-          {storeState && (
+          {newItems && (
             <ConfirmSideBar>
               <Confirm>
-                <QuantityItem>Item(s) total: {storeState.length} </QuantityItem>
-                <Total>Total : {calculateTotalItem(storeState)} </Total>
+                <QuantityItem>Item(s) total: {totalItems}</QuantityItem>
+                <Total>Total : ${totalPrice} </Total>
                 <ButtonDiv>
-                  <Button  onClick={handleClick}>
-                    CHECKOUT
-                  </Button>
+                  <Button>CHECKOUT</Button>
                 </ButtonDiv>
               </Confirm>
             </ConfirmSideBar>

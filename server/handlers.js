@@ -177,10 +177,7 @@ module.exports = {
   getCompanyById,
   getCompagnies,
   getItems,
-<<<<<<< HEAD
-  getItemsGroup,
+  //getItemsGroup,
   addPurchase,
-=======
   getItemsCategory
->>>>>>> f0c8309ad576fd3ffc2437fd80bdc2e7767a23ba
 };
