@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { COLORS } from "../constants";
+import { COLORS } from "../../constants";
 import styled from "styled-components";
-import { removeItem, updateQuantity } from "../actions";
+import { removeItem, updateQuantity } from "../../actions";
 
-import { getStoreItemArray } from "../reducers/item-reducer";
+import { getStoreItemArray } from "../../reducers/item-reducer";
 
 const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const dispatch = useDispatch();
@@ -129,6 +129,7 @@ const Wrapper = styled.div`
 const List = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 const Items = styled.div`
   display: flex;

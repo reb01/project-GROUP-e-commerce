@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import styled from "styled-components";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 import Contact from "./Contact";
 import Confirmation from "./Confirmation";
 import Item from "./Item";
