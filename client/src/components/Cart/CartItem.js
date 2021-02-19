@@ -9,6 +9,7 @@ import { getStoreItemArray } from "../../reducers/item-reducer";
 
 const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const dispatch = useDispatch();
+
   const newItems = useSelector(getStoreItemArray);
 
   useEffect(() => {
@@ -58,12 +59,32 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
           newItems.map((item) => {
             return (
               <Items key={item._id}>
-                <Header>
+                <Main>
                   <StyledLink to={`/item/${item._id}`}>
-                    <Title>
-                      <h3>{item.name} </h3>
-                    </Title>
+                    <Header>
+                      <Title>
+                        <h3>{item.name} </h3>
+                      </Title>
+                    </Header>
+
+                    <ItemWrapper>
+                      <Description>
+                        <ItemImg src={item.imageSrc} />
+                        <Category>
+                          <SubCategory>
+                            {" "}
+                            <Span>Category:</Span> {item.category}
+                          </SubCategory>
+
+                          <Location>
+                            <Span>Body Location:</Span> {item.body_location}
+                          </Location>
+                        </Category>
+                      </Description>
+                    </ItemWrapper>
                   </StyledLink>
+                </Main>
+                <ItemTotals>
                   <Delete>
                     <DeleteButton
                       onClick={() => {
@@ -73,45 +94,25 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
                       X
                     </DeleteButton>
                   </Delete>
-                </Header>
+                  <div>
+                    <Price>{item.price}</Price>
+                  </div>
 
-                <ItemWrapper>
-                  <StyledLink to={`/item/${item._id}`}>
-                    <Description>
-                      <ItemImg src={item.imageSrc} />
-                      <Category>
-                        <SubCategory>
-                          {" "}
-                          <Span>Category:</Span> {item.category}
-                        </SubCategory>
-
-                        <Location>
-                          <Span>Body Location:</Span> {item.body_location}
-                        </Location>
-                      </Category>
-                    </Description>
-                  </StyledLink>
-                  <ItemTotals>
-                    <div>
-                      <Price>{item.price}</Price>
-                    </div>
-
-                    <Quantity>
-                      <InputQt
-                        value={item.quantity}
-                        onChange={(event) => {
-                          event.preventDefault();
-                          dispatch(
-                            updateQuantity({
-                              itemId: item._id,
-                              quantity: Number(event.target.value),
-                            })
-                          );
-                        }}
-                      />
-                    </Quantity>
-                  </ItemTotals>
-                </ItemWrapper>
+                  <Quantity>
+                    <InputQt
+                      value={item.quantity}
+                      onChange={(event) => {
+                        event.preventDefault();
+                        dispatch(
+                          updateQuantity({
+                            itemId: item._id,
+                            quantity: Number(event.target.value),
+                          })
+                        );
+                      }}
+                    />
+                  </Quantity>
+                </ItemTotals>
               </Items>
             );
           })}
@@ -124,6 +125,16 @@ const Wrapper = styled.div`
   flex-direction: column;
   margin-top: 50px;
   border-style: solid;
+  @media (max-width: 768px) {
+    margin-bottom: 150px;
+  }
+  @media (max-width: 768px) and (max-height: 900px) {
+    margin-bottom: 150px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    padding: 10px;
+    margin-bottom: 150px;
+  }
 `;
 
 const List = styled.div`
@@ -131,18 +142,39 @@ const List = styled.div`
   flex-direction: column;
   position: relative;
 `;
+
 const Items = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 5px;
-  border-bottom: lightgray 1px solid;
-`;
 
+  justify-content: space-around;
+  padding: 15px;
+  border-bottom: lightgray 1px solid;
+  @media (max-width: 768px) and (max-height: 900px) {
+    align-items: center;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 40rem;
+  justify-content: space-evenly;
+
+  @media (max-width: 768px) and (max-height: 900px) {
+    justify-content: space-evenly;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    width: 90vw;
+    font-size: 90%;
+    padding: 10px;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 `;
 const Title = styled.div``;
 const Delete = styled.div``;
@@ -169,10 +201,31 @@ const StyledLink = styled(Link)`
 const ItemTotals = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  height: 20vh;
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 768px) and (max-height: 900px) {
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    flex-direction: row-reverse;
+
+    align-items: center;
+    width: 100vw;
+  }
 `;
 const Description = styled.div`
   display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  @media (max-width: 768px) and (max-height: 900px) {
+    flex-direction: column;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 const Category = styled.div`
   display: flex;

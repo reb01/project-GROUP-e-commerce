@@ -39,9 +39,11 @@ const IndividualItem = ({
 
   return (
     <MainWrapper>
-      <Title>
-        <NameProduct>{name}</NameProduct>
-      </Title>
+      <TitleWrapper>
+        <Title>
+          <NameProduct>{name}</NameProduct>
+        </Title>
+      </TitleWrapper>
       <Main>
         <Wrapper>
           <ImageWrapper>
@@ -58,27 +60,23 @@ const IndividualItem = ({
         <SideBar>
           <Confirm>
             <WrapperCompany>
-              <Description>Description</Description>
               <Name>
                 {typeof name != "undefined" && name ? name : "Unknown product"}
               </Name>
               <Details>
-                <Seller>
+                <div>
                   <SoldBy>
                     Sold by <Span>{companyName}</Span>,{" "}
                   </SoldBy>{" "}
                   <ShippedBy>{companyFrom} </ShippedBy>
-                </Seller>
-                <Category>
-                  <SubCategory>
-                    <Span>Category : </Span>
-                    {category}
-                  </SubCategory>
-                  <Location>
-                    <Span>Body location : </Span>
-                    {bodyLocation}
-                  </Location>
-                </Category>
+                </div>
+                <SubCategory>
+                  <Span>Category : </Span>
+                  {category}
+
+                  <Span>Body location : </Span>
+                  {bodyLocation}
+                </SubCategory>
               </Details>
             </WrapperCompany>
             <Container>
@@ -109,12 +107,45 @@ const IndividualItem = ({
 
 const MainWrapper = styled.div`
   height: 100vh;
-  padding: 20px;
-  @media (max-width: 768px) {
+
+  @media (max-width: 840px) {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+
+    justify-content: center;
     margin-bottom: 100px;
+    margin-top: 20px;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    margin-bottom: 100px;
+    margin-top: 20px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+`;
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100vw;
+  padding: 10px;
+  @media (max-width: 840px) {
+    margin-top: 20px;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    margin-top: 20px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    margin-top: 50px;
   }
 `;
 const Main = styled.div`
@@ -122,11 +153,23 @@ const Main = styled.div`
   grid-template-columns: 1fr 1fr;
   color: black;
   margin-top: -50px;
-  @media (max-width: 768px) {
+  @media (max-width: 840px) {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    margin-top: 0px;
+    justify-content: center;
+    margin-top: -40px;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -40px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    display: flex;
+    justify-content: space-between;
+    height: 80vh;
+    margin-top: 20px;
   }
 `;
 const Wrapper = styled.div`
@@ -136,19 +179,40 @@ const Wrapper = styled.div`
   width: 50vw;
   height: 100vh;
   margin: 10px;
-  @media (max-width: 768px) {
+  @media (max-width: 840px) {
+    width: 100vw;
+    height: 70vh;
+    margin: 0;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    width: 100vw;
+    height: 70vh;
+    margin: 0;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
     width: 100vw;
     height: 30vh;
+    margin-bottom: 50px;
   }
 `;
 const SideBar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 15vh;
+  @media (max-width: 840px) {
+    width: 100vw;
+    margin-top: -100px;
     margin-bottom: 50px;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    width: 100vw;
+    margin-top: -100px;
+    margin-bottom: 50px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
   }
 `;
 const Confirm = styled.div`
@@ -161,18 +225,27 @@ const Confirm = styled.div`
   min-height: 40vh;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
-  @media (max-width: 768px) {
+  @media (max-width: 840px) {
     min-height: 27vh;
-    max-height: 27vh;
+    max-height: 50vh;
     min-width: 80vw;
     max-width: 80vw;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    min-height: 27vh;
+    max-height: 50vh;
+    min-width: 80vw;
+    max-width: 80vw;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    min-height: 35vh;
+    max-height: 50vh;
   }
 `;
 
 const WrapperCompany = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
   padding: 5px;
   color: ${COLORS.secondary};
   color: black;
@@ -180,19 +253,39 @@ const WrapperCompany = styled.div`
 const Details = styled.div`
   display: flex;
   flex-direction: column;
-  @media (max-width: 768px) {
+  justify-content: space-between;
+  @media (max-width: 840px) {
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
   }
 `;
 const Title = styled.div`
-  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Oswald", sans-serif;
+
   background-color: white;
   border-radius: 20px;
+  width: 80vw;
+  text-align: center;
+  @media (max-width: 650px) and (max-height: 850px) {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 20vh;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    font-size: 80%;
+  }
 `;
 const NameProduct = styled.h1`
   color: black;
@@ -203,24 +296,20 @@ const Container = styled.div`
   align-items: center;
   border-top: 1px lightgray solid;
 `;
-const Seller = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+
 const SoldBy = styled.div`
   font-size: 20px;
 `;
 const ShippedBy = styled.div`
   font-size: 18px;
 `;
-const Category = styled.div`
+
+const SubCategory = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  justify-content: space-between;
+  margin-top: 10px;
 `;
-const SubCategory = styled.div``;
-
-const Location = styled.div``;
 
 const ButtonWrap = styled.div`
   display: flex;
@@ -229,13 +318,21 @@ const ButtonWrap = styled.div`
 
 const ImageWrapper = styled.div`
   display: flex;
-
   align-items: center;
   padding: 70px;
   border-radius: 10px;
   background-color: white;
-  @media (max-width: 768px) {
+  @media (max-width: 840px) {
     justify-content: center;
+    max-width: 90vw;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    justify-content: center;
+    max-width: 90vw;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    justify-content: center;
+    max-width: 80vw;
   }
 `;
 
@@ -253,15 +350,19 @@ const Image = styled.img`
   min-width: 300px;
   max-width: 450px;
   max-height: 300px;
-
   object-fit: contain;
+  @media (max-width: 840px) {
+    height: 25vh;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    height: 25vh;
+  }
+
+  @media (max-width: 650px) and (max-height: 850px) {
+    height: 25vh;
+  }
 `;
-const Description = styled.div`
-  font-size: 20px;
-  padding-bottom: 10px;
-  font-weight: bolder;
-  text-decoration: underline;
-`;
+
 const Button = styled.button`
   font-weight: bolder;
   border: none;

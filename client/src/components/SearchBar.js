@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Suggestion from "./Suggestion";
-
 import { useHistory } from "react-router-dom";
-
-import { RiDeleteBack2Line } from "react-icons/ri";
+import { RiSearchLine } from "react-icons/ri";
 import { COLORS } from "../constants";
 
 const SearchBar = ({ data }) => {
   let history = useHistory();
   const [value, setValue] = useState("");
-  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = React.useState(
-    0
-  );
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);
+  const [status, setStatus] = useState(false);
 
   const handleSelect = (suggestion) => {
+    console.log(suggestion);
     history.push(`/item/${suggestion}`);
     history.push("/temp");
     history.goBack();
@@ -27,18 +25,16 @@ const SearchBar = ({ data }) => {
         value={value}
         onKeyDown={(ev) => {
           switch (ev.key) {
-            case "Enter": {
-              handleSelect(ev.target.value);
-              return;
-            }
             case "ArrowUp": {
               setSelectedSuggestionIndex(selectedSuggestionIndex - 1);
-              console.log(selectedSuggestionIndex);
               return;
             }
             case "ArrowDown": {
               setSelectedSuggestionIndex(selectedSuggestionIndex + 1);
-              console.log(selectedSuggestionIndex);
+              return;
+            }
+            case "Escape": {
+              setValue("");
               return;
             }
           }
@@ -47,17 +43,20 @@ const SearchBar = ({ data }) => {
           setValue(ev.target.value);
         }}
       />
-      {/* <RiDeleteBack2Line
+      <RiSearchLine
         size="35"
         style={{
-          padding: "3px",
+          position: "absolute",
+          top: "5px",
+          right: "20px",
+          paddingleft: "13px",
           borderradius: "100%",
           backgroundcolor: COLORS.primary,
         }}
         onClick={() => {
           setValue("");
         }}
-      /> */}
+      />
       <SuggestionWrapper>
         <Suggestion
           data={data}
@@ -65,14 +64,15 @@ const SearchBar = ({ data }) => {
           handleSelect={handleSelect}
           selectedSuggestionIndex={selectedSuggestionIndex}
           setSelectedSuggestionIndex={setSelectedSuggestionIndex}
+          status={status}
+          setStatus={setStatus}
         ></Suggestion>
       </SuggestionWrapper>
     </TypeheadWrapper>
   );
 };
 
-const TypeheadWrapper = styled.div`
-`;
+const TypeheadWrapper = styled.div``;
 
 const Input = styled.input`
   width: calc(100vw * 0.3);
@@ -81,17 +81,11 @@ const Input = styled.input`
   outline: none;
   border-radius: 25px;
   padding: 5px;
-  @media (max-width: 800px) {
-    width: calc(100vw * 0.4);
-  }
-  @media (max-width: 400px) {
-    display: none;
-  }
+  margin: 2px;
+  margin-right: 40px;
 `;
 
-const SuggestionWrapper = styled.div`
-
-`;
+const SuggestionWrapper = styled.div``;
 
 const Button = styled.button`
   background: blue;
