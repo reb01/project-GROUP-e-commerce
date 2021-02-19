@@ -39,9 +39,11 @@ const IndividualItem = ({
 
   return (
     <MainWrapper>
-      <Title>
-        <NameProduct>{name}</NameProduct>
-      </Title>
+      <TitleWrapper>
+        <Title>
+          <NameProduct>{name}</NameProduct>
+        </Title>
+      </TitleWrapper>
       <Main>
         <Wrapper>
           <ImageWrapper>
@@ -105,31 +107,58 @@ const IndividualItem = ({
 
 const MainWrapper = styled.div`
   height: 100vh;
-  padding: 20px;
+
+  @media (max-width: 840px) {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    margin-bottom: 100px;
+    margin-top: 20px;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+
     justify-content: center;
-    width: 100vw;
     margin-bottom: 100px;
     margin-top: 20px;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-   margin-top:20px;
-   display: flex;
+    margin-top: 20px;
+    display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    margin-bottom:0px;
-
+    justify-content: center;
+    margin-bottom: 0px;
   }
-  
+`;
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100vw;
+  padding: 10px;
+  @media (max-width: 840px) {
+    margin-top: 20px;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    margin-top: 20px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    margin-top: 50px;
+  }
 `;
 const Main = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   color: black;
   margin-top: -50px;
+  @media (max-width: 840px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -40px;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     display: flex;
     flex-direction: column;
@@ -140,7 +169,7 @@ const Main = styled.div`
     display: flex;
     justify-content: space-between;
     height: 80vh;
-    margin-top:20px;
+    margin-top: 20px;
   }
 `;
 const Wrapper = styled.div`
@@ -150,6 +179,11 @@ const Wrapper = styled.div`
   width: 50vw;
   height: 100vh;
   margin: 10px;
+  @media (max-width: 840px) {
+    width: 100vw;
+    height: 70vh;
+    margin: 0;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     width: 100vw;
     height: 70vh;
@@ -165,6 +199,11 @@ const SideBar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 840px) {
+    width: 100vw;
+    margin-top: -100px;
+    margin-bottom: 50px;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     width: 100vw;
     margin-top: -100px;
@@ -186,9 +225,15 @@ const Confirm = styled.div`
   min-height: 40vh;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
+  @media (max-width: 840px) {
+    min-height: 27vh;
+    max-height: 50vh;
+    min-width: 80vw;
+    max-width: 80vw;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     min-height: 27vh;
-    max-height: 27vh;
+    max-height: 50vh;
     min-width: 80vw;
     max-width: 80vw;
   }
@@ -209,6 +254,11 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (max-width: 840px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     flex-direction: row;
     align-items: center;
@@ -222,16 +272,18 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   font-family: "Oswald", sans-serif;
-  margin-top: 10px;
+
   background-color: white;
   border-radius: 20px;
+  width: 80vw;
+  text-align: center;
   @media (max-width: 650px) and (max-height: 850px) {
     display: flex;
     justify-content: center;
     text-align: center;
-    height:20vh;
+    height: 20vh;
     margin-top: 10px;
-    margin-bottom:50px;
+    margin-bottom: 50px;
     font-size: 80%;
   }
 `;
@@ -270,12 +322,17 @@ const ImageWrapper = styled.div`
   padding: 70px;
   border-radius: 10px;
   background-color: white;
+  @media (max-width: 840px) {
+    justify-content: center;
+    max-width: 90vw;
+  }
   @media (max-width: 768px) and (max-height: 1018px) {
     justify-content: center;
+    max-width: 90vw;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    height: 300px;
-    width: 80vw;
+    justify-content: center;
+    max-width: 80vw;
   }
 `;
 
@@ -294,8 +351,15 @@ const Image = styled.img`
   max-width: 450px;
   max-height: 300px;
   object-fit: contain;
+  @media (max-width: 840px) {
+    height: 25vh;
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    height: 25vh;
+  }
+
   @media (max-width: 650px) and (max-height: 850px) {
-    height: 200px;
+    height: 25vh;
   }
 `;
 
