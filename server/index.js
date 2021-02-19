@@ -38,6 +38,9 @@ express()
 
   .get("/company/:id/", handlers.getCompanyById)
 
+  //unused endpoint for searching
+  // .get("/search/:searchstring", handlers.getItemBySearch)
+
   .post("/purchase", handlers.addPurchase)
   
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
