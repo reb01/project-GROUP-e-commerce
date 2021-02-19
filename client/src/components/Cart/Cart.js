@@ -35,7 +35,7 @@ const Cart = () => {
           {storeState.length > 0 ? (
             <ConfirmSideBar>
               <Confirm>
-                <QuantityItem>Item(s) total: {storeState.length} </QuantityItem>
+                <QuantityItem>Item(s) total: {totalItems} </QuantityItem>
                 <Total>Total : {totalPrice} </Total>
                 <ButtonDiv>
                   <Button onClick={handleClick}>CHECKOUT</Button>
@@ -90,6 +90,7 @@ const TitleDiv = styled.div`
   padding: 15px;
   font-family: "Oswald", sans-serif;
   background-color: #24465c;
+  
 `;
 
 const Title = styled.h1`

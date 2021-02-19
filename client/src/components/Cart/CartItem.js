@@ -9,6 +9,7 @@ import { getStoreItemArray } from "../../reducers/item-reducer";
 
 const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const dispatch = useDispatch();
+   const storeState = useSelector(getStoreItemArray);
   const newItems = useSelector(getStoreItemArray);
 
   useEffect(() => {
