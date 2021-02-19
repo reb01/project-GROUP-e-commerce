@@ -1,20 +1,34 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-// import data from "../data";
-import data from "../components/items.json";
 
 import {
   RiHome2Line,
   RiShoppingCartLine,
   RiInformationLine,
   RiStore2Line,
-  RiTeamFill,
 } from "react-icons/ri";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import SearchBar from "../components/SearchBar";
 
 const Header = () => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    fetch("/items")
+      .then((res) => res.json())
+      .then((json) => {
+        const { status, data, message } = json;
+        if (status === 200) {
+          setData(data);
+        } else {
+          console.log(message);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
   return (
     <>
       <Wrapper>
@@ -39,12 +53,6 @@ const Header = () => {
               <Link to="/">
                 <RiHome2Line size="35" />
                 <NavigationLink>Main</NavigationLink>
-              </Link>
-            </NavLinkListItem>
-            <NavLinkListItem tabindex="0">
-              <Link to="/about">
-                <RiTeamFill size="35" />
-                <NavigationLink>About</NavigationLink>
               </Link>
             </NavLinkListItem>
             <NavLinkListItem tabindex="0">
@@ -120,10 +128,10 @@ const Button = styled.div`
 const SearchBarContainer = styled.div`
   display: flex;
   position: absolute;
-  top: 28%;
   left: 525px;
+  top: 27px;
   @media (max-width: 1600px) {
-    left: 170px;
+    left: 150px;
   }
   @media (max-width: 700px) {
     display: none;
@@ -163,6 +171,7 @@ const NavLinkList = styled.ul`
   margin-bottom: 50px;
   display: flex;
   align-items: center;
+  justify-content: center;
   list-style: none;
 `;
 
@@ -204,7 +213,7 @@ const NavigationLink = styled.p`
   padding-right: 10px;
   margin-left: 5px;
   outline: 0;
-  @media (max-width: 800px) {
+  @media (max-width: 1200px) {
     display: none;
     padding-right: 0px;
   }
@@ -221,7 +230,7 @@ const Logo = styled.img`
   display: flex;
   position: absolute;
   left: 50px;
-  @media (max-width: 800px) {
+  @media (max-width: 700px) {
     left: 10px;
   }
 `;
