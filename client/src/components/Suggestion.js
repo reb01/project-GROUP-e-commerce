@@ -8,6 +8,8 @@ const Suggestion = ({
   handleSelect,
   setSelectedSuggestionIndex,
   selectedSuggestionIndex,
+  status,
+  setStatus,
 }) => {
   if (value.length <= 1) {
     return "";
@@ -17,6 +19,9 @@ const Suggestion = ({
   });
   let searchResults10entries = searchResults.slice(0, 10);
 
+  if (searchResults10entries.length > 0) setStatus(true);
+  else setStatus(false);
+
   return (
     <Suggestions>
       {searchResults10entries.map((result, i) => {
@@ -25,9 +30,16 @@ const Suggestion = ({
             key={i}
             onMouseEnter={() => {
               setSelectedSuggestionIndex(i);
-              console.log(i);
             }}
             onClick={() => handleSelect(result._id)}
+            onKeyDown={(ev) => {
+              switch (ev.key) {
+                case "Enter": {
+                  handleSelect(result._id);
+                  return;
+                }
+              }
+            }}
             style={{
               background:
                 i === selectedSuggestionIndex
@@ -40,10 +52,6 @@ const Suggestion = ({
                 <Regular>{result.name}</Regular>
                 <Regular>{result.price}</Regular>
               </SuggestionColumnOne>
-              <SuggestionColumnTwo>
-                <Regular>{result.body_location}</Regular>
-                <Regular>{result.category}</Regular>{" "}
-              </SuggestionColumnTwo>
             </NavigationLink>
           </SearchResult>
         );
@@ -77,14 +85,9 @@ const SearchResult = styled.div`
 const SuggestionColumnOne = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 90%;
-`;
-const SuggestionColumnTwo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 10%;
+  align-items: space-between;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const Regular = styled.span`
@@ -93,13 +96,14 @@ const Regular = styled.span`
 
 const NavigationLink = styled(NavLink)`
   text-decoration: none;
-  margin: 0px 0 0 25px;
+  margin: 0px 0 0 5px;
   padding: 7px 10px;
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
   color: black;
   font-size: 15px;
   font-weight: normal;
+  height: 65px;
 
   &:hover {
     color: gray;

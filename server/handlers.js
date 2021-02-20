@@ -169,6 +169,23 @@ const addPurchase = (req, res) => {
   }
 };
 
+//unused handler for searching
+// const getItemBySearch = (req, res) => {
+//   const searchString = req.params.searchstring;
+//   let clonedItems = JSON.parse(JSON.stringify(items));
+//   let searchResults = clonedItems.filter((item, i) => {
+//     return item.name.toLowerCase().includes(searchString.toLowerCase());
+//   });
+//   if (searchResults.length !== 0) {
+//     res.status(200).json({ data: searchResults });
+//   } else {
+//     res.status(400).json({
+//       status: 400,
+//       message: "No items by that search string",
+//     });
+//   }
+// };
+
 module.exports = {
   getSingleItem,
   getCompanyById,
@@ -177,4 +194,5 @@ module.exports = {
   //getItemsGroup,
   addPurchase,
   getItemsCategory,
+  //getItemBySearch
 };

@@ -20,7 +20,7 @@ const Main = () => {
             <Image src={require("../assets/fitness.jpg")}></Image>
           </Slide>
           <Slide>
-            <Link href="/store/category/Medical">Medical</Link>
+            <Link href="/store/category/medical">Medical</Link>
             <Image src={require("../assets/Medical.jpg")}></Image>
           </Slide>
           <Slide>
