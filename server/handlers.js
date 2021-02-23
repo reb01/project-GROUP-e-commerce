@@ -4,6 +4,7 @@ const purchases = require("./data/purchases");
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const { sortAndFilter } = require("./helpers");
+// console.log(items);
 
 const getSingleItem = (req, res) => {
   const id = req.params.id;
@@ -54,7 +55,7 @@ const getCompagnies = (req, res) => {
 const getItemsCategory = (req, res) => {
   const { category } = req.params;
   const { sort_by, price, body_location } = req.query;
-  console.log(req.query);
+  // console.log(req.query);
 
   if (!category)
     return res
@@ -119,72 +120,38 @@ const addPurchase = (req, res) => {
     nB,
     newItems,
   };
-  console.log(purchase);
-  // if (
-  //   !givenName ||
-  //   !surname ||
-  //   !email ||
-  //   !phoneNumber ||
-  //   !AddressLine1 ||
-  //   !City ||
-  //   !Province ||
-  //   !Country ||
-  //   !Postcode ||
-  //   !CardNumber ||
-  //   !ExpiryDate ||
-  //   !CVC
-  // ) {
-  //   res.status(400).json({
-  //     status: "error",
-  //     error: "missing-data",
-  //   });
-  // } else if (CardNumber.length !== 16) {
-  //   res.status(400).json({
-  //     status: "error",
-  //     error: "missing-data",
-  //   });
-  // } else if (ExpiryDate.length !== 4) {
-  //   res.status(400).json({
-  //     status: "error",
-  //     error: "missing-data",
-  //   });
-  // } else if (CVC.length !== 3) {
-  //   res.status(400).json({
-  //     status: "error",
-  //     error: "missing-data",
-  //   });
-  // } else if (!email.includes("@")) {
-  //   res.status(400).json({
-  //     status: "error",
-  //     error: "missing-data",
-  //   });
-  // } else {
+  console.log(purchase.newItems);
   {
     purchases.push(req.body);
     fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
-    res.status(200).send({
-      status: 200,
-      data: purchase,
-    });
+
+    const itemsArray = purchase.newItems;
+    itemsArray.forEach(myFunction);
+
+    function myFunction(item, index, arr) {
+      arr[index] = item.numInStock < item.quantity ? item.name : "";
+    }
+    const value = "";
+    errorArray = itemsArray.filter((item) => item !== value);
+    console.log(itemsArray);
+    console.log(errorArray);
+
+    if (errorArray.length > 0) {
+      res.status(400).json({
+        status: "error",
+        error:
+          "This quantity of stock is not available for the following items - - \r\n" +
+          itemsArray +
+          " \r\n - - Please reduce the quantity and try again.",
+      });
+    } else {
+      res.status(200).send({
+        status: 200,
+        data: purchase,
+      });
+    }
   }
 };
-
-//unused handler for searching
-// const getItemBySearch = (req, res) => {
-//   const searchString = req.params.searchstring;
-//   let clonedItems = JSON.parse(JSON.stringify(items));
-//   let searchResults = clonedItems.filter((item, i) => {
-//     return item.name.toLowerCase().includes(searchString.toLowerCase());
-//   });
-//   if (searchResults.length !== 0) {
-//     res.status(200).json({ data: searchResults });
-//   } else {
-//     res.status(400).json({
-//       status: 400,
-//       message: "No items by that search string",
-//     });
-//   }
-// };
 
 module.exports = {
   getSingleItem,
