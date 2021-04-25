@@ -11,20 +11,21 @@ const Button = ({ handleClick, disabled, subStatus }) =>
 );
 
 const Wrapper = styled.button`
-  background: ${COLORS.third};;
+  background: ${COLORS.third};
   border-radius: 4px;
   border-color: transparent;
   color: white;
-  ;
   cursor: pointer;
   display: block;
   font-size: 24px;
   height: 48px;
   width: 100%;
-
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+    height: 15vh;
   }
 `;
 
