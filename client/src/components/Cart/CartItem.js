@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { COLORS } from "../../constants";
@@ -13,44 +13,39 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const newItems = useSelector(getStoreItemArray);
 
   useEffect(() => {
-    const calculateTotalItem = (storeState) => {
-      const reducer = (accumulator, storeItem) => {
-        if (storeItem._id) {
-          return Number(accumulator + storeItem.quantity);
+    const calculateTotalItem = (cartItems) => {
+      const reducer = (accumulator, cartItem) => {
+        if (cartItem._id) {
+          return Number(accumulator + cartItem.quantity);
         } else {
           return accumulator;
         }
       };
-      return storeState.reduce(reducer, 0);
+      return cartItems.reduce(reducer, 0);
     };
 
     const total = calculateTotalItem(newItems);
     setTotalItems(total);
-  }, [newItems]);
-  useEffect(() => {
-    const calculateTotal = (storeState) => {
-      const newArray = storeState.map((item) => {
-        const price = item.price;
-        return price.replace("$", "");
-      });
+  }, [newItems, setTotalItems]);
 
-      console.log(newArray);
-
-      const reduceTotal = (accumulator, storeItem) => {
-        if (storeItem._id) {
+  useEffect(() => {  
+    const calculateTotal = (cartItems) =>{
+      const reduceTotal = (accumulator, cartItem) => {
+        if (cartItem._id && cartItem.price) {
+          const price = parseFloat(cartItem.price.replace(/[$,]/g,""))
           return (
-            accumulator + parseFloat(newArray).toFixed(2) * storeItem.quantity
+            accumulator + price.toFixed(2) * cartItem.quantity
           );
         } else {
           return accumulator;
         }
       };
-      return storeState.reduce(reduceTotal, 0);
+      return cartItems.reduce(reduceTotal, 0);       
     };
 
     const total = calculateTotal(newItems).toFixed(2);
     setTotalPrice(total);
-  }, [newItems]);
+  }, [newItems, setTotalPrice]);
 
   return (
     <Wrapper>
@@ -145,12 +140,13 @@ const List = styled.div`
 
 const Items = styled.div`
   display: flex;
-
+  min-width: 55vw;
   justify-content: space-around;
   padding: 15px;
   border-bottom: lightgray 1px solid;
   @media (max-width: 768px) and (max-height: 900px) {
-    align-items: center;
+    min-width: 100vw;
+    width: 100vw;
   }
   @media (max-width: 650px) and (max-height: 850px) {
     display: flex;
@@ -160,20 +156,24 @@ const Items = styled.div`
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) and (max-height: 900px) {
+    padding: 10px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+  }
 `;
 const Header = styled.div`
   display: flex;
   justify-content: space-evenly;
-
+  flex-wrap: wrap;
+  max-width: 40vw;
   @media (max-width: 768px) and (max-height: 900px) {
-    justify-content: space-evenly;
+    max-width: 60vw;
+    flex-wrap: nowrap;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    width: 90vw;
-    font-size: 90%;
-    padding: 10px;
+    padding-right: 10px;
     justify-content: space-evenly;
-    align-items: center;
   }
 `;
 const Title = styled.div``;
@@ -193,6 +193,7 @@ const DeleteButton = styled.button`
 const ItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+ 
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -209,7 +210,6 @@ const ItemTotals = styled.div`
   }
   @media (max-width: 650px) and (max-height: 850px) {
     flex-direction: row-reverse;
-
     align-items: center;
     width: 100vw;
   }
@@ -223,7 +223,7 @@ const Description = styled.div`
     flex-direction: column;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
   }
 `;
@@ -231,13 +231,15 @@ const Category = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 20px;
+  @media (max-width: 650px) and (max-height: 850px) {
+padding-top:15px;
+}
 `;
 const SubCategory = styled.div``;
 
 const Location = styled.div``;
 const Quantity = styled.div`
   padding: 5px;
-
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
