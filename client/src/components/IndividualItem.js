@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../actions";
 import styled from "styled-components";
@@ -16,9 +16,7 @@ const IndividualItem = ({
   companyFrom,
   bodyLocation,
 }) => {
-  console.log(name);
-  const [hidden, setHidden] = useState(true);
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
   const handleClick = (ev) => {
     ev.preventDefault();
     dispatch(
@@ -31,8 +29,7 @@ const IndividualItem = ({
         imageSrc,
         numInStock,
         companyName,
-        companyFrom,
-        bodyLocation,
+        companyFrom
       })
     );
   };
@@ -64,12 +61,12 @@ const IndividualItem = ({
                 {typeof name != "undefined" && name ? name : "Unknown product"}
               </Name>
               <Details>
-                <div>
+                <CompanyDetails>
                   <SoldBy>
                     Sold by <Span>{companyName}</Span>,{" "}
                   </SoldBy>{" "}
                   <ShippedBy>{companyFrom} </ShippedBy>
-                </div>
+                </CompanyDetails>
                 <SubCategory>
                   <Span>Category : </Span>
                   {category}
@@ -107,11 +104,9 @@ const IndividualItem = ({
 
 const MainWrapper = styled.div`
   height: 100vh;
-
   @media (max-width: 840px) {
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     margin-bottom: 100px;
     margin-top: 20px;
@@ -119,7 +114,6 @@ const MainWrapper = styled.div`
   @media (max-width: 768px) and (max-height: 1018px) {
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     margin-bottom: 100px;
     margin-top: 20px;
@@ -215,6 +209,10 @@ const SideBar = styled.div`
     margin-top: 100px;
   }
 `;
+const CompanyDetails = styled.div`
+  color: #d2a70d;
+  border-bottom: 1px solid #d2a70d;
+`;
 const Confirm = styled.div`
   display: flex;
   flex-direction: column;
@@ -238,8 +236,8 @@ const Confirm = styled.div`
     max-width: 80vw;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    min-height: 35vh;
-    max-height: 50vh;
+    min-height: 50vh;
+    max-height: 60vh;
   }
 `;
 
@@ -260,9 +258,8 @@ const Details = styled.div`
     justify-content: space-around;
   }
   @media (max-width: 768px) and (max-height: 1018px) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-start;
   }
   @media (max-width: 650px) and (max-height: 850px) {
   }
@@ -272,7 +269,6 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   font-family: "Oswald", sans-serif;
-
   background-color: white;
   border-radius: 20px;
   width: 80vw;
@@ -309,6 +305,9 @@ const SubCategory = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
+  @media (max-width: 768px) {
+    height: 15vh;
+  }
 `;
 
 const ButtonWrap = styled.div`
@@ -357,7 +356,6 @@ const Image = styled.img`
   @media (max-width: 768px) and (max-height: 1018px) {
     height: 25vh;
   }
-
   @media (max-width: 650px) and (max-height: 850px) {
     height: 25vh;
   }
