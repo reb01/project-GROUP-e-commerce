@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 
-const Footer = () => {
+const Footer = () =>  {
   return (
     <>
       <Wrapper>
