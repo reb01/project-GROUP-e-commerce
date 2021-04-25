@@ -18,7 +18,7 @@ const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
     const [locationHidden, setLocationHidden] = useState(true);
     const [priceHidden, setPriceHidden] = useState(true);
-    const {filters:{price, body_location}}= useSelector((state)=>state.store); 
+    const {currentStore, filters:{price, body_location}}= useSelector((state)=>state.store); 
     const dispatch = useDispatch();    
    
     const handleClickCategory = (ev)=>{       
@@ -97,6 +97,7 @@ const SideBar = ()=>{
                                     value={data.value}                           
                                     name={data.value}
                                     isChecked={data.isChecked}
+                                    isAvailable={currentStore !== null && currentStore.bodyLocation[data.value] !== undefined}
                                     handleChange={handleChangeFilterBodyLocation}
                                 >
                                     {data.label}
@@ -166,7 +167,6 @@ const SectionWrapper = styled.div`
     max-height: 400px;
     overflow: hidden;   
     transition: max-height 0.45s ease-in-out;
-
   &.expanded { 
    max-height: 0px;
     }
@@ -185,7 +185,6 @@ const NavigationLink = styled(NavLink)`
   &.active {
     background-color: ${COLORS.fifth};
   }
-
   &:hover {     
    color: gray;  
   }
@@ -209,13 +208,11 @@ const Button = styled.button`
     font-weight: bold;
     text-decoration: underline;
     margin-left: 10px;
-
     :hover:enabled {   
         cursor: pointer;
         opacity: 0.7;      
         text-decoration: none;   
     }
-
     :focus,
     :active {
         outline: none;
@@ -226,6 +223,5 @@ const Button = styled.button`
 const ButtonWrapper = styled.div`
     display: flex;
     align-items: center;
-
 `;
 export default SideBar;
