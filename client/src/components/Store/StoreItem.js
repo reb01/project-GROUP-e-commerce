@@ -89,7 +89,6 @@ const Image = styled.img`
   width: 200px;
   height: 250px;
   object-fit: contain;
-
   @media (max-width: 940px) {
     width: 150px;
   }
@@ -127,12 +126,10 @@ const Button = styled.button`
   background-color: ${COLORS.third};
   display: ${(p) => (p.hidden ? "none" : "block")};
   opacity: 0.9;
-
   :hover:enabled {
     cursor: pointer;
     opacity: 0.7;
   }
-
   :disabled {
     display: none;
   }
