@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { getStoreItemArray } from "../../reducers/item-reducer";
 import EmptyCart from "./EmptyCart";
-import Checkout from "../Checkout";
-import { COLORS } from "../../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import { useHistory } from "react-router-dom";
@@ -58,7 +56,6 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;
-
   padding-bottom: 50px;
   @media (max-width: 1000px)  {
     display: flex;
@@ -189,13 +186,12 @@ const Button = styled.button`
   width: 150px;
   border-radius: 20px;
   @media (max-width: 768px) and (max-height: 900px) {
-  
     height: 40px;
     font-size: 60%;
-    margin-top:10px;
+    margin-top: 10px;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    width: 100px;
+    width: 50vw;
     height: 30px;
     font-size: 60%;
   }
