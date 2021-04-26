@@ -122,7 +122,7 @@ const Checkout = () => {
 
       ? setDisabled(true)
       : setDisabled(false);
-  }, [formData, setDisabled]);
+  }, [formData, setDisabled, formValidation]);
 
   return (
     <>
